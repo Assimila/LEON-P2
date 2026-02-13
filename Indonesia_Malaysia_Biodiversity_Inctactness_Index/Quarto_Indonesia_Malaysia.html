@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Adrienne Etard (International Institute for Applied Systems Analysis); &amp; Rui Song (Global Canopy); Claudia Gray (Global Canopy); Nicola Wilson (Global Canopy); Fiona Pedeboy (Global Canopy); Gerado Lopez Saldana (Assimila)">
+<meta name="dcterms.date" content="2026-02-13">
+
+<title>Pilot 2: Exploring biodiversity impacts of oil-palm plantations in Indonesia and Malaysia</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Quarto_Indonesia_Malaysia_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Quarto_Indonesia_Malaysia_files/libs/quarto-html/quarto.js"></script>
+<script src="Quarto_Indonesia_Malaysia_files/libs/quarto-html/popper.min.js"></script>
+<script src="Quarto_Indonesia_Malaysia_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Quarto_Indonesia_Malaysia_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Quarto_Indonesia_Malaysia_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Quarto_Indonesia_Malaysia_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Quarto_Indonesia_Malaysia_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Quarto_Indonesia_Malaysia_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Quarto_Indonesia_Malaysia_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Pilot 2: Exploring biodiversity impacts of oil-palm plantations in Indonesia and Malaysia</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Adrienne Etard (International Institute for Applied Systems Analysis); &amp; Rui Song (Global Canopy); Claudia Gray (Global Canopy); Nicola Wilson (Global Canopy); Fiona Pedeboy (Global Canopy); Gerado Lopez Saldana (Assimila) </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 13, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="aims" class="level1">
+<h1>Aims</h1>
+<p>This work is part of the Pilot 2 (Agrifood Supply Chains) of the LEON project (Leveraging Earth Observation for Nature Finance), funded by ESA (<a href="https://www.leon-naturefinance.org/">project website here</a>).</p>
+<p>The aims of this work are to:</p>
+<ul>
+<li><p>1: Derive different biodiversity indices (average abundance, similarity, and the Biodiversity Intactness Index - BII) for oil-palm plantations focusing on Pilot 2’s focal area, Indonesia and Malaysia.</p></li>
+<li><p>2: Explore the role and ability of Earth Observation data in explaining and predicting biodiversity change in the pilot region.</p></li>
+<li><p>3: Derive BII for the mill areas of interest, as a useful indicator for financial institutions.</p></li>
+</ul>
+<p>The approach is based on the PREDICTS database <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.1303">Hudson et al.&nbsp;2014</a>, which is a collection of independent studies that have sampled biodiversity <em>in-situ</em>, in different land-use types. PREDICTS notably underpins the global calculations of the BII. In PREDICTS-based approaches, biodiversity change is inferred from a space-for-time substitution, by comparing assumed pristine locations (sites sampled in minimally-used primary vegetation) to disturbed sites (e.g.&nbsp;located in cropland, secondary vegetation, or plantations).</p>
+<p>Here, we specifically investigates whether we can improve BII predictions by considering EO-derived data in the biodiversity models that underpin BII (using EO-derived data as explanatory variables for biodivrsity change). In particular, we consider the following EO-derived datasets:</p>
+<ul>
+<li>Oil-palm plantation age. We investigate wheter plantation age influences the biodiversity indicators (abundance). For plantations at a global scale, <a href="https://www.sciencedirect.com/science/article/pii/S2351989423003864">Tudge et al.&nbsp;(2023)</a> found a significant effect for species richness. Note that Tudge et al.&nbsp;(2023) did not detect any effect of age on abundance in oil palm plantations.</li>
+</ul>
+<p>Here, plantation age is derived from <a href="https://www.nature.com/articles/s41597-021-00867-1">Danylo et al.&nbsp;(2021)</a>, who produced a map of the extent and age of detection of oil palm plantations encompassing Malaysia and Indonesia.</p>
+<p>This document thus presents the step-by-step analyses (including loading data, code, and deriving outputs) for investigating the biodiversity impacts of oil-palm plantations in Indonesia and Malaysia using the PREDICTS database.</p>
+<p>Acknowledgements: Adriana de Palma wrote a <a href="https://adrianadepalma.github.io/BII_tutorial/#Run_the_statistical_analysis">tutorial</a> for deriving BII using the PREDICTS database, which was a useful source in developping this work. Tim Newbold wrote <a href="https://github.com/timnewbold/StatisticalModels">useful packages</a> for data preparation and model fitting that we employed in this work.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>TimeStart <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data-preparation" class="level1">
+<h1>1. DATA PREPARATION</h1>
+<p>Load the necessary packages; load and prepare the PREDICTS data and otherwise EO-derived layers that we employ. The PREDICTS data can be downloaded from <a href="https://data.nhm.ac.uk/dataset/?tags=predicts">here</a>.</p>
+<section id="load-packages-and-useful-functions" class="level2">
+<h2 class="anchored" data-anchor-id="load-packages-and-useful-functions">1.1. Load packages and useful functions</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Packages <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'dplyr'</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">'ggplot2'</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">'rnaturalearth'</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">'StatisticalModels'</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">'ggpubr'</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">'purrr'</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">'betapart'</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">'vegan'</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">'terra'</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">'sp'</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(Packages, <span class="at">FUN=</span>library, <span class="at">character.only=</span><span class="cn">TRUE</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(Packages)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'Source_Functions.R'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="load-the-land-cover-layers-for-the-pilot-region-for-projections" class="level2">
+<h2 class="anchored" data-anchor-id="load-the-land-cover-layers-for-the-pilot-region-for-projections">1.2. Load the land-cover layers for the pilot region (for projections)</h2>
+<p>In the work conducted for Pilot 2, Rui Song prepared land cover maps for our study region, with corrections for the detection of oil-palm plantations. We use these maps to predict BII around mills.</p>
+<p>However, we need to get some information on the state of forests. Indeed, tree cover alone is not enough as it does not reflect possible forest degradation. To this end, we overlay a dataset on forest integrity (the Forest Landscape Integirty Index; https://www.forestintegrity.com/home)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Indonesia_Malaysia_Map <span class="ot">&lt;-</span> <span class="fu">vect</span>(rnaturalearth<span class="sc">::</span><span class="fu">ne_countries</span>(<span class="at">scale =</span> <span class="st">"medium"</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                                                      <span class="at">returnclass =</span> <span class="st">"sf"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                                      <span class="at">country =</span> <span class="fu">c</span>(<span class="st">"Malaysia"</span>, <span class="st">"Indonesia"</span>)))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="do">## prepare land cover layer (year 2020) and crop for the region</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">"../../data/supply_shed_data/worldcover_2020_cropped.tif"</span>)) {</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  World_Cover_2020 <span class="ot">&lt;-</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rast</span>(<span class="st">"../../data/supply_shed_data/worldcover_2020_idn_mys_bias_oilpalm_cog.tif"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  World_Cover_2020_crop <span class="ot">&lt;-</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">crop</span>(World_Cover_2020, Indonesia_Malaysia_Map)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeRaster</span>(World_Cover_2020_crop,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>              <span class="st">'../../data/supply_shed_data/worldcover_2020_cropped.tif'</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rm</span>(World_Cover_2020)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span>{</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  World_Cover_2020_crop <span class="ot">&lt;-</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rast</span>(<span class="st">'../../data/supply_shed_data/worldcover_2020_cropped.tif'</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="do">## prepare land cover layer (year 2021) and crop for the region</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">"../../data/supply_shed_data/worldcover_2021_cropped.tif"</span>)) {</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  World_Cover_2021 <span class="ot">&lt;-</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rast</span>(<span class="st">"../../data/supply_shed_data/worldcover_2021_idn_mys_bias_oilpalm_cog.tif"</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  World_Cover_2021_crop <span class="ot">&lt;-</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">crop</span>(World_Cover_2021, Indonesia_Malaysia_Map)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeRaster</span>(World_Cover_2021_crop,</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>              <span class="st">'../../data/supply_shed_data/worldcover_2021_cropped.tif'</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rm</span>(World_Cover_2021)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span>{</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  World_Cover_2021_crop <span class="ot">&lt;-</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rast</span>(<span class="st">'../../data/supply_shed_data/worldcover_2021_cropped.tif'</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="do">## to examine the land cover categories: </span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="do">## see https://developers.google.com/earth-engine/datasets/catalog/ESA_WorldCover_v200#bands for the values of the bands and corresponding land use category; 11 was added to encoded oil palm plantations.</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Mill_buffer_25 &lt;- rast("../data/supply_shed_data/UML_data/mill_radius_25km.tif")</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co"># UML &lt;- read.csv('../data/supply_shed_data/UML_data/UML-Dec-2024.csv', sep=',', fileEncoding="latin1") %&gt;% </span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(Country %in% c('Malaysia', 'Indonesia'))</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co"># v &lt;- vect(matrix(c(as.numeric(UML$Longitude[1]),</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co">#             as.numeric(UML$Latitude[1])), ncol=2),</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co">#           crs="+proj=longlat +datum=WGS84")</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co"># v_buffer &lt;- buffer(v, width=25000)</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="co"># r_cropped &lt;- crop(World_Cover_2021_crop, v_buffer)</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="co"># r_masked &lt;- mask(r_cropped, v_buffer)</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(as.factor(r_masked))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Forest_integrity <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">'../../data/Forest_integrity/flii_Asia.tif'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Forest_integrity_crop <span class="ot">&lt;-</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">crop</span>(Forest_integrity, Indonesia_Malaysia_Map)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>Forest_integrity_crop <span class="ot">&lt;-</span> Forest_integrity_crop<span class="sc">/</span><span class="dv">1000</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#plot(Forest_integrity_crop)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="load-the-eo-data-used-as-explanatory-variables-in-the-predictive-models-and-other-relevant-eo-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-the-eo-data-used-as-explanatory-variables-in-the-predictive-models-and-other-relevant-eo-data">1.3. Load the EO data used as explanatory variables in the predictive models and other relevant EO data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">'../../results/1_extraction_at_sites/site_level_extractions_Danylo_500.csv'</span>)){</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">## defining a cylindrical equal area projection centered in Indonesia Malaysia</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>cea_crs_custom <span class="ot">&lt;-</span> <span class="fu">crs</span>(<span class="st">'+proj=cea +lon_0=110 +lat_ts=0 +x_0=0 +y_0=0 +datum=WGS84 +ellps=WGS84 +units=m +no_defs'</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">## loading EO data data:</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">####### EO data (in geographic crs): Danylo et al. - oil palm plantation age</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>Tif_files_list <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"P:/bec_data/100_rawdata/oil_palm_Danylo_2021/oil_palm_detection_year_Danylo_data/"</span>, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.tif$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>vrt_Danylo <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">vrt</span>(Tif_files_list)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(Tif_files_list)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ####### EO data (in geographic crs): Descals et al. - oil palm planting year (possible alternative to Danylo et al.)</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Tif_files_list &lt;- list.files("P:/bec_data/100_rawdata/oil_palm_Descals_2024/GlobalOilPalm_OP-YoP/", pattern = "\\.tif$", full.names = TRUE)</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># vrt_Descals_yop &lt;- terra::vrt(Tif_files_list)</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># rm(Tif_files_list)</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="do">####### EO data: ESA CCI land cover maps / unprojected</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="do">## loading 24 annual LC maps from 1992 to 2015, from ESA CCI </span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>LC_maps <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="st">"../../data/ESACCI-LC-L4-LCCS-Map-300m-P1Y-1992_2015-v2.0.7.tif"</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>LC_legend <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../../data/ESACCI-LC-legend.csv'</span>, <span class="at">sep=</span><span class="st">";"</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(LC_maps) <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="dv">1992</span><span class="sc">:</span><span class="dv">2015</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="do">####### EO data: Intact forest landscape (baseline years 2000 and 2013)</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>IFL_2000 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">vect</span>(<span class="st">"P:/bec_data/100_rawdata/IntactForestLandscapes/IFL_2000/ifl_2000.shp"</span>)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>IFL_2013 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">vect</span>(<span class="st">"P:/bec_data/100_rawdata/IntactForestLandscapes/IFL_2013/ifl_2013.shp"</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>raster_template <span class="ot">&lt;-</span> <span class="fu">crop</span>(LC_maps[[<span class="dv">1</span>]], Indonesia_Malaysia_Map)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>IFL_2000_crop_rast <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(<span class="fu">crop</span>(IFL_2000, Indonesia_Malaysia_Map), raster_template, <span class="at">field=</span><span class="st">"AREA2020"</span>)</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>IFL_2000_crop_rast[IFL_2000_crop_rast <span class="sc">&gt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>IFL_2013_crop_rast <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(<span class="fu">crop</span>(IFL_2013, Indonesia_Malaysia_Map), raster_template, <span class="at">field=</span><span class="st">"AREA2020"</span>)</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>IFL_2013_crop_rast[IFL_2013_crop_rast <span class="sc">&gt;</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>IFL_layers <span class="ot">&lt;-</span> <span class="fu">c</span>(IFL_2000_crop_rast, IFL_2013_crop_rast)</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(IFL_layers) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'2000'</span>, <span class="st">'2013'</span>)</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(Indonesia_Malaysia_Map, IFL_2000, IFL_2000_crop_rast, IFL_2013, IFL_2013_crop_rast)</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="do">####### EO data: Austin et al. maps - industrial oil palm plantations (versus smallholders) / https://pure.iiasa.ac.at/id/eprint/14829/</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>Austin_2017 <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"P:/bec_data/100_rawdata/oil_palm_Austin_2017/LUPpaper2017_indo_oilpalm_map/IIASA_indo_oilpalm_map/"</span>, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.tif$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>Austin_2017 <span class="ot">&lt;-</span> <span class="fu">lapply</span>(Austin_2017, rast)</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>Austin_2017_stack <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(Austin_2017)){</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>  rasti <span class="ot">&lt;-</span> Austin_2017[[i]]</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ext</span>(rasti) <span class="ot">&lt;-</span> <span class="fu">ext</span>(raster_template)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>  Austin_2017_stack <span class="ot">&lt;-</span> <span class="fu">c</span>(Austin_2017_stack, rasti)</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Austin_2017_stack) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'1995'</span>, <span class="st">'2000'</span>, <span class="st">'2005'</span>, <span class="st">'2010'</span>, <span class="st">'2015'</span>)</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(raster_template, i, rasti, Austin_2017)</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="load-and-prepare-the-predicts-data-subset-for-indonesia-and-malaysia" class="level2">
+<h2 class="anchored" data-anchor-id="load-and-prepare-the-predicts-data-subset-for-indonesia-and-malaysia">1.4. Load and prepare the PREDICTS data, subset for Indonesia and Malaysia</h2>
+<p>The PREDICTS data are loaded and pre-processed by correcting measurements for sampling effort and merging sites. We use the StatisticalModels package authored by Tim Newbold (UCL).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">'../../results/0_processed_data/PREDICTS_preprocessed.rds'</span>)){</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="do">## PREDICTS database (2016 v1.1) &amp; 2022 additional data: bind together</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  PREDICTS_2016_v1<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">'P:/bec_data/100_rawdata/PREDICTS/2016_V1.1/database.rds'</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  Add_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">'P:/bec_data/100_rawdata/PREDICTS/2022/database_2nd_release_12_11_2025.rds'</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  PREDICTS <span class="ot">&lt;-</span> <span class="fu">rbind</span>(PREDICTS_2016_v1<span class="fl">.1</span>, Add_data)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rm</span>(PREDICTS_2016_v1<span class="fl">.1</span>, Add_data)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="do">## pre-process the PREDICTS database: correct for sampling effort and merge sites using functions from Tim Newbold</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  PREDICTS <span class="ot">&lt;-</span> predictsFunctions<span class="sc">::</span><span class="fu">CorrectSamplingEffort</span>(<span class="at">diversity =</span> PREDICTS)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  PREDICTS <span class="ot">&lt;-</span> predictsFunctions<span class="sc">::</span><span class="fu">MergeSites</span>(<span class="at">diversity =</span> PREDICTS, <span class="at">silent =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">saveRDS</span>(PREDICTS, <span class="st">'../../results/0_processed_data/PREDICTS_preprocessed.rds'</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span>{</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">file.exists</span>(<span class="st">'../../results/0_processed_data/PREDICTS_preprocessed_Indonesia_Malaysia.rds'</span>)){</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    PREDICTS_Indonesia_Malaysia <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">'../../results/0_processed_data/PREDICTS_preprocessed_Indonesia_Malaysia.rds'</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span>{</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    PREDICTS <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">'../../results/0_processed_data/PREDICTS_preprocessed.rds'</span>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="do">## Subset the data for Indonesia and Malaysia, which constitute the pilot region. Add detailed habitat information: for </span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="do">## flag sites identified as oil palm plantations.</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    PREDICTS_Indonesia_Malaysia <span class="ot">&lt;-</span>  <span class="fu">subset</span>(PREDICTS,  Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'Indonesia'</span>, <span class="st">'Malaysia'</span>))</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    PREDICTS_Indonesia_Malaysia<span class="sc">$</span>Country <span class="ot">&lt;-</span> <span class="fu">droplevels</span>(PREDICTS_Indonesia_Malaysia<span class="sc">$</span>Country)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    PREDICTS_Indonesia_Malaysia<span class="sc">$</span>is_oil_palm_PREDICTS <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    PREDICTS_Indonesia_Malaysia<span class="sc">$</span>is_oil_palm_PREDICTS[<span class="fu">grepl</span>(</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>      <span class="st">'oil palm stand|oil palm managed|Oil Palm Plantation|oil-palm plantations|Oil palm plantation|Palm oil plantation|Monoculture palm oil'</span>,</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>      PREDICTS_Indonesia_Malaysia<span class="sc">$</span>Habitat_as_described)] <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    PREDICTS_Indonesia_Malaysia<span class="sc">$</span>is_oil_palm_PREDICTS[<span class="fu">is.na</span>(PREDICTS_Indonesia_Malaysia<span class="sc">$</span>is_oil_palm_PREDICTS)] <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># table(PREDICTS_Indonesia_Malaysia$is_oil_palm_PREDICTS)</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># OtherLU &lt;- unique(droplevels(PREDICTS_Indonesia_Malaysia$Habitat_as_described)[is.na(PREDICTS_Indonesia_Malaysia$is_oil_palm_PREDICTS)])</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># OtherLU[grepl('oil', OtherLU)]</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">saveRDS</span>(PREDICTS_Indonesia_Malaysia, <span class="st">'../../results/0_processed_data/PREDICTS_preprocessed_Indonesia_Malaysia.rds'</span>)</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rm</span>(PREDICTS)</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Derive site-level information for extracting EO-derived indicators around sites.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>All_sites <span class="ot">&lt;-</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>(PREDICTS_Indonesia_Malaysia[, <span class="fu">c</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'SS'</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'SSB'</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'SSBS'</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Longitude'</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Latitude'</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Predominant_land_use'</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sample_start_earliest'</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sample_end_latest'</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Sample_midpoint'</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Max_linear_extent_metres"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Habitat_patch_area_square_metres"</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Habitat_as_described"</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'is_oil_palm_PREDICTS'</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  )])</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(All_sites) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(All_sites))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="extract-eo-derived-indices-around-sampled-sites" class="level2">
+<h2 class="anchored" data-anchor-id="extract-eo-derived-indices-around-sampled-sites">1.5. Extract EO-derived indices around sampled sites:</h2>
+<p>We use the data from Danylo et al.&nbsp;to extract plantation age around each site. For each site, clip the virtual mosaic to a specified buffer area around the site (here we use 500 metres), and extract the value of the EO layer. Where there are negative values, allocate NAs (sampling cannot have happened before planting therefore the site is not likely to be an oil palm plantation).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## the extraction takes about 2 hours (Here, extracting age from the Danylo et al. layer)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">file.exists</span>(<span class="st">'../../results/1_extraction_at_sites/Danylo_age_500m.csv'</span>)) {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  Results_Danylo <span class="ot">&lt;-</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read.csv</span>(<span class="st">'../../results/1_extraction_at_sites/Danylo_age_500m.csv'</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span>{</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Plantation age derived from the Danylo layer -- using a buffer of 500m</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  Results_Danylo <span class="ot">&lt;-</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Loop_over_sites_Extract_age</span>(</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">Sites_data =</span> All_sites,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">virtual_mosaic =</span> vrt_Danylo,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">buffer_crop_area =</span> <span class="dv">5000</span>, <span class="do">## clip tp a 5km buffer zone before projecting</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">buffer_extract_data =</span> <span class="dv">500</span>, <span class="do">## 500m buffer for extracting data</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">baseline_year =</span> <span class="dv">1980</span>, <span class="do">## for calculations using Danylo layer</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">EO_Layer =</span> <span class="st">'Danylo'</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write.csv</span>(</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    Results_Danylo,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">'../../results/1_extraction_at_sites/Danylo_age_500m.csv'</span>,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">row.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Extract for additional EO-layers: land cover, intact forest landscape, industrial oil palm plantations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">file.exists</span>(<span class="st">'../../results/1_extraction_at_sites/Danylo_500m.csv'</span>)){</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  Run_Danylo_500 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../../results/1_extraction_at_sites/Danylo_500m.csv'</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">## using a 500m buffer for extraction from EO layers =&gt; circle of 1km around site</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>Run_Danylo_500 <span class="ot">&lt;-</span> <span class="fu">Loop_over_sites_Extract_LC</span>(<span class="at">Sites_data =</span> All_sites, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">ESA_CCI_layers =</span> LC_maps, </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">EO_age_layer =</span> <span class="st">'Danylo'</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">EO_age_detection_layer =</span> vrt_Danylo,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">IFL_layer =</span> IFL_layers, </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">Austin_OP_layer =</span> Austin_2017_stack,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">buffer_crop_area =</span> <span class="dv">5000</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">buffer_extract_data =</span> <span class="dv">500</span>, </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">Save_Plot =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(Run_Danylo_500, <span class="st">'../../results/1_extraction_at_sites/Danylo_500m.csv'</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="do">## consolidate the extracted data together, and identify oil palm plantations </span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>Results_Danylo <span class="ot">&lt;-</span> Results_Danylo <span class="sc">%&gt;%</span> </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(SSBS, Danylo_linear_extent_age_proj_median, Danylo_age_cea) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(., <span class="fu">c</span>(<span class="st">'SSBS'</span>, <span class="st">'Age_LE_median'</span>, <span class="st">'Age_exact_location'</span>))</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>Run_Danylo_500 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(Run_Danylo_500, Results_Danylo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Identify sites which we assume are oil-palm plantations. We assume plantations when the age extracted along the site linear extent is &gt;0. Set factors levels for land uses and save results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## identif oil palm plantations</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Run_Danylo_500<span class="sc">$</span>is_oil_palm_Danylo <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>Run_Danylo_500<span class="sc">$</span>is_oil_palm_Danylo[Run_Danylo_500<span class="sc">$</span>Age_LE_median<span class="sc">&gt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="do">## set factor levels for land use and save results</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>Run_Danylo_500<span class="sc">$</span>Predominant_land_use <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  Run_Danylo_500<span class="sc">$</span>Predominant_land_use,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Primary vegetation"</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mature secondary vegetation"</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Intermediate secondary vegetation"</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Young secondary vegetation"</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Secondary vegetation (indeterminate age)"</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Plantation forest"</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Pasture"</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Cropland"</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Urban"</span>,</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Cannot decide"</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(Run_Danylo_500, <span class="st">'../../results/1_extraction_at_sites/site_level_extractions_Danylo_500.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="derive-the-site-level-biodiversity-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="derive-the-site-level-biodiversity-metrics">1.6. Derive the site-level biodiversity metrics</h2>
+<p>We first calculate site-level total abundance, and we rescale it (within studies). We also derive species richness.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## calculating site-level abundance (we get total abundance and rescaled total abundance)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>site_total_abundance <span class="ot">&lt;-</span> PREDICTS_Indonesia_Malaysia <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Diversity_metric_type<span class="sc">==</span><span class="st">'Abundance'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SS, SSBS) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_abundance=</span><span class="fu">sum</span>(Measurement)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SS) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">max_abundance =</span> <span class="fu">max</span>(total_abundance)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total_abundance_rescaled =</span> total_abundance<span class="sc">/</span>max_abundance) <span class="sc">%&gt;%</span>  </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>max_abundance)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="do">## species richness</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="do">## calculating site-level species richness </span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>SR_1 <span class="ot">&lt;-</span> PREDICTS_Indonesia_Malaysia <span class="sc">%&gt;%</span> </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Diversity_metric_type<span class="sc">==</span><span class="st">'Species richness'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SS, SSBS) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">SR=</span><span class="fu">sum</span>(Measurement))</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>SR_2 <span class="ot">&lt;-</span> PREDICTS_Indonesia_Malaysia <span class="sc">%&gt;%</span> </span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Diversity_metric_type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'Abundance'</span>,<span class="st">'Occurrence'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PresenceAbsence=</span><span class="fu">ifelse</span>(Measurement<span class="sc">&gt;</span><span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SS, SSBS) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">SR=</span><span class="fu">sum</span>(PresenceAbsence))</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>site_species_richness <span class="ot">&lt;-</span> <span class="fu">rbind</span>(SR_1, SR_2)</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(SR_1, SR_2)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="do">## join the site-level biodiversity metrics with the site-level data</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>All_sites <span class="ot">&lt;-</span> <span class="fu">left_join</span>(Run_Danylo_500, site_total_abundance)</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>All_sites <span class="ot">&lt;-</span> <span class="fu">left_join</span>(All_sites, site_species_richness)</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="do">## save these site-level data</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(All_sites, <span class="st">'../../results/2_biodiversity_metrics_site_level/site_level_metrics_Danylo_500.csv'</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we calculate dissimilarity metrics, which relies on pairwise comparisons beween sites within studies. Within each study, sites are matched with all reference primary vegetation sites. We first need to derive pair of sites. In each pair, disturbed land-use types are compared with (minimally-disturbed) primary vegetation, where pairs of sites are available within the same study. We consider all primary vegetation sites here (not just minimally disturbed) in this version. First we create relevant pairs of sites.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## add whether a site was found to be an oil palm plantation site in Danylo data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>PREDICTS_Indonesia_Malaysia <span class="ot">&lt;-</span> <span class="fu">left_join</span>(PREDICTS_Indonesia_Malaysia, </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                                         All_sites <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                                           dplyr<span class="sc">::</span><span class="fu">select</span>(SS, SSBS, is_oil_palm_Danylo))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="do">## retrieving relevant study ID for creating pairs of sites: </span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="do">## studies need to have at least one sampled primary vegetation sites</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="do">## studies need to have at least one sampled species</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="do">## putting together pairs of sites with measured abundances, for computation of Bray-Curtis dissimilarity index</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">## the reference sites are primary vegetation sites. Usually, we would use minimally-used PV as the reference, but we don't have any indication regarding intensity of the landscape from the land cover layers we will use for projections, so we use all categories instead.</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>Abundance_study_IDs <span class="ot">&lt;-</span> </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  PREDICTS_Indonesia_Malaysia <span class="sc">%&gt;%</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Diversity_metric_type<span class="sc">==</span><span class="st">"Abundance"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(SS, SSB, SSBS, Predominant_land_use, Taxon_name_entered, Best_guess_binomial, Sampling_effort, is_oil_palm_Danylo) <span class="sc">%&gt;%</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># group by study</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SS) <span class="sc">%&gt;%</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># check whether there are primary vegetation sites within the studies (need at least one pv site)</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">n_pv_sites =</span> <span class="fu">sum</span>(Predominant_land_use <span class="sc">==</span> <span class="st">"Primary vegetation"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># also add number of taxa sampled in each study</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">n_taxa =</span> dplyr<span class="sc">::</span><span class="fu">n_distinct</span>(Taxon_name_entered)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># # number of unique sampling efforts within studies (need unique sampling effort within studies)</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">n_sampling_effort =</span> dplyr<span class="sc">::</span><span class="fu">n_distinct</span>(Sampling_effort)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  keep only studies with at least one Primary vegetation site</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(n_pv_sites <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  keep only studies with more than one taxa sampled</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(n_taxa <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="do">## retrieve the studies ID that are retained  </span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>Abundance_study_IDs <span class="ot">&lt;-</span> Abundance_study_IDs <span class="sc">%&gt;%</span> </span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">distinct</span>(SS)  <span class="sc">%&gt;%</span> </span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">pull</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>()</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="do">## about 76% of the studies are retained at this stage.</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Abundance_study_IDs)<span class="sc">/</span><span class="fu">length</span>(<span class="fu">unique</span>(PREDICTS_Indonesia_Malaysia<span class="sc">$</span>SS[PREDICTS_Indonesia_Malaysia<span class="sc">$</span>Diversity_metric_type<span class="sc">==</span><span class="st">'Abundance'</span>]))<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a><span class="do">## Create relevant pairs for abundance</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>Abundance_pairs_data <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="at">X=</span><span class="fu">as.list</span>(Abundance_study_IDs), </span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>                               <span class="at">FUN =</span> CreatePairs,</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>                               <span class="at">input_data=</span>PREDICTS_Indonesia_Malaysia) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>  data.table<span class="sc">::</span><span class="fu">rbindlist</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="do">## filter out sites that have more than one sampling effort</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>Sites_sampling_efforts <span class="ot">&lt;-</span> <span class="fu">unique</span>(PREDICTS_Indonesia_Malaysia[, <span class="fu">c</span>(<span class="st">'SS'</span>, <span class="st">'SSBS'</span>, <span class="st">'Sampling_effort'</span>)])</span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>Sites_sampling_efforts_n <span class="ot">&lt;-</span> Sites_sampling_efforts <span class="sc">|&gt;</span> </span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SSBS) <span class="sc">|&gt;</span> </span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">N_samling_effort =</span> dplyr<span class="sc">::</span><span class="fu">n_distinct</span>(Sampling_effort))</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>Sites_to_exclude <span class="ot">&lt;-</span> Sites_sampling_efforts_n<span class="sc">$</span>SSBS[Sites_sampling_efforts_n<span class="sc">$</span>N_samling_effort<span class="sc">&gt;</span><span class="dv">1</span>]</span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>Abundance_pairs_data_filtered <span class="ot">&lt;-</span> Abundance_pairs_data <span class="sc">|&gt;</span> </span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(SSBS_1 <span class="sc">%in%</span> Sites_to_exclude <span class="sc">|</span> SSBS_2 <span class="sc">%in%</span> Sites_to_exclude))</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(Sites_sampling_efforts_n, Sites_to_exclude)</span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a><span class="do">## add sampling effort of each pair of sites</span></span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>Abundance_pairs_data_filtered <span class="ot">&lt;-</span> <span class="fu">left_join</span>(Abundance_pairs_data_filtered, </span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>                                           Sites_sampling_efforts <span class="sc">|&gt;</span> </span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>                                             <span class="fu">mutate</span>(<span class="at">SSBS_1=</span>SSBS) <span class="sc">|&gt;</span> </span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>                                             dplyr<span class="sc">::</span><span class="fu">select</span>(SSBS_1, Sampling_effort))</span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Abundance_pairs_data_filtered)[<span class="fu">colnames</span>(Abundance_pairs_data_filtered)<span class="sc">==</span><span class="st">'Sampling_effort'</span>] <span class="ot">&lt;-</span> <span class="st">'Sampling_effort_SSBS_1'</span></span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>Abundance_pairs_data_filtered <span class="ot">&lt;-</span> <span class="fu">left_join</span>(Abundance_pairs_data_filtered, </span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>                                           Sites_sampling_efforts <span class="sc">|&gt;</span> </span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>                                             <span class="fu">mutate</span>(<span class="at">SSBS_2=</span>SSBS) <span class="sc">|&gt;</span> </span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a>                                             dplyr<span class="sc">::</span><span class="fu">select</span>(SSBS_2, Sampling_effort))</span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Abundance_pairs_data_filtered)[<span class="fu">colnames</span>(Abundance_pairs_data_filtered)<span class="sc">==</span><span class="st">'Sampling_effort'</span>] <span class="ot">&lt;-</span> <span class="st">'Sampling_effort_SSBS_2'</span></span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a>Abundance_pairs_data_filtered <span class="ot">&lt;-</span> Abundance_pairs_data_filtered <span class="sc">|&gt;</span> </span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Sampling_effort_SSBS_1<span class="sc">==</span>Sampling_effort_SSBS_2)</span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a><span class="do">## add sites identified as oil palm plantations, and create contrasts</span></span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a>Abundance_pairs_data_filtered <span class="ot">&lt;-</span> <span class="fu">left_join</span>(Abundance_pairs_data_filtered, </span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>                                           All_sites <span class="sc">|&gt;</span> </span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a>                                             <span class="fu">mutate</span>(<span class="at">SSBS_2=</span>SSBS) <span class="sc">|&gt;</span> </span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>                                             dplyr<span class="sc">::</span><span class="fu">select</span>(SSBS_2, is_oil_palm_Danylo))</span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a>Abundance_pairs_data_filtered<span class="sc">$</span>contrast <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(Abundance_pairs_data_filtered<span class="sc">$</span>is_oil_palm_Danylo), </span>
+<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a>                                                 <span class="fu">paste</span>(Abundance_pairs_data_filtered<span class="sc">$</span>lu_1, Abundance_pairs_data_filtered<span class="sc">$</span>lu_2, <span class="at">sep=</span><span class="st">'-'</span>), </span>
+<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a>                                                 <span class="fu">paste</span>(Abundance_pairs_data_filtered<span class="sc">$</span>lu_1, <span class="st">'Oil palm plantation'</span>, <span class="at">sep=</span><span class="st">'-'</span>))</span>
+<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a>Abundance_pairs_data_filtered<span class="sc">$</span>contrast <span class="ot">&lt;-</span> <span class="fu">factor</span>(Abundance_pairs_data_filtered<span class="sc">$</span>contrast, </span>
+<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"Primary vegetation-Primary vegetation"</span>, </span>
+<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"Primary vegetation-Mature secondary vegetation"</span>,</span>
+<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"Primary vegetation-Intermediate secondary vegetation"</span>, </span>
+<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"Primary vegetation-Young secondary vegetation"</span>, </span>
+<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"Primary vegetation-Secondary vegetation (indeterminate age)"</span>,</span>
+<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"Primary vegetation-Plantation forest"</span>, </span>
+<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"Primary vegetation-Cropland"</span>,</span>
+<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"Primary vegetation-Oil palm plantation"</span>))</span>
+<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a><span class="co">#table(Abundance_pairs_data_filtered$contrast)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we calculate the dissimilarity metric (Bray-Curtis):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## it takes ~1.5h</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">'../../results/2_biodiversity_metrics_site_level/dissimilarity_metrics_Danylo_500.csv'</span>)){</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Bray_Cutis_dissimilarity_vegan <span class="ot">&lt;-</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mapply</span>(</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">FUN =</span> Calculate_Bray_Curtis_dissimilarity,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">site_1 =</span> <span class="fu">as.list</span>(Abundance_pairs_data_filtered<span class="sc">$</span>SSBS_1),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">site_2 =</span> <span class="fu">as.list</span>(Abundance_pairs_data_filtered<span class="sc">$</span>SSBS_2),</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">MoreArgs =</span> <span class="fu">list</span>(<span class="at">input_data =</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                      PREDICTS_Indonesia_Malaysia),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">SIMPLIFY =</span> <span class="cn">FALSE</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>Bray_Cutis_dissimilarity_vegan <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">rbindlist</span>(Bray_Cutis_dissimilarity_vegan)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>Bray_Cutis_dissimilarity_vegan <span class="ot">&lt;-</span> <span class="fu">left_join</span>(Abundance_pairs_data_filtered, Bray_Cutis_dissimilarity_vegan)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="do">## save these dissimilarity estimates</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(Bray_Cutis_dissimilarity_vegan, <span class="st">'../../results/2_biodiversity_metrics_site_level/dissimilarity_metrics_Danylo_500.csv'</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span>{</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  Bray_Cutis_dissimilarity_vegan <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../../results/2_biodiversity_metrics_site_level/dissimilarity_metrics_Danylo_500.csv'</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="do">## transform the Bray-Curtis similarity with a logit </span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>logit_bray_curtis_similarity_vegan <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">logit</span>(<span class="dv">1</span><span class="sc">-</span>Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>bray_curtis_distance_vegan, <span class="at">adjust =</span> <span class="fl">0.001</span>, <span class="at">percents =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="do">## log10 geographic distance</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>log10_geodist <span class="ot">&lt;-</span> <span class="fu">log10</span>(Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>site_distance_meters<span class="sc">+</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="analyses-and-predictive-model-fitting" class="level1">
+<h1>2. ANALYSES AND PREDICTIVE MODEL FITTING</h1>
+<p>We have now obtained a dataset containing biodiversity records and metrcis for Malaysia and Indonesia, specifically sampled in primary and secondary vegetation, oil-palm plantations, and other land-use types. Now we fit the predictive models.</p>
+<section id="total-abundance-models" class="level2">
+<h2 class="anchored" data-anchor-id="total-abundance-models">2.1. Total-abundance models</h2>
+<p>We first apply some transformations to the total rescaled abundance data to improve normality. We consider a square-root transformation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>All_sites<span class="sc">$</span>sqrt_total_abundance_rescaled <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(All_sites<span class="sc">$</span>total_abundance_rescaled)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#hist(All_sites$sqrt_total_abundance_rescaled )</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>All_sites<span class="sc">$</span>LU_CCI_50[<span class="fu">is.na</span>(All_sites<span class="sc">$</span>LU_CCI_50)] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we fit a mixed-effects model to investigate whether oil palm age affects abundance.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## effect of age on abundance or dissimilarity </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true </span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#plot(All_sites$sqrt_total_abundance_rescaled[All_sites$is_oil_palm_Danylo]~ All_sites$Median_age[All_sites$is_oil_palm_Danylo], pch=19) </span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="do">## no effect of age on rescaled abundance in any of the models considered </span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lme4<span class="sc">::</span><span class="fu">lmer</span>(<span class="at">formula =</span> sqrt_total_abundance_rescaled <span class="sc">~</span> Median_age <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>SS <span class="sc">/</span> SSB), <span class="at">data =</span> All_sites[All_sites<span class="sc">$</span>is_oil_palm_Danylo, ]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: sqrt_total_abundance_rescaled ~ Median_age + (1 | SS/SSB)
+   Data: All_sites[All_sites$is_oil_palm_Danylo, ]
+
+REML criterion at convergence: -61.3
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-1.5511 -0.4626 -0.1652  0.3837  3.2756 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ SSB:SS   (Intercept) 0.04153  0.2038  
+ SS       (Intercept) 0.01960  0.1400  
+ Residual             0.01835  0.1354  
+Number of obs: 117, groups:  SSB:SS, 30; SS, 13
+
+Fixed effects:
+             Estimate Std. Error t value
+(Intercept)  0.401132   0.068285   5.874
+Median_age  -0.001415   0.003207  -0.441
+
+Correlation of Fixed Effects:
+           (Intr)
+Median_age -0.337</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lme4<span class="sc">::</span><span class="fu">lmer</span>(<span class="at">formula =</span> sqrt_total_abundance_rescaled <span class="sc">~</span> MAD_age <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span>SS <span class="sc">/</span> SSB), <span class="at">data =</span> All_sites[All_sites<span class="sc">$</span>is_oil_palm_Danylo, ]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: sqrt_total_abundance_rescaled ~ MAD_age + (1 | SS/SSB)
+   Data: All_sites[All_sites$is_oil_palm_Danylo, ]
+
+REML criterion at convergence: -62.5
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-1.5080 -0.4777 -0.1614  0.3802  3.3106 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ SSB:SS   (Intercept) 0.04000  0.2000  
+ SS       (Intercept) 0.02037  0.1427  
+ Residual             0.01846  0.1359  
+Number of obs: 117, groups:  SSB:SS, 30; SS, 13
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept) 0.382380   0.067818   5.638
+MAD_age     0.002540   0.005831   0.436
+
+Correlation of Fixed Effects:
+        (Intr)
+MAD_age -0.320</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lme4<span class="sc">::</span><span class="fu">lmer</span>(<span class="at">formula =</span> sqrt_total_abundance_rescaled <span class="sc">~</span> Age_LE_median <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span>SS <span class="sc">/</span> SSB), <span class="at">data =</span> All_sites[All_sites<span class="sc">$</span>is_oil_palm_Danylo, ]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: sqrt_total_abundance_rescaled ~ Age_LE_median + (1 | SS/SSB)
+   Data: All_sites[All_sites$is_oil_palm_Danylo, ]
+
+REML criterion at convergence: -78.9
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-1.5945 -0.4947 -0.1279  0.4427  3.2401 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ SSB:SS   (Intercept) 0.03983  0.1996  
+ SS       (Intercept) 0.03036  0.1742  
+ Residual             0.01735  0.1317  
+Number of obs: 135, groups:  SSB:SS, 35; SS, 15
+
+Fixed effects:
+               Estimate Std. Error t value
+(Intercept)    0.455384   0.070489   6.460
+Age_LE_median -0.002093   0.003111  -0.673
+
+Correlation of Fixed Effects:
+            (Intr)
+Age_LE_medn -0.325</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lme4<span class="sc">::</span><span class="fu">lmer</span>(<span class="at">formula =</span> sqrt_total_abundance_rescaled <span class="sc">~</span> Age_exact_location <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span>SS <span class="sc">/</span> SSB), <span class="at">data =</span> All_sites[All_sites<span class="sc">$</span>is_oil_palm_Danylo, ])) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: sqrt_total_abundance_rescaled ~ Age_exact_location + (1 | SS/SSB)
+   Data: All_sites[All_sites$is_oil_palm_Danylo, ]
+
+REML criterion at convergence: -39.5
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-1.5154 -0.4007 -0.1285  0.2824  3.1274 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ SSB:SS   (Intercept) 0.03844  0.1961  
+ SS       (Intercept) 0.02495  0.1580  
+ Residual             0.01847  0.1359  
+Number of obs: 98, groups:  SSB:SS, 34; SS, 14
+
+Fixed effects:
+                    Estimate Std. Error t value
+(Intercept)         0.428454   0.069525   6.163
+Age_exact_location -0.001654   0.003438  -0.481
+
+Correlation of Fixed Effects:
+            (Intr)
+Ag_xct_lctn -0.318</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ## effect on dissimilarity</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># OP_diss &lt;- left_join(Bray_Cutis_dissimilarity_vegan, </span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                      All_sites[, c('SSBS', </span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    'Median_age', </span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    'MAD_age', </span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    'Age_LE_median',</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#                                    'Age_exact_location')] %&gt;% </span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                        rename(SSBS_2=SSBS)) %&gt;% </span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(is_oil_palm_Danylo)</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(OP_diss$logit_bray_curtis_similarity_vegan~OP_diss$MAD_age)</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ## fit similarity models</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co"># lme4::lmer(</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   logit_bray_curtis_similarity_vegan ~  Median_age + log10_geodist + (1|SS), </span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   data = OP_diss</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   ))</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="co"># lme4::lmer(</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   logit_bray_curtis_similarity_vegan ~  Age_exact_location + log10_geodist + (1|SS), </span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="co">#   data = OP_diss</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="co">#   ))</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="co"># lme4::lmer(</span></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="co">#   logit_bray_curtis_similarity_vegan ~  MAD_age + log10_geodist + (1|SS), </span></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a><span class="co">#   data = OP_diss</span></span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a><span class="co">#   ))</span></span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(</span></span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a><span class="co"># lme4::lmer(</span></span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a><span class="co">#   logit_bray_curtis_similarity_vegan ~  Age_LE_median + log10_geodist + (1|SS), </span></span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="co">#   data = OP_diss</span></span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a><span class="co">#   ))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we fit mixed-effects models investigating how land-use type affects abundance. Here, we consider all land-use types together.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Chunk 16</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false </span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="do">## checking the land-use categories</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>All_sites<span class="sc">$</span>LandUse <span class="ot">&lt;-</span> <span class="fu">as.character</span>(All_sites<span class="sc">$</span>Predominant_land_use)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>All_sites<span class="sc">$</span>LandUse[All_sites<span class="sc">$</span>is_oil_palm_Danylo] <span class="ot">&lt;-</span> <span class="st">'Oil palm plantation'</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>All_sites<span class="sc">$</span>LandUse[<span class="fu">grepl</span>(<span class="st">'econdary vegetation'</span>,All_sites<span class="sc">$</span>Predominant_land_use)] <span class="ot">&lt;-</span> <span class="st">'Secondary vegetation'</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>All_sites <span class="ot">&lt;-</span> All_sites[All_sites<span class="sc">$</span>LandUse<span class="sc">!=</span><span class="st">'Urban'</span>,]</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>All_sites <span class="ot">&lt;-</span> All_sites[All_sites<span class="sc">$</span>LandUse<span class="sc">!=</span><span class="st">'Cannot decide'</span>,]</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>All_sites<span class="sc">$</span>LandUse <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  All_sites<span class="sc">$</span>LandUse,</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Primary vegetation"</span>,</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Secondary vegetation"</span>,</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Plantation forest"</span>,</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Oil palm plantation'</span>,</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Pasture"</span>,</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Cropland"</span>,</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Urban"</span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>All_sites<span class="sc">$</span>LandUse <span class="ot">&lt;-</span> <span class="fu">droplevels</span>(All_sites<span class="sc">$</span>LandUse)</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(All_sites<span class="sc">$</span>LandUse)</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="do">## first model with total rescaled abundance</span></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>abundance_model <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(<span class="at">formula =</span> sqrt_total_abundance_rescaled <span class="sc">~</span> LandUse  <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>SS<span class="sc">/</span>SSB), <span class="at">data=</span>All_sites)</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(abundance_model)</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a><span class="do">## second model with total rescaled abundance</span></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>abundance_model_treecover <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(<span class="at">formula =</span> sqrt_total_abundance_rescaled <span class="sc">~</span> LandUse  <span class="sc">+</span> LU_CCI_50 <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>SS<span class="sc">/</span>SSB), <span class="at">data=</span>All_sites)</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(abundance_model_treecover)</span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a><span class="do">## which model fits better? the model with tree cover</span></span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(abundance_model, abundance_model_treecover)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Drawing predictions for the best model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">## drawing predictions</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false </span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="do">## predictions for the model on rescaled abundance</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>Newdata <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">LandUse=</span><span class="fu">levels</span>(All_sites<span class="sc">$</span>LandUse), </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">sqrt_total_abundance_rescaled=</span><span class="dv">0</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">LU_CCI_50=</span><span class="dv">50</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>abundance_predictions <span class="ot">&lt;-</span> <span class="fu">Predict_effects</span>(<span class="at">new_data =</span> Newdata,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">Model =</span> abundance_model_treecover, </span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">rescale =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">LU_n =</span> <span class="fu">length</span>(<span class="fu">levels</span>(All_sites<span class="sc">$</span>LandUse)),</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">backtransform =</span> <span class="st">'sqrt'</span>)</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>abundance_predictions<span class="sc">$</span>Median <span class="ot">&lt;-</span> abundance_predictions<span class="sc">$</span>Median <span class="sc">-</span> <span class="dv">100</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>abundance_predictions<span class="sc">$</span>Lower <span class="ot">&lt;-</span> abundance_predictions<span class="sc">$</span>Lower <span class="sc">-</span> <span class="dv">100</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>abundance_predictions<span class="sc">$</span>Upper <span class="ot">&lt;-</span> abundance_predictions<span class="sc">$</span>Upper <span class="sc">-</span> <span class="dv">100</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(Newdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="similarity-models" class="level2">
+<h2 class="anchored" data-anchor-id="similarity-models">2.2. Similarity models</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>contrast <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>contrast[Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>contrast <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Primary vegetation-Mature secondary vegetation"</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                                                                                       <span class="st">"Primary vegetation-Intermediate secondary vegetation"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Primary vegetation-Young secondary vegetation"</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Primary vegetation-Secondary vegetation (indeterminate age)"</span>)] <span class="ot">&lt;-</span> <span class="st">"Primary vegetation-Secondary vegetation"</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>contrast <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>contrast,</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Primary vegetation-Primary vegetation"</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Primary vegetation-Secondary vegetation"</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#"Primary vegetation-Intermediate secondary vegetation",</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#"Primary vegetation-Young secondary vegetation",</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">#"Primary vegetation-Secondary vegetation (indeterminate age)",</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Primary vegetation-Plantation forest"</span>,</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Primary vegetation-Oil palm plantation"</span>,</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Primary vegetation-Cropland"</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>contrast)</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a><span class="do">## fit similarity model</span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>similarity_model <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>  logit_bray_curtis_similarity_vegan <span class="sc">~</span> contrast <span class="sc">+</span> log10_geodist <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>SS), </span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Bray_Cutis_dissimilarity_vegan</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a><span class="do">## fit similarity model with tree cover</span></span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>Bray_Cutis_dissimilarity_vegan <span class="ot">&lt;-</span> <span class="fu">left_join</span>(Bray_Cutis_dissimilarity_vegan, </span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>                      All_sites[, <span class="fu">c</span>(<span class="st">'SSBS'</span>, </span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">'LU_CCI_50'</span>)] <span class="sc">%&gt;%</span> </span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">rename</span>(<span class="at">SSBS_2=</span>SSBS))</span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>similarity_model_tree_cover <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(</span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>  logit_bray_curtis_similarity_vegan <span class="sc">~</span> contrast <span class="sc">+</span> LU_CCI_50 <span class="sc">+</span> log10_geodist <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>SS), </span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Bray_Cutis_dissimilarity_vegan</span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a><span class="do">## which model fits better? the model with tree cover</span></span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(similarity_model, similarity_model_tree_cover)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Drawing predictions for the similarity model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>Newdata <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">contrast=</span><span class="fu">levels</span>(Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>contrast),</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">logit_bray_curtis_similarity_vegan=</span><span class="dv">0</span>, </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">log10_geodist=</span><span class="dv">0</span>, </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">LU_CCI_50=</span><span class="dv">50</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>similarity_predictions <span class="ot">&lt;-</span> <span class="fu">Predict_effects</span>(<span class="at">new_data =</span> Newdata,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">Model =</span> similarity_model_tree_cover,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">rescale =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">LU_n =</span> <span class="fu">length</span>(<span class="fu">levels</span>(Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>contrast)), </span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">backtransform =</span> <span class="st">'logit'</span>,</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">A_logit =</span> <span class="fl">0.001</span>)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>similarity_predictions<span class="sc">$</span>Median <span class="ot">&lt;-</span> similarity_predictions<span class="sc">$</span>Median <span class="sc">-</span> <span class="dv">100</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>similarity_predictions<span class="sc">$</span>Lower <span class="ot">&lt;-</span> similarity_predictions<span class="sc">$</span>Lower <span class="sc">-</span> <span class="dv">100</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>similarity_predictions<span class="sc">$</span>Upper <span class="ot">&lt;-</span> similarity_predictions<span class="sc">$</span>Upper <span class="sc">-</span> <span class="dv">100</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(Newdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="results" class="level1">
+<h1>3. RESULTS</h1>
+<section id="fitted-data" class="level2">
+<h2 class="anchored" data-anchor-id="fitted-data">3.1. Fitted data</h2>
+<p>The abundance model was fitted on 1198 sites sampled within 38 studies.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## sample sizes</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>Fitted_abundance <span class="ot">&lt;-</span> All_sites <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">filter</span>(SS <span class="sc">%in%</span>  abundance_model_treecover<span class="sc">@</span>frame<span class="sc">$</span>SS)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(Fitted_abundance)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1198</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(abundance_model_treecover<span class="sc">@</span>frame)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1198</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>Fitted_abundance<span class="sc">$</span>SS <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 38</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>Fitted_abundance<span class="sc">$</span>SSBS <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1198</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="do">## sample sizes</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>Fitted_similarity <span class="ot">&lt;-</span> Bray_Cutis_dissimilarity_vegan <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">filter</span>(SS <span class="sc">%in%</span>  similarity_model_tree_cover<span class="sc">@</span>frame<span class="sc">$</span>SS)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(Fitted_similarity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 34201</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(similarity_model_tree_cover<span class="sc">@</span>frame)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 34201</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>Fitted_similarity<span class="sc">$</span>SS <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 27</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>Fitted_similarity<span class="sc">$</span>contrast <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>.
+  Primary vegetation-Primary vegetation Primary vegetation-Secondary vegetation 
+                                  11788                                    4402 
+   Primary vegetation-Plantation forest  Primary vegetation-Oil palm plantation 
+                                  13762                                    3836 
+            Primary vegetation-Cropland 
+                                    413 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">## map sites</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>Indonesia_Malaysia_Map <span class="ot">&lt;-</span> rnaturalearth<span class="sc">::</span><span class="fu">ne_countries</span>(<span class="at">scale =</span> <span class="st">"medium"</span>, <span class="at">returnclass =</span> <span class="st">"sf"</span>, <span class="at">country =</span> <span class="fu">c</span>(<span class="st">"Malaysia"</span>, <span class="st">"Indonesia"</span>))</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="at">data =</span> Indonesia_Malaysia_Map) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">fill=</span><span class="st">"lightgrey"</span>, <span class="at">colour=</span><span class="st">"lightgrey"</span>) <span class="sc">+</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>Fitted_abundance <span class="sc">%&gt;%</span> </span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>               <span class="fu">filter</span>(Predominant_land_use<span class="sc">!=</span><span class="st">'Cannot decide'</span>),</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">y=</span>Latitude, <span class="at">x=</span>Longitude, <span class="at">col=</span>LandUse),</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">pch=</span><span class="dv">19</span>,<span class="at">alpha=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>), </span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>),</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>, <span class="at">family=</span><span class="st">"serif"</span>), </span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">16</span>)) <span class="sc">+</span></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Biodiversity sampling sites'</span>) <span class="sc">+</span> </span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">name =</span> <span class="st">"Land use"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="abundance-and-similarity-models-effects-of-land-use" class="level2">
+<h2 class="anchored" data-anchor-id="abundance-and-similarity-models-effects-of-land-use">3.2. Abundance and similarity models: effects of land use</h2>
+<p>Oil-palm plantations exhibited average declines in total abundance of about 15% compared to primary vegetation. Similarity in oil-palm plantations exhibited average declines of about 43% when compared to primary vegetation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="do">## plotting the effects of all considered land uses on abundance</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(abundance_predictions,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(LandUse , Median, <span class="at">ymin =</span> Lower, <span class="at">ymax =</span> Upper)) <span class="sc">+</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">col=</span><span class="st">"black"</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">width=</span>.<span class="dv">2</span>, <span class="at">size=</span><span class="fl">0.5</span>, <span class="at">stat=</span><span class="st">"identity"</span>,<span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.6</span>)) <span class="sc">+</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">2</span>, <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.6</span>)) <span class="sc">+</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#GGPoptions +</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Abundance (% difference from primary)"</span>) <span class="sc">+</span> </span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.spacing.y =</span>  <span class="fu">unit</span>(<span class="dv">0</span>, <span class="st">"lines"</span>)) <span class="sc">+</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">60</span>, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"(a) Model on total abundance"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">## plotting the effects of all considered land uses on similarity</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(similarity_predictions,</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(contrast , Median, <span class="at">ymin =</span> Lower, <span class="at">ymax =</span> Upper)) <span class="sc">+</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">col=</span><span class="st">"black"</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">width=</span>.<span class="dv">2</span>, <span class="at">size=</span><span class="fl">0.5</span>, <span class="at">stat=</span><span class="st">"identity"</span>,<span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.6</span>)) <span class="sc">+</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">2</span>, <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.6</span>)) <span class="sc">+</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#GGPoptions +</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Abundance (% difference from primary)"</span>) <span class="sc">+</span> </span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.spacing.y =</span>  <span class="fu">unit</span>(<span class="dv">0</span>, <span class="st">"lines"</span>)) <span class="sc">+</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">60</span>, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"(b) Model on similarity"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="mapping-results-bii-for-mill-areas" class="level1">
+<h1>4. MAPPING RESULTS: BII for mill areas</h1>
+<p>Here, we predict BII for the World Cover maps corrected for oil palm plantations, for the years 2020 and 2021.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># UML &lt;- read.csv('../data/supply_shed_data/UML_data/UML-Dec-2024.csv', sep=',', fileEncoding="latin1") %&gt;% </span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(Country %in% c('Malaysia', 'Indonesia'))</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>Run <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(Run){</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>UML_subset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../../data/supply_shed_data/matched_mills_mill-and-plantation-list-h2-2024.csv'</span>, <span class="at">sep=</span><span class="st">','</span>, <span class="at">fileEncoding=</span><span class="st">"latin1"</span>) </span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="do">## define function for projections</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>Predict_BII <span class="ot">&lt;-</span> <span class="cf">function</span>(UML_data, </span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>                        Buffer_mill,</span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>                        WC_layer,</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>                        FI_layer,</span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>                        Aggregate_Factor,</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>                        <span class="at">abundance_model=</span>abundance_model_treecover,</span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>                        <span class="at">similarity_model=</span>similarity_model_tree_cover){</span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>      <span class="do">## abundance predictions at the grid cell level -- set the reference level</span></span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>    REF_Level_abundance <span class="ot">&lt;-</span> </span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">Predict_effects</span>(</span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">new_data =</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">LandUse =</span> <span class="fu">c</span>(<span class="st">"Primary vegetation"</span>,</span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Cropland"</span>),</span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a>          <span class="at">sqrt_total_abundance_rescaled =</span></span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a>            <span class="dv">0</span>,</span>
+<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a>          <span class="at">LU_CCI_50 =</span> <span class="dv">100</span></span>
+<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb48-29"><a href="#cb48-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">Model =</span> abundance_model_treecover,</span>
+<span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">rescale =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb48-31"><a href="#cb48-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">backtransform =</span> <span class="st">'sqrt'</span></span>
+<span id="cb48-32"><a href="#cb48-32" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb48-33"><a href="#cb48-33" aria-hidden="true" tabindex="-1"></a>    REF_Level_abundance <span class="ot">&lt;-</span> REF_Level_abundance[<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb48-34"><a href="#cb48-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-35"><a href="#cb48-35" aria-hidden="true" tabindex="-1"></a>    <span class="do">## similarity predictions at the grid cell level -- set the reference level</span></span>
+<span id="cb48-36"><a href="#cb48-36" aria-hidden="true" tabindex="-1"></a>    REF_Level_similarity <span class="ot">&lt;-</span></span>
+<span id="cb48-37"><a href="#cb48-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">Predict_effects</span>(</span>
+<span id="cb48-38"><a href="#cb48-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">new_data =</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb48-39"><a href="#cb48-39" aria-hidden="true" tabindex="-1"></a>          <span class="at">contrast =</span> <span class="fu">c</span>(</span>
+<span id="cb48-40"><a href="#cb48-40" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Primary vegetation-Primary vegetation"</span>,</span>
+<span id="cb48-41"><a href="#cb48-41" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Primary vegetation-Cropland"</span></span>
+<span id="cb48-42"><a href="#cb48-42" aria-hidden="true" tabindex="-1"></a>          ),</span>
+<span id="cb48-43"><a href="#cb48-43" aria-hidden="true" tabindex="-1"></a>          <span class="at">log10_geodist =</span> <span class="dv">0</span>,</span>
+<span id="cb48-44"><a href="#cb48-44" aria-hidden="true" tabindex="-1"></a>          <span class="at">LU_CCI_50 =</span> <span class="dv">100</span>,</span>
+<span id="cb48-45"><a href="#cb48-45" aria-hidden="true" tabindex="-1"></a>          <span class="at">logit_bray_curtis_similarity_vegan =</span></span>
+<span id="cb48-46"><a href="#cb48-46" aria-hidden="true" tabindex="-1"></a>            <span class="dv">0</span></span>
+<span id="cb48-47"><a href="#cb48-47" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb48-48"><a href="#cb48-48" aria-hidden="true" tabindex="-1"></a>        <span class="at">Model =</span> similarity_model_tree_cover,</span>
+<span id="cb48-49"><a href="#cb48-49" aria-hidden="true" tabindex="-1"></a>        <span class="at">rescale =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb48-50"><a href="#cb48-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">backtransform =</span> <span class="st">'logit'</span>,</span>
+<span id="cb48-51"><a href="#cb48-51" aria-hidden="true" tabindex="-1"></a>        <span class="at">A_logit =</span> <span class="fl">0.001</span></span>
+<span id="cb48-52"><a href="#cb48-52" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb48-53"><a href="#cb48-53" aria-hidden="true" tabindex="-1"></a>    REF_Level_similarity <span class="ot">&lt;-</span> REF_Level_similarity[<span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb48-54"><a href="#cb48-54" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-55"><a href="#cb48-55" aria-hidden="true" tabindex="-1"></a>    <span class="do">## initialise cols to store srestuls</span></span>
+<span id="cb48-56"><a href="#cb48-56" aria-hidden="true" tabindex="-1"></a>    UML_data<span class="sc">$</span>Median_BII <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb48-57"><a href="#cb48-57" aria-hidden="true" tabindex="-1"></a>    UML_data<span class="sc">$</span>Sum_BII <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb48-58"><a href="#cb48-58" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb48-59"><a href="#cb48-59" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(UML_data)){</span>
+<span id="cb48-60"><a href="#cb48-60" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-61"><a href="#cb48-61" aria-hidden="true" tabindex="-1"></a>    <span class="do">## get mill coordinates and buffer</span></span>
+<span id="cb48-62"><a href="#cb48-62" aria-hidden="true" tabindex="-1"></a>    coordinates_mills <span class="ot">&lt;-</span> <span class="fu">vect</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fu">as.numeric</span>(UML_data<span class="sc">$</span>Longitude[i]),</span>
+<span id="cb48-63"><a href="#cb48-63" aria-hidden="true" tabindex="-1"></a>            <span class="fu">as.numeric</span>(UML_data<span class="sc">$</span>Latitude[i])), <span class="at">ncol=</span><span class="dv">2</span>),</span>
+<span id="cb48-64"><a href="#cb48-64" aria-hidden="true" tabindex="-1"></a>          <span class="at">crs=</span><span class="st">"+proj=longlat +datum=WGS84"</span>)</span>
+<span id="cb48-65"><a href="#cb48-65" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-66"><a href="#cb48-66" aria-hidden="true" tabindex="-1"></a>    coordinates_mills_buffer <span class="ot">&lt;-</span> <span class="fu">buffer</span>(coordinates_mills, <span class="at">width=</span>Buffer_mill)</span>
+<span id="cb48-67"><a href="#cb48-67" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-68"><a href="#cb48-68" aria-hidden="true" tabindex="-1"></a>    <span class="co">#browser()</span></span>
+<span id="cb48-69"><a href="#cb48-69" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-70"><a href="#cb48-70" aria-hidden="true" tabindex="-1"></a>    <span class="do">## crop and mask the land cover layer and the forest integrity layer</span></span>
+<span id="cb48-71"><a href="#cb48-71" aria-hidden="true" tabindex="-1"></a>    WC_cropped <span class="ot">&lt;-</span> <span class="fu">crop</span>(WC_layer, coordinates_mills_buffer)</span>
+<span id="cb48-72"><a href="#cb48-72" aria-hidden="true" tabindex="-1"></a>    WC_cropped_ag <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(WC_cropped, Aggregate_Factor, <span class="at">fun=</span><span class="st">'modal'</span>)</span>
+<span id="cb48-73"><a href="#cb48-73" aria-hidden="true" tabindex="-1"></a>    WC_cropped_masked <span class="ot">&lt;-</span> <span class="fu">mask</span>(WC_cropped_ag, coordinates_mills_buffer)</span>
+<span id="cb48-74"><a href="#cb48-74" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-75"><a href="#cb48-75" aria-hidden="true" tabindex="-1"></a>    FI_crop <span class="ot">&lt;-</span> <span class="fu">crop</span>(FI_layer, WC_cropped_masked)</span>
+<span id="cb48-76"><a href="#cb48-76" aria-hidden="true" tabindex="-1"></a>    FI_crop <span class="ot">&lt;-</span> <span class="fu">project</span>(<span class="at">x =</span> FI_crop, <span class="at">y =</span> WC_cropped_masked)</span>
+<span id="cb48-77"><a href="#cb48-77" aria-hidden="true" tabindex="-1"></a>    FI_mask <span class="ot">&lt;-</span> <span class="fu">mask</span>(FI_crop, WC_cropped_masked)</span>
+<span id="cb48-78"><a href="#cb48-78" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-79"><a href="#cb48-79" aria-hidden="true" tabindex="-1"></a>    <span class="do">## get the values of these layers, as dataframe for operations</span></span>
+<span id="cb48-80"><a href="#cb48-80" aria-hidden="true" tabindex="-1"></a>    template <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">values</span>(WC_cropped_masked))</span>
+<span id="cb48-81"><a href="#cb48-81" aria-hidden="true" tabindex="-1"></a>    FI <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">values</span>(FI_mask))</span>
+<span id="cb48-82"><a href="#cb48-82" aria-hidden="true" tabindex="-1"></a>    template <span class="ot">&lt;-</span> <span class="fu">cbind</span>(template, FI)</span>
+<span id="cb48-83"><a href="#cb48-83" aria-hidden="true" tabindex="-1"></a>    <span class="fu">colnames</span>(template) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'WC_code'</span>, <span class="st">'forest_integrity'</span>)</span>
+<span id="cb48-84"><a href="#cb48-84" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-85"><a href="#cb48-85" aria-hidden="true" tabindex="-1"></a>    <span class="do">## encode the land uses</span></span>
+<span id="cb48-86"><a href="#cb48-86" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LandUse <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb48-87"><a href="#cb48-87" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LandUse[template<span class="sc">$</span>WC_code <span class="sc">==</span> <span class="dv">10</span> <span class="sc">&amp;</span></span>
+<span id="cb48-88"><a href="#cb48-88" aria-hidden="true" tabindex="-1"></a>                       template<span class="sc">$</span>forest_integrity <span class="sc">&gt;</span> <span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="st">'Primary vegetation'</span></span>
+<span id="cb48-89"><a href="#cb48-89" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LandUse[template<span class="sc">$</span>WC_code <span class="sc">==</span> <span class="dv">10</span> <span class="sc">&amp;</span></span>
+<span id="cb48-90"><a href="#cb48-90" aria-hidden="true" tabindex="-1"></a>                       template<span class="sc">$</span>forest_integrity <span class="sc">&lt;=</span> <span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="st">'Secondary vegetation'</span></span>
+<span id="cb48-91"><a href="#cb48-91" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LandUse[template<span class="sc">$</span>WC_code <span class="sc">==</span> <span class="dv">11</span>] <span class="ot">&lt;-</span> <span class="st">'Oil palm plantation'</span></span>
+<span id="cb48-92"><a href="#cb48-92" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LandUse[template<span class="sc">$</span>WC_code <span class="sc">==</span> <span class="dv">20</span>] <span class="ot">&lt;-</span> <span class="st">'Secondary vegetation'</span></span>
+<span id="cb48-93"><a href="#cb48-93" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LandUse[template<span class="sc">$</span>WC_code <span class="sc">==</span> <span class="dv">30</span>] <span class="ot">&lt;-</span> <span class="st">'Secondary vegetation'</span></span>
+<span id="cb48-94"><a href="#cb48-94" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LandUse[template<span class="sc">$</span>WC_code <span class="sc">==</span> <span class="dv">40</span>] <span class="ot">&lt;-</span> <span class="st">'Cropland'</span></span>
+<span id="cb48-95"><a href="#cb48-95" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LandUse[template<span class="sc">$</span>WC_code <span class="sc">==</span> <span class="dv">50</span>] <span class="ot">&lt;-</span> <span class="st">'Urban'</span></span>
+<span id="cb48-96"><a href="#cb48-96" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LandUse[template<span class="sc">$</span>WC_code <span class="sc">==</span> <span class="dv">60</span>] <span class="ot">&lt;-</span> <span class="st">'Secondary vegetation'</span></span>
+<span id="cb48-97"><a href="#cb48-97" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LandUse[template<span class="sc">$</span>WC_code <span class="sc">==</span> <span class="dv">70</span>] <span class="ot">&lt;-</span> <span class="st">'Snow and ice'</span></span>
+<span id="cb48-98"><a href="#cb48-98" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LandUse[template<span class="sc">$</span>WC_code <span class="sc">==</span> <span class="dv">80</span>] <span class="ot">&lt;-</span> <span class="st">'Permanent water bodies'</span></span>
+<span id="cb48-99"><a href="#cb48-99" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LandUse[template<span class="sc">$</span>WC_code <span class="sc">==</span> <span class="dv">90</span>] <span class="ot">&lt;-</span> <span class="st">'Herbaceous wetland'</span></span>
+<span id="cb48-100"><a href="#cb48-100" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LandUse[template<span class="sc">$</span>WC_code <span class="sc">==</span> <span class="dv">95</span>] <span class="ot">&lt;-</span> <span class="st">'Mangroves'</span></span>
+<span id="cb48-101"><a href="#cb48-101" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LandUse[template<span class="sc">$</span>WC_code <span class="sc">==</span> <span class="dv">100</span>] <span class="ot">&lt;-</span> <span class="st">'Moss and lichen'</span></span>
+<span id="cb48-102"><a href="#cb48-102" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-103"><a href="#cb48-103" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>contrast[<span class="sc">!</span><span class="fu">is.na</span>(template<span class="sc">$</span>LandUse)] <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">'Primary vegetation'</span>, template<span class="sc">$</span>LandUse[<span class="sc">!</span><span class="fu">is.na</span>(template<span class="sc">$</span>LandUse)], <span class="at">sep=</span><span class="st">'-'</span> )</span>
+<span id="cb48-104"><a href="#cb48-104" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-105"><a href="#cb48-105" aria-hidden="true" tabindex="-1"></a>    <span class="do">## add tree cover as LU_CCI_50</span></span>
+<span id="cb48-106"><a href="#cb48-106" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>LU_CCI_50 <span class="ot">&lt;-</span> <span class="fu">nrow</span>(template[template<span class="sc">$</span>WC_code<span class="sc">==</span><span class="dv">10</span>,])<span class="sc">/</span><span class="fu">nrow</span>(template)<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb48-107"><a href="#cb48-107" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-108"><a href="#cb48-108" aria-hidden="true" tabindex="-1"></a>    <span class="do">## add response</span></span>
+<span id="cb48-109"><a href="#cb48-109" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>sqrt_total_abundance_rescaled <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb48-110"><a href="#cb48-110" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>logit_bray_curtis_similarity_vegan <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb48-111"><a href="#cb48-111" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>log10_geodist <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb48-112"><a href="#cb48-112" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-113"><a href="#cb48-113" aria-hidden="true" tabindex="-1"></a>    <span class="do">## now predict for abundance at the grid cell level</span></span>
+<span id="cb48-114"><a href="#cb48-114" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>abundance_predictions <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb48-115"><a href="#cb48-115" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-116"><a href="#cb48-116" aria-hidden="true" tabindex="-1"></a>    <span class="co"># preds_abundance &lt;- predict(object = abundance_model_treecover,</span></span>
+<span id="cb48-117"><a href="#cb48-117" aria-hidden="true" tabindex="-1"></a>    <span class="co">#                            newdata=template,  </span></span>
+<span id="cb48-118"><a href="#cb48-118" aria-hidden="true" tabindex="-1"></a>    <span class="co">#                            re.form = NULL)</span></span>
+<span id="cb48-119"><a href="#cb48-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-120"><a href="#cb48-120" aria-hidden="true" tabindex="-1"></a>      preds_abundance <span class="ot">&lt;-</span></span>
+<span id="cb48-121"><a href="#cb48-121" aria-hidden="true" tabindex="-1"></a>      <span class="fu">Predict_effects</span>(</span>
+<span id="cb48-122"><a href="#cb48-122" aria-hidden="true" tabindex="-1"></a>        <span class="at">new_data =</span> template[<span class="sc">!</span><span class="fu">is.na</span>(template<span class="sc">$</span>LandUse), ],</span>
+<span id="cb48-123"><a href="#cb48-123" aria-hidden="true" tabindex="-1"></a>        <span class="at">Model =</span> abundance_model_treecover,</span>
+<span id="cb48-124"><a href="#cb48-124" aria-hidden="true" tabindex="-1"></a>        <span class="at">rescale =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb48-125"><a href="#cb48-125" aria-hidden="true" tabindex="-1"></a>        <span class="at">backtransform =</span> <span class="st">'sqrt'</span></span>
+<span id="cb48-126"><a href="#cb48-126" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb48-127"><a href="#cb48-127" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>abundance_predictions[<span class="sc">!</span><span class="fu">is.na</span>(template<span class="sc">$</span>LandUse)] <span class="ot">&lt;-</span></span>
+<span id="cb48-128"><a href="#cb48-128" aria-hidden="true" tabindex="-1"></a>      preds_abundance<span class="sc">$</span>Median</span>
+<span id="cb48-129"><a href="#cb48-129" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-130"><a href="#cb48-130" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>abundance_predictions_rescaled <span class="ot">&lt;-</span></span>
+<span id="cb48-131"><a href="#cb48-131" aria-hidden="true" tabindex="-1"></a>      template<span class="sc">$</span>abundance_prediction <span class="sc">/</span> REF_Level_abundance</span>
+<span id="cb48-132"><a href="#cb48-132" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb48-133"><a href="#cb48-133" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-134"><a href="#cb48-134" aria-hidden="true" tabindex="-1"></a>    <span class="do">## now predict for similarity at the grid cell level</span></span>
+<span id="cb48-135"><a href="#cb48-135" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>similarity_predictions <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb48-136"><a href="#cb48-136" aria-hidden="true" tabindex="-1"></a>    preds_similarity <span class="ot">&lt;-</span></span>
+<span id="cb48-137"><a href="#cb48-137" aria-hidden="true" tabindex="-1"></a>      <span class="fu">Predict_effects</span>(</span>
+<span id="cb48-138"><a href="#cb48-138" aria-hidden="true" tabindex="-1"></a>        <span class="at">new_data =</span> template[<span class="sc">!</span><span class="fu">is.na</span>(template<span class="sc">$</span>contrast),],</span>
+<span id="cb48-139"><a href="#cb48-139" aria-hidden="true" tabindex="-1"></a>        <span class="at">Model =</span> similarity_model_tree_cover,</span>
+<span id="cb48-140"><a href="#cb48-140" aria-hidden="true" tabindex="-1"></a>        <span class="at">rescale =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb48-141"><a href="#cb48-141" aria-hidden="true" tabindex="-1"></a>        <span class="at">backtransform =</span> <span class="st">'sqrt'</span>,</span>
+<span id="cb48-142"><a href="#cb48-142" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb48-143"><a href="#cb48-143" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-144"><a href="#cb48-144" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>similarity_predictions[<span class="sc">!</span><span class="fu">is.na</span>(template<span class="sc">$</span>LandUse)] <span class="ot">&lt;-</span></span>
+<span id="cb48-145"><a href="#cb48-145" aria-hidden="true" tabindex="-1"></a>      preds_similarity<span class="sc">$</span>Median</span>
+<span id="cb48-146"><a href="#cb48-146" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-147"><a href="#cb48-147" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>similarity_predictions_rescaled <span class="ot">&lt;-</span> template<span class="sc">$</span>similarity_predictions<span class="sc">/</span>REF_Level_similarity</span>
+<span id="cb48-148"><a href="#cb48-148" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-149"><a href="#cb48-149" aria-hidden="true" tabindex="-1"></a>    template<span class="sc">$</span>BII <span class="ot">&lt;-</span> template<span class="sc">$</span>similarity_predictions_rescaled <span class="sc">*</span> template<span class="sc">$</span>abundance_predictions_rescaled</span>
+<span id="cb48-150"><a href="#cb48-150" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-151"><a href="#cb48-151" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-152"><a href="#cb48-152" aria-hidden="true" tabindex="-1"></a>    <span class="do">## copy of the raster </span></span>
+<span id="cb48-153"><a href="#cb48-153" aria-hidden="true" tabindex="-1"></a>    Raster_outout <span class="ot">&lt;-</span> WC_cropped_masked</span>
+<span id="cb48-154"><a href="#cb48-154" aria-hidden="true" tabindex="-1"></a>    <span class="fu">values</span>(Raster_outout) <span class="ot">&lt;-</span> template<span class="sc">$</span>BII</span>
+<span id="cb48-155"><a href="#cb48-155" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-156"><a href="#cb48-156" aria-hidden="true" tabindex="-1"></a>    UML_data<span class="sc">$</span>Median_BII[i] <span class="ot">&lt;-</span> <span class="fu">median</span>(template<span class="sc">$</span>BII, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb48-157"><a href="#cb48-157" aria-hidden="true" tabindex="-1"></a>    UML_data<span class="sc">$</span>Sum_BII[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(template<span class="sc">$</span>BII, <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb48-158"><a href="#cb48-158" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-159"><a href="#cb48-159" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'finished row'</span>, i, <span class="st">'of'</span>, <span class="fu">nrow</span>(UML_data)))</span>
+<span id="cb48-160"><a href="#cb48-160" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb48-161"><a href="#cb48-161" aria-hidden="true" tabindex="-1"></a>    <span class="fu">writeRaster</span>(</span>
+<span id="cb48-162"><a href="#cb48-162" aria-hidden="true" tabindex="-1"></a>      Raster_outout,</span>
+<span id="cb48-163"><a href="#cb48-163" aria-hidden="true" tabindex="-1"></a>      <span class="fu">paste0</span>(</span>
+<span id="cb48-164"><a href="#cb48-164" aria-hidden="true" tabindex="-1"></a>        <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/13_02_2026/'</span>,</span>
+<span id="cb48-165"><a href="#cb48-165" aria-hidden="true" tabindex="-1"></a>        UML_data<span class="sc">$</span>UML.ID[i],</span>
+<span id="cb48-166"><a href="#cb48-166" aria-hidden="true" tabindex="-1"></a>        <span class="st">'.tif'</span></span>
+<span id="cb48-167"><a href="#cb48-167" aria-hidden="true" tabindex="-1"></a>      ),</span>
+<span id="cb48-168"><a href="#cb48-168" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb48-169"><a href="#cb48-169" aria-hidden="true" tabindex="-1"></a>                <span class="at">overwrite=</span><span class="cn">TRUE</span>)</span>
+<span id="cb48-170"><a href="#cb48-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-171"><a href="#cb48-171" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb48-172"><a href="#cb48-172" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(UML_data)</span>
+<span id="cb48-173"><a href="#cb48-173" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb48-174"><a href="#cb48-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-175"><a href="#cb48-175" aria-hidden="true" tabindex="-1"></a><span class="do">### Test runs</span></span>
+<span id="cb48-176"><a href="#cb48-176" aria-hidden="true" tabindex="-1"></a><span class="co"># ## for mills 1 to 10</span></span>
+<span id="cb48-177"><a href="#cb48-177" aria-hidden="true" tabindex="-1"></a><span class="co"># print(Sys.time())</span></span>
+<span id="cb48-178"><a href="#cb48-178" aria-hidden="true" tabindex="-1"></a><span class="co"># T1 &lt;- Sys.time()</span></span>
+<span id="cb48-179"><a href="#cb48-179" aria-hidden="true" tabindex="-1"></a><span class="co"># UML_1_10 &lt;- Predict_BII(UML_data = UML[1:10,], </span></span>
+<span id="cb48-180"><a href="#cb48-180" aria-hidden="true" tabindex="-1"></a><span class="co">#                     Buffer_mill = 25000, </span></span>
+<span id="cb48-181"><a href="#cb48-181" aria-hidden="true" tabindex="-1"></a><span class="co">#                     WC_layer = World_Cover_2021_crop,</span></span>
+<span id="cb48-182"><a href="#cb48-182" aria-hidden="true" tabindex="-1"></a><span class="co">#                     FI_layer = Forest_integrity_crop, </span></span>
+<span id="cb48-183"><a href="#cb48-183" aria-hidden="true" tabindex="-1"></a><span class="co">#                     Aggregate_Factor = 10,</span></span>
+<span id="cb48-184"><a href="#cb48-184" aria-hidden="true" tabindex="-1"></a><span class="co">#                     abundance_model = abundance_model_treecover, </span></span>
+<span id="cb48-185"><a href="#cb48-185" aria-hidden="true" tabindex="-1"></a><span class="co">#                     similarity_model = similarity_model_tree_cover)</span></span>
+<span id="cb48-186"><a href="#cb48-186" aria-hidden="true" tabindex="-1"></a><span class="co"># print(Sys.time())</span></span>
+<span id="cb48-187"><a href="#cb48-187" aria-hidden="true" tabindex="-1"></a><span class="co"># T2 &lt;- Sys.time()</span></span>
+<span id="cb48-188"><a href="#cb48-188" aria-hidden="true" tabindex="-1"></a><span class="co"># print(T1-T2)</span></span>
+<span id="cb48-189"><a href="#cb48-189" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb48-190"><a href="#cb48-190" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(UML_1_10, '../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_1_10.csv', row.names=FALSE)</span></span>
+<span id="cb48-191"><a href="#cb48-191" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb48-192"><a href="#cb48-192" aria-hidden="true" tabindex="-1"></a><span class="co"># ## run on the next 40 mill locations for the experimental output dataset</span></span>
+<span id="cb48-193"><a href="#cb48-193" aria-hidden="true" tabindex="-1"></a><span class="co"># print(Sys.time())</span></span>
+<span id="cb48-194"><a href="#cb48-194" aria-hidden="true" tabindex="-1"></a><span class="co"># T1 &lt;- Sys.time()</span></span>
+<span id="cb48-195"><a href="#cb48-195" aria-hidden="true" tabindex="-1"></a><span class="co"># UML_11_50 &lt;- Predict_BII(UML_data = UML[11:50,], </span></span>
+<span id="cb48-196"><a href="#cb48-196" aria-hidden="true" tabindex="-1"></a><span class="co">#                     Buffer_mill = 25000, </span></span>
+<span id="cb48-197"><a href="#cb48-197" aria-hidden="true" tabindex="-1"></a><span class="co">#                     WC_layer = World_Cover_2021_crop,</span></span>
+<span id="cb48-198"><a href="#cb48-198" aria-hidden="true" tabindex="-1"></a><span class="co">#                     FI_layer = Forest_integrity_crop, </span></span>
+<span id="cb48-199"><a href="#cb48-199" aria-hidden="true" tabindex="-1"></a><span class="co">#                     Aggregate_Factor = 10,</span></span>
+<span id="cb48-200"><a href="#cb48-200" aria-hidden="true" tabindex="-1"></a><span class="co">#                     abundance_model = abundance_model_treecover, </span></span>
+<span id="cb48-201"><a href="#cb48-201" aria-hidden="true" tabindex="-1"></a><span class="co">#                     similarity_model = similarity_model_tree_cover)</span></span>
+<span id="cb48-202"><a href="#cb48-202" aria-hidden="true" tabindex="-1"></a><span class="co"># print(Sys.time())</span></span>
+<span id="cb48-203"><a href="#cb48-203" aria-hidden="true" tabindex="-1"></a><span class="co"># T2 &lt;- Sys.time()</span></span>
+<span id="cb48-204"><a href="#cb48-204" aria-hidden="true" tabindex="-1"></a><span class="co"># print(T1-T2) </span></span>
+<span id="cb48-205"><a href="#cb48-205" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(UML_11_50, '../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_11_50.csv', row.names=FALSE)</span></span>
+<span id="cb48-206"><a href="#cb48-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-207"><a href="#cb48-207" aria-hidden="true" tabindex="-1"></a><span class="do">## running on 197 mills (correspond to the most recent 2024-H2 report from Danone)</span></span>
+<span id="cb48-208"><a href="#cb48-208" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">Sys.time</span>())</span>
+<span id="cb48-209"><a href="#cb48-209" aria-hidden="true" tabindex="-1"></a>T1 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb48-210"><a href="#cb48-210" aria-hidden="true" tabindex="-1"></a>UML_2021 <span class="ot">&lt;-</span> <span class="fu">Predict_BII</span>(<span class="at">UML_data =</span> UML_subset, </span>
+<span id="cb48-211"><a href="#cb48-211" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Buffer_mill =</span> <span class="dv">25000</span>, </span>
+<span id="cb48-212"><a href="#cb48-212" aria-hidden="true" tabindex="-1"></a>                     <span class="at">WC_layer =</span> World_Cover_2021_crop,</span>
+<span id="cb48-213"><a href="#cb48-213" aria-hidden="true" tabindex="-1"></a>                     <span class="at">FI_layer =</span> Forest_integrity_crop, </span>
+<span id="cb48-214"><a href="#cb48-214" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Aggregate_Factor =</span> <span class="dv">10</span>,</span>
+<span id="cb48-215"><a href="#cb48-215" aria-hidden="true" tabindex="-1"></a>                     <span class="at">abundance_model =</span> abundance_model_treecover, </span>
+<span id="cb48-216"><a href="#cb48-216" aria-hidden="true" tabindex="-1"></a>                     <span class="at">similarity_model =</span> similarity_model_tree_cover)</span>
+<span id="cb48-217"><a href="#cb48-217" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">Sys.time</span>())</span>
+<span id="cb48-218"><a href="#cb48-218" aria-hidden="true" tabindex="-1"></a>T2 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb48-219"><a href="#cb48-219" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(T1<span class="sc">-</span>T2) </span>
+<span id="cb48-220"><a href="#cb48-220" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(UML_2021, <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_197mills_2021.csv'</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb48-221"><a href="#cb48-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-222"><a href="#cb48-222" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">Sys.time</span>())</span>
+<span id="cb48-223"><a href="#cb48-223" aria-hidden="true" tabindex="-1"></a>T1 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb48-224"><a href="#cb48-224" aria-hidden="true" tabindex="-1"></a>UML_2020 <span class="ot">&lt;-</span> <span class="fu">Predict_BII</span>(<span class="at">UML_data =</span> UML_subset, </span>
+<span id="cb48-225"><a href="#cb48-225" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Buffer_mill =</span> <span class="dv">25000</span>, </span>
+<span id="cb48-226"><a href="#cb48-226" aria-hidden="true" tabindex="-1"></a>                     <span class="at">WC_layer =</span> World_Cover_2020_crop,</span>
+<span id="cb48-227"><a href="#cb48-227" aria-hidden="true" tabindex="-1"></a>                     <span class="at">FI_layer =</span> Forest_integrity_crop, </span>
+<span id="cb48-228"><a href="#cb48-228" aria-hidden="true" tabindex="-1"></a>                     <span class="at">Aggregate_Factor =</span> <span class="dv">10</span>,</span>
+<span id="cb48-229"><a href="#cb48-229" aria-hidden="true" tabindex="-1"></a>                     <span class="at">abundance_model =</span> abundance_model_treecover, </span>
+<span id="cb48-230"><a href="#cb48-230" aria-hidden="true" tabindex="-1"></a>                     <span class="at">similarity_model =</span> similarity_model_tree_cover)</span>
+<span id="cb48-231"><a href="#cb48-231" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">Sys.time</span>())</span>
+<span id="cb48-232"><a href="#cb48-232" aria-hidden="true" tabindex="-1"></a>T2 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb48-233"><a href="#cb48-233" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(T1<span class="sc">-</span>T2) </span>
+<span id="cb48-234"><a href="#cb48-234" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(UML_2020, <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_197mills_2020.csv'</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb48-235"><a href="#cb48-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-236"><a href="#cb48-236" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Analysing the results: plotting Median and Sum BII distributions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>Set1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_1_10.csv'</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>Set2 <span class="ot">&lt;-</span>  <span class="fu">read.csv</span>(<span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_11_50.csv'</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>Set <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Set1, Set2)</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(Set, <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_all.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>GlobalMedian_median <span class="ot">&lt;-</span>  <span class="fu">median</span>(Set<span class="sc">$</span>Median_BII)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>GlobalMedian_sum <span class="ot">&lt;-</span>  <span class="fu">median</span>(Set<span class="sc">$</span>Sum_BII)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Set, <span class="fu">aes</span>(Median_BII)) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> GlobalMedian_median, <span class="at">col=</span><span class="st">'red'</span>, <span class="at">lty=</span><span class="st">'dashed'</span>) <span class="sc">+</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtitle</span>(<span class="st">'Distribution of median BBI across mills'</span>),</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Set, <span class="fu">aes</span>(Sum_BII)) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> GlobalMedian_sum, <span class="at">col=</span><span class="st">'red'</span>, <span class="at">lty=</span><span class="st">'dashed'</span>) <span class="sc">+</span></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtitle</span>(<span class="st">'Distribution of sum BBI  across mills'</span>)</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>Example <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/PO1000001342.tif"</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Example<span class="sc">*</span><span class="dv">100</span>, <span class="at">main=</span><span class="st">'BII (% difference from primary vegetation baseline) </span><span class="sc">\n</span><span class="st">- Mill ID: PO1000000052'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-27-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="conclusions" class="level1">
+<h1>4. CONCLUSIONS</h1>
+<p>We found significant biodiversity declines in oil-palm plantations compared to primary vegetation. Total abundance declined by an average 15%, and similarity by an average 45%. We provide BII for 197 mills in Indonesia and Malaysia, considering a 25km buffer area around the mills.</p>
+<p>Challenges to think further about: - how to better align PREDICTS categories with EO-products on land use and land use intensity, including: –&gt; how to get proxies for land use intensity –&gt; how to better represent primary and secondary vegetation in world cover maps.</p>
+<hr>
+<p>Time required to compile the document:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>TimeEnd <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(TimeEnd<span class="sc">-</span>TimeStart)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Time difference of 1.201773 mins</code></pre>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
