@@ -1,0 +1,9 @@
+earthengine-api
+numpy
+matplotlib
+rasterio
+fiona
+geopandas
+shapely
+cartopy
+pdfplumber

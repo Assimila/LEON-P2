@@ -1,0 +1,35 @@
+# Secrets / local env
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Python cache
+__pycache__/
+.pytest_cache/
+*.pyc
+
+# Data-heavy geospatial and generated artifacts
+*.tif
+*.tiff
+*.vrt
+*.csv
+*.parquet
+*.gpkg
+*.shp
+*.dbf
+*.prj
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.aux.xml
+mosaics/
+figures/
+outputs/
+
+# OS/editor noise
+.DS_Store
+.idea/
