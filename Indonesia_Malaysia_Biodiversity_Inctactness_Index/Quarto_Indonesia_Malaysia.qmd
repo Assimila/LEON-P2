@@ -888,6 +888,7 @@ UML_subset <- read.csv('../../data/supply_shed_data/matched_mills_mill-and-plant
 Predict_BII <- function(UML_data, 
                         Buffer_mill,
                         WC_layer,
+                        Year,
                         FI_layer,
                         Aggregate_Factor,
                         abundance_model=abundance_model_treecover,
@@ -945,10 +946,15 @@ Predict_BII <- function(UML_data,
     #browser()
     
     ## crop and mask the land cover layer and the forest integrity layer
+    Extent_inter <- relate(WC_layer, coordinates_mills_buffer, "intersects")
+    if(Extent_inter){
     WC_cropped <- crop(WC_layer, coordinates_mills_buffer)
     WC_cropped_ag <- aggregate(WC_cropped, Aggregate_Factor, fun='modal')
     WC_cropped_masked <- mask(WC_cropped_ag, coordinates_mills_buffer)
-    
+    } else{
+      next
+    }
+
     FI_crop <- crop(FI_layer, WC_cropped_masked)
     FI_crop <- project(x = FI_crop, y = WC_cropped_masked)
     FI_mask <- mask(FI_crop, WC_cropped_masked)
@@ -1039,7 +1045,7 @@ Predict_BII <- function(UML_data,
     writeRaster(
       Raster_outout,
       paste0(
-        '../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/13_02_2026/',
+        '../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/13_02_2026/', Year, '/',
         UML_data$UML.ID[i],
         '.tif'
       ),
@@ -1088,6 +1094,7 @@ T1 <- Sys.time()
 UML_2021 <- Predict_BII(UML_data = UML_subset, 
                      Buffer_mill = 25000, 
                      WC_layer = World_Cover_2021_crop,
+                     Year = 2021,
                      FI_layer = Forest_integrity_crop, 
                      Aggregate_Factor = 10,
                      abundance_model = abundance_model_treecover, 
@@ -1102,6 +1109,7 @@ T1 <- Sys.time()
 UML_2020 <- Predict_BII(UML_data = UML_subset, 
                      Buffer_mill = 25000, 
                      WC_layer = World_Cover_2020_crop,
+                     Year = 2020,
                      FI_layer = Forest_integrity_crop, 
                      Aggregate_Factor = 10,
                      abundance_model = abundance_model_treecover, 
@@ -1120,8 +1128,10 @@ Analysing the results: plotting Median and Sum BII distributions.
 ```{r}
 #| output: false 
 #| echo: true 
-Set1 <- read.csv('../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_1_10.csv')
-Set2 <-  read.csv('../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_11_50.csv')
+Set1 <- read.csv('../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_197mills_2020.csv') %>% 
+  mutate(Year=2020)
+Set2 <-  read.csv('../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_197mills_2021.csv') %>% 
+  mutate(Year=2021)
 
 Set <- rbind(Set1, Set2)
 write.csv(Set, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_all.csv')
@@ -1131,6 +1141,8 @@ write.csv(Set, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables
 #| output: true 
 #| echo: true 
 
+## plotting distributions
+
 GlobalMedian_median <-  median(Set$Median_BII)
 GlobalMedian_sum <-  median(Set$Sum_BII)
 
@@ -1138,27 +1150,78 @@ ggarrange(
 ggplot(Set, aes(Median_BII)) + geom_histogram() + 
   theme_bw() + 
   geom_vline(xintercept = GlobalMedian_median, col='red', lty='dashed') +
-ggtitle('Distribution of median BBI across mills'),
+ggtitle('Distribution of median BBI across mills') +
+  facet_wrap(~Year) + xlab('Median BII'),
 
 ggplot(Set, aes(Sum_BII)) + geom_histogram() + 
   theme_bw() + 
   geom_vline(xintercept = GlobalMedian_sum, col='red', lty='dashed') +
-ggtitle('Distribution of sum BBI  across mills')
+ggtitle('Distribution of sum BBI  across mills') +
+  facet_wrap(~Year)+ xlab('Sum BII'), 
+nrow=2
 )
 
-Example <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/PO1000001342.tif")
-plot(Example*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052')
 ```
 
-# 4. CONCLUSIONS 
+```{r}
+#| output: true 
+#| echo: true 
 
-We found significant biodiversity declines in oil-palm plantations compared to primary vegetation. Total abundance declined by an average 15%, and similarity by an average 45%.
-We provide BII for 197 mills in Indonesia and Malaysia, considering a 25km buffer area around the mills. 
+## changes from 2020 to 2021 in median BII
+Medians2020 <- Set$Median_BII[Set$Year==2020]
+Medians2021 <- Set$Median_BII[Set$Year==2021]
+MediansYears <- as.data.frame(cbind(Medians2020, Medians2021))
+MediansYears$delta <-  MediansYears$Medians2020 - MediansYears$Medians2021    
+MediansYears$UML_ID <-  Set$UML.ID[Set$Year==2020]
 
-Challenges to think further about:
-- how to better align PREDICTS categories with EO-products on land use and land use intensity, including: 
---> how to get proxies for land use intensity
---> how to better represent primary and secondary vegetation in world cover maps.
+## changes from 2020 to 2021 in sum BII
+Sum2020 <- Set$Sum_BII[Set$Year==2020]
+Sum2021 <- Set$Sum_BII[Set$Year==2021]
+SumYears <- as.data.frame(cbind(Sum2020, Sum2021))
+SumYears$delta <-  SumYears$Sum2020 - SumYears$Sum2021    
+SumYears$UML_ID <-  Set$UML.ID[Set$Year==2020]
+
+ggarrange(
+ggplot(MediansYears, aes(Medians2020*100, Medians2021*100)) + 
+  geom_point() + 
+  theme_bw() + 
+  geom_abline(slope = 1, intercept = 0, col='red', lty='dashed') +
+ggtitle('Median BBI across mills (2020 versus 2021)')  +
+  xlab('Median BII - 2020') + ylab( xlab('Median BII - 2021'))
+,
+ggplot(SumYears, aes(Sum2020*100, Sum2021*100)) + 
+  geom_point() + 
+  theme_bw() + 
+  geom_abline(slope = 1, intercept = 0, col='red', lty='dashed') +
+ggtitle('Sum BBI across mills (2020 versus 2021)')  +
+  xlab('Sum BII - 2020') + ylab( xlab('Sum BII - 2021'))
+)
+
+```
+
+```{r}
+#| output: true 
+#| echo: true 
+
+## plotting example
+# Example2020 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/13_02_2026/2020/PO1000000169.tif")
+# 
+# Example2021 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/13_02_2026/2021/PO1000000169.tif")
+# 
+# plot(Example2020*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052')
+# 
+# plot(Example2021*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052')
+
+Example2020 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/13_02_2026/2020/PO1000000052.tif")
+
+plot(Example2020*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052; 2020', cex.main=0.8)
+```
+
+# 4. CONCLUSIONS
+
+We found significant biodiversity declines in oil-palm plantations compared to primary vegetation. Total abundance declined by an average 15%, and similarity by an average 45%. We provide BII for 197 mills in Indonesia and Malaysia, considering a 25km buffer area around the mills.
+
+Challenges to think further about: - how to better align PREDICTS categories with EO-products on land use and land use intensity, including: --\> how to get proxies for land use intensity --\> how to better represent primary and secondary vegetation in world cover maps.
 
 ------------------------------------------------------------------------
 
