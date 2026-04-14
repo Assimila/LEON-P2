@@ -709,96 +709,366 @@ Calculate_Bray_Curtis_dissimilarity <-
 ###############################################################################################
 ## 6. Defining functions for plotting PREDICTS results: model effects
 
-Predict_effects <- function(new_data, 
+# Predict_effects <- function(new_data, 
+#                             Model, 
+#                             rescale, 
+#                             LU_n, 
+#                             backtransform=c('poisson', 'log+1', 'logit', 'asin_sqrt', 'sqrt'),
+#                             A_logit) {
+#   
+#   preds <- sapply(X=1:100, FUN=function(i){
+#     
+#     coefs <- mvrnorm(n = 1, mu = fixef(object=Model), Sigma = vcov(object=Model))
+#     mm <- model.matrix(terms(Model), new_data)
+#     
+#     # drop coefs that couldn't be estimated
+#     #print(setdiff(colnames(mm), names(coefs)))
+#     to_drop <- setdiff(colnames(mm), names(coefs))
+#     if(length(to_drop)!=0){
+#       mm <- as.data.frame(mm)
+#       mm <- mm[, -which(colnames(mm) %in% to_drop)]
+#       mm <- as.matrix(mm)
+#     }
+#     
+#     # drop coefs for which we don't want predictions
+#     to_drop2 <- setdiff(names(coefs), colnames(mm))
+#     if(length(to_drop2)!=0){
+#       coefs <- coefs[-which(names(coefs) %in% to_drop2)]
+#     }
+#     y <- mm %*% coefs
+#     
+#     # backtransforming
+#     if(backtransform=='poisson'){    
+#       y <- exp(y)
+#     }
+#     
+#     if(backtransform=='log+1'){    
+#       y <- exp(y)-1
+#     }
+#     
+#     if(backtransform=='logit'){    
+#       
+#       inv_logit <- function(f, a){
+#         a <- (1-2*a)
+#         (a*(1+exp(f))+(exp(f)-1))/(2*a*(1+exp(f)))
+#       }
+#       y <- inv_logit(y, a=A_logit)
+#     }
+#     
+#     if(backtransform=='asin_sqrt'){    
+#       y <- (sin(y))^2
+#     }
+#     
+#     
+#     if(backtransform=='sqrt'){    
+#       y <- y^2
+#     }
+#     
+#     
+#     
+#     # rescaling
+#     if(rescale){
+#       
+#       ## set reference land use at 100%, others at value/ref*100%
+#       
+#       if(LU_n!=nrow(new_data)){
+#         # for loop to rescale all values
+#         N <- (nrow(new_data)/LU_n-1)
+#         for(i in 1:N){
+#           seq <- seq + LU_n
+#           y[seq] <- y[seq]/y[seq[1]]*100
+#         }
+#       }
+#       
+#       
+#       if(LU_n==nrow(new_data)){
+#         y <- y/y[1]*100
+#       }
+#       # seq <- 1:LU_n
+#       # y[seq] <- y[seq]/y[seq[1]]*100
+#       
+#     }
+#     
+#     return(y)
+#   })
+#   
+#   preds <- data.frame(Median=apply(X=preds, MARGIN=1, FUN=median),
+#                       Upper=apply(X=preds, MARGIN=1, FUN=quantile, probs=0.975),
+#                       Lower=apply(X=preds, MARGIN=1, FUN=quantile, probs=0.025))
+#   preds <- cbind(preds, new_data)
+#   return(preds)
+#   
+# }
+
+Predict_effects_impr <- function(new_data, 
                             Model, 
-                            rescale, 
-                            LU_n, 
-                            backtransform=c('poisson', 'log+1', 'logit', 'asin_sqrt', 'sqrt'),
-                            A_logit) {
+                            rescale = FALSE, 
+                            LU_n = NULL, 
+                            backtransform = c('poisson', 'log+1', 'logit', 'asin_sqrt', 'sqrt'),
+                            A_logit = NULL,
+                            nsim = 100) {
   
-  preds <- sapply(X=1:100, FUN=function(i){
-    
-    coefs <- mvrnorm(n = 1, mu = fixef(object=Model), Sigma = vcov(object=Model))
-    mm <- model.matrix(terms(Model), new_data)
-    
-    # drop coefs that couldn't be estimated
-    #print(setdiff(colnames(mm), names(coefs)))
-    to_drop <- setdiff(colnames(mm), names(coefs))
-    if(length(to_drop)!=0){
-      mm <- as.data.frame(mm)
-      mm <- mm[, -which(colnames(mm) %in% to_drop)]
-      mm <- as.matrix(mm)
-    }
-    
-    # drop coefs for which we don't want predictions
-    to_drop2 <- setdiff(names(coefs), colnames(mm))
-    if(length(to_drop2)!=0){
-      coefs <- coefs[-which(names(coefs) %in% to_drop2)]
-    }
-    y <- mm %*% coefs
-    
-    # backtransforming
-    if(backtransform=='poisson'){    
-      y <- exp(y)
-    }
-    
-    if(backtransform=='log+1'){    
-      y <- exp(y)-1
-    }
-    
-    if(backtransform=='logit'){    
-      
-      inv_logit <- function(f, a){
-        a <- (1-2*a)
-        (a*(1+exp(f))+(exp(f)-1))/(2*a*(1+exp(f)))
-      }
-      y <- inv_logit(y, a=A_logit)
-    }
-    
-    if(backtransform=='asin_sqrt'){    
-      y <- (sin(y))^2
-    }
-    
-    
-    if(backtransform=='sqrt'){    
-      y <- y^2
-    }
-    
-    
-    
-    # rescaling
-    if(rescale){
-      
-      ## set reference land use at 100%, others at value/ref*100%
-      
-      if(LU_n!=nrow(new_data)){
-        # for loop to rescale all values
-        N <- (nrow(new_data)/LU_n-1)
-        for(i in 1:N){
-          seq <- seq + LU_n
-          y[seq] <- y[seq]/y[seq[1]]*100
-        }
-      }
-      
-      
-      if(LU_n==nrow(new_data)){
-        y <- y/y[1]*100
-      }
-      # seq <- 1:LU_n
-      # y[seq] <- y[seq]/y[seq[1]]*100
-      
-    }
-    
-    return(y)
-  })
+  backtransform <- match.arg(backtransform)
   
+  ## --- 1. Align factor levels with model ---
+  mf <- model.frame(Model)
+  
+  for (v in names(mf)) {
+    if (is.factor(mf[[v]]) && v %in% names(new_data)) {
+      new_data[[v]] <- factor(new_data[[v]], levels = levels(mf[[v]]))
+    }
+  }
+  
+  ## --- 2. Build model matrix ---
+  mm <- model.matrix(delete.response(terms(Model)), new_data)
+  
+  ## --- sanity check ---
+  if (ncol(mm) != length(fixef(Model))) {
+    stop("Model matrix and coefficients do not match. Check factor levels.")
+  }
+  
+  ## --- 3. Draw nsim coefficient simulations ---
+  coef_sims <- MASS::mvrnorm(
+    n = nsim, 
+    mu = fixef(Model), 
+    Sigma = vcov(Model)
+  )
+  
+  ## --- 4. Linear predictor, matrix multiplication ---
+  preds <- mm %*% t(coef_sims)   # (n_obs × nsim)
+  
+  ## --- 5. Backtransforming ---
+  inv_logit <- function(f, a){
+    a <- (1 - 2 * a)
+    (a * (1 + exp(f)) + (exp(f) - 1)) / (2 * a * (1 + exp(f)))
+  }
+  
+  preds <- switch(backtransform,
+                  poisson   = exp(preds),
+                  `log+1`   = exp(preds) - 1,
+                  logit     = inv_logit(preds, A_logit),
+                  asin_sqrt = (sin(preds))^2,
+                  sqrt      = preds^2
+  )
+  
+  ## --- 6. Rescaling ---
+  if (rescale) {
+    
+    if (is.null(LU_n)) stop("LU_n must be provided when rescale = TRUE")
+    
+    if (LU_n == nrow(new_data)) {
+      preds <- sweep(preds, 2, preds[1, ], "/") * 100
+    # } else {
+    #   groups <- split(seq_len(nrow(preds)), 
+    #                   ceiling(seq_len(nrow(preds)) / LU_n))
+    #   
+    #   for (g in groups) {
+    #     preds[g, ] <- sweep(preds[g, ], 2, preds[g[1], ], "/") * 100
+    #   }
+    # }
+    } else{
+    ## need to define rescaling within land-use intensity groups -- 
+      ## here, no need because we don't consider the interaction between land use and land use intensity; only the main effect of intensity.
+    print('need to define rescaling within subgroups')
+    }
+    }
+  
+  ## --- 6. Preparing output data ---
   preds <- data.frame(Median=apply(X=preds, MARGIN=1, FUN=median),
                       Upper=apply(X=preds, MARGIN=1, FUN=quantile, probs=0.975),
-                      Lower=apply(X=preds, MARGIN=1, FUN=quantile, probs=0.025))
-  preds <- cbind(preds, new_data)
-  return(preds)
+                      Lower=apply(X=preds, MARGIN=1, FUN=quantile, probs=0.025)) %>%
+    tibble::rownames_to_column(var = "id")
   
+  new_data <- new_data %>%
+    tibble::rownames_to_column(var = "id")
+  
+  preds <- new_data %>%
+    left_join(preds, by = "id") 
+  
+  return(preds)  # matrix: rows = observations, cols = simulations
 }
 
+
+###############################################################################################
+## 7. Defining functions for predicting BII around mills
+
+Predict_BII <- function(UML_data, 
+                        Buffer_mill,
+                        WC_layer,
+                        Year,
+                        FI_layer,
+                        Aggregate_Factor,
+                        abundance_model=abundance_model_SV_treecover,
+                        similarity_model=similarity_model_tree_cover, 
+                        Path_raster_out){
+  
+  
+  ## abundance predictions at the grid cell level -- set the reference level: for primary with 100% forest cover
+  REF_Level_abundance <- 
+    Predict_effects_impr(
+      new_data = expand.grid(
+        LandUse = c("Primary vegetation",
+                    "Cropland"),
+        LU_CCI_50 = 100),
+      Model = abundance_model_SV_treecover,
+      rescale = FALSE,
+      backtransform = 'sqrt'
+    )
+  
+  REF_Level_abundance <- REF_Level_abundance$Median[1]
+  
+  ## similarity predictions at the grid cell level -- set the reference level: for primary with 100% forest cover
+  REF_Level_similarity <-
+    Predict_effects_impr(
+      new_data = expand.grid(
+        contrast = c(
+          "Primary vegetation-Primary vegetation",
+          "Primary vegetation-Cropland"),
+        log10_geodist = 0,
+        LU_CCI_50 = 100
+      ),
+      Model = similarity_model_tree_cover,
+      rescale = FALSE,
+      backtransform = 'logit',
+      A_logit = 0.001
+    )
+  REF_Level_similarity <- REF_Level_similarity$Median[1]
+  
+  ## initialise columns to store results
+  UML_data$Median_BII <- NA
+  UML_data$Sum_BII <- NA
+  
+  ## loop over mills and derive BII for each mill
+  for (i in 1:nrow(UML_data)){
+    
+    gc()
+    
+    ## get mill coordinates and buffer
+    coordinates_mills <-
+      vect(matrix(c(
+        as.numeric(UML_data$Longitude[i]),
+        as.numeric(UML_data$Latitude[i])
+      ), ncol = 2),
+      crs = "+proj=longlat +datum=WGS84")
+    
+    coordinates_mills_buffer <- buffer(coordinates_mills, width=Buffer_mill)
+    
+    ## crop and mask the land cover layer and the forest integrity layer
+    Extent_inter <-
+      relate(WC_layer, coordinates_mills_buffer, "intersects")
+    if (Extent_inter) {
+      WC_cropped <- crop(WC_layer, coordinates_mills_buffer)
+      WC_cropped_ag <-
+        aggregate(WC_cropped, Aggregate_Factor, fun = 'modal')
+      WC_cropped_masked <-
+        mask(WC_cropped_ag, coordinates_mills_buffer)
+    } else{
+      next
+    }
+    
+    FI_crop <- crop(FI_layer, WC_cropped_masked)
+    FI_crop <- project(x = FI_crop, y = WC_cropped_masked)
+    FI_mask <- mask(FI_crop, WC_cropped_masked)
+    
+    ## get the values of these layers, as dataframe for operations
+    template <- as.data.frame(values(WC_cropped_masked))
+    FI <- as.data.frame(values(FI_mask))
+    template <- cbind(template, FI)
+    colnames(template) <- c('WC_code', 'forest_integrity')
+    
+    ## encode the land uses -- here, there are pretty strong assumptions in terms of matching categories!
+    template$LandUse <- NA
+    template$LandUse[template$WC_code == 10 &
+                       template$forest_integrity >= 7] <- 'Primary vegetation'
+    template$LandUse[template$WC_code == 10 &
+                       template$forest_integrity < 7 &
+                       template$forest_integrity >= 5] <- 'Mature secondary vegetation'
+    template$LandUse[template$WC_code == 10 &
+                       template$forest_integrity < 5 &
+                       template$forest_integrity >= 3] <- 'Intermediate secondary vegetation'
+    template$LandUse[template$WC_code == 10 &
+                       template$forest_integrity < 3 &
+                       template$forest_integrity > 0] <- 'Young secondary vegetation'
+    template$LandUse[template$WC_code == 20] <- 'Young secondary vegetation'
+    template$LandUse[template$WC_code == 30] <- 'Young secondary vegetation'
+    template$LandUse[template$WC_code == 60] <- 'Young secondary vegetation'
+    template$LandUse[template$WC_code == 40] <- 'Cropland'
+    template$LandUse[template$WC_code == 11] <- 'Oil palm plantation'
+    
+    template$LandUse[template$WC_code == 50] <- 'Urban'
+    template$LandUse[template$WC_code == 70] <- 'Snow and ice'
+    template$LandUse[template$WC_code == 80] <- 'Permanent water bodies'
+    template$LandUse[template$WC_code == 90] <- 'Herbaceous wetland'
+    template$LandUse[template$WC_code == 95] <- 'Mangroves'
+    template$LandUse[template$WC_code == 100] <- 'Moss and lichen'
+    
+    template$contrast[!is.na(template$LandUse)] <- paste('Primary vegetation', template$LandUse[!is.na(template$LandUse)], sep='-' )
+    
+    ## add % tree cover as LU_CCI_50 ## WC code 10 = tree cover
+    template$LU_CCI_50 <- nrow(template[which(template$WC_code==10),])/nrow(template)*100
+    
+    ## now predict for abundance at the grid cell level
+    preds_abundance <-
+      Predict_effects_impr(
+        new_data = template,
+        Model = abundance_model_SV_treecover,
+        rescale = FALSE,
+        backtransform = 'sqrt'
+      )
+    
+    # template <- template %>%
+    #   tibble::rownames_to_column(var = "id")
+    # 
+    # template <- template %>%
+    #   left_join(preds_abundance[, c('Median', 'id')], by = "id") 
+    # 
+    # template$abundance_predictions_rescaled <-
+    #   template$Median / REF_Level_abundance
+    # 
+    # template <- template %>% 
+    #   dplyr::select(-Median)
+    
+    ## now predict for similarity at the grid cell level
+    
+    template$log10_geodist <- 0
+    
+    preds_similarity <-
+      Predict_effects_impr(
+        new_data = template,
+        Model = similarity_model_tree_cover,
+        rescale = FALSE,
+        backtransform = 'logit',
+        A_logit = 0.001
+      )
+    
+    # template <- template %>%
+    #   left_join(preds_similarity[, c('Median', 'id')], by = "id") 
+    # 
+    # template$similarity_predictions_rescaled <-
+    #   template$Median / REF_Level_similarity
+    
+    BII <- (preds_abundance$Median/REF_Level_abundance) * (preds_similarity$Median/REF_Level_similarity)
+    
+    ## make a copy of out raster and allocate BII values
+    Raster_outout <- WC_cropped_masked
+    values(Raster_outout) <- BII
+    
+    UML_data$Median_BII[i] <- median(BII, na.rm=TRUE)
+    UML_data$Sum_BII[i] <- sum(BII, na.rm=TRUE)
+    
+    print(paste('finished row', i, 'of', nrow(UML_data)))
+    
+    writeRaster(
+      Raster_outout,
+      paste0(Path_raster_out, Year, '/',
+        UML_data$UML.ID[i],
+        '.tif'
+      ),
+
+      overwrite=TRUE)
+    
+  }
+  return(UML_data)
+}
 
 

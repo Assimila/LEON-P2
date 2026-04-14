@@ -136,7 +136,7 @@ if(!file.exists("../../data/supply_shed_data/worldcover_2021_cropped.tif")) {
 #| output: false 
 #| echo: true 
 #| label: loading and preparing the forest integrity layer (this is for 2019)
-
+## this layer is from https://www.nature.com/articles/s41467-020-19493-3#Sec4
 Forest_integrity <- rast('../../data/Forest_integrity/flii_Asia.tif')
 Forest_integrity_crop <-
     crop(Forest_integrity, Indonesia_Malaysia_Map)
@@ -560,7 +560,7 @@ Bray_Cutis_dissimilarity_vegan$log10_geodist <- log10(Bray_Cutis_dissimilarity_v
 
 # 2. ANALYSES AND PREDICTIVE MODEL FITTING
 
-We have now obtained a dataset containing biodiversity records and metrcis for Malaysia and Indonesia, specifically sampled in primary and secondary vegetation, oil-palm plantations, and other land-use types. Now we fit the predictive models.
+We have now obtained a dataset containing biodiversity records and metrics for Malaysia and Indonesia, specifically sampled in primary and secondary vegetation, oil-palm plantations, and other land-use types. Now we fit the predictive statistical models.
 
 ## 2.1. Total-abundance models
 
@@ -572,6 +572,7 @@ We first apply some transformations to the total rescaled abundance data to impr
 All_sites$sqrt_total_abundance_rescaled <- sqrt(All_sites$total_abundance_rescaled)
 #hist(All_sites$sqrt_total_abundance_rescaled )
 
+## we set the % share of CII LU to 0 where it is NA (the LU was not detected)
 All_sites$LU_CCI_50[is.na(All_sites$LU_CCI_50)] <- 0
 ```
 
@@ -583,7 +584,7 @@ Now we fit a mixed-effects model to investigate whether oil palm age affects abu
 #| echo: true 
 #plot(All_sites$sqrt_total_abundance_rescaled[All_sites$is_oil_palm_Danylo]~ All_sites$Median_age[All_sites$is_oil_palm_Danylo], pch=19) 
 
-## no effect of age on rescaled abundance in any of the models considered 
+## no effect of age on rescaled abundance in any of the following models considered 
 summary(lme4::lmer(formula = sqrt_total_abundance_rescaled ~ Median_age + (1|SS / SSB), data = All_sites[All_sites$is_oil_palm_Danylo, ]))
 summary(lme4::lmer(formula = sqrt_total_abundance_rescaled ~ MAD_age + (1 |SS / SSB), data = All_sites[All_sites$is_oil_palm_Danylo, ]))
 summary(lme4::lmer(formula = sqrt_total_abundance_rescaled ~ Age_LE_median + (1 |SS / SSB), data = All_sites[All_sites$is_oil_palm_Danylo, ]))
@@ -655,6 +656,26 @@ All_sites$LandUse <- factor(
 All_sites$LandUse <- droplevels(All_sites$LandUse)
 table(All_sites$LandUse)
 
+## We also create a  new land use category that distinguishes different secondary vegetation age
+All_sites$LandUse_SVcat <- as.character(All_sites$LandUse)
+All_sites$LandUse_SVcat[All_sites$LandUse=='Secondary vegetation'] <- as.character(All_sites$Predominant_land_use[All_sites$LandUse=='Secondary vegetation'])
+All_sites$LandUse_SVcat <- factor(
+  All_sites$LandUse_SVcat,
+  levels = c(
+    "Primary vegetation",
+    "Mature secondary vegetation",
+    "Intermediate secondary vegetation",
+    "Young secondary vegetation",
+    "Secondary vegetation (indeterminate age)",
+    "Plantation forest",
+    'Oil palm plantation',
+    "Cropland")
+)
+
+table(All_sites$LandUse_SVcat)
+
+
+########################################## Models without secondary vegetation age
 ## first model with total rescaled abundance
 abundance_model <- lme4::lmer(formula = sqrt_total_abundance_rescaled ~ LandUse  + (1|SS/SSB), data=All_sites)
 summary(abundance_model)
@@ -665,33 +686,253 @@ summary(abundance_model_treecover)
 
 ## which model fits better? the model with tree cover
 anova(abundance_model, abundance_model_treecover)
+
+## does adding oil palm plantation age make the model fit better? No
+abundance_model_treecover_2 <- lme4::lmer(formula = sqrt_total_abundance_rescaled ~ LandUse  + LU_CCI_50 + (1|SS/SSB), data=All_sites[!is.na(All_sites$Median_age),])
+
+abundance_model_treecover_age <- lme4::lmer(formula = sqrt_total_abundance_rescaled ~ LandUse  + LU_CCI_50 + Median_age + (1|SS/SSB), data=All_sites[!is.na(All_sites$Median_age),])
+
+anova(abundance_model_treecover_2, abundance_model_treecover_age)
+rm(abundance_model_treecover_2, abundance_model_treecover_age)
+
+## does adding land-use intensity make the model fit better?
+All_sites_LUI <- left_join(All_sites, unique(PREDICTS_Indonesia_Malaysia[, c('SSBS', 'Use_intensity')])) 
+All_sites_LUI <- subset(All_sites_LUI, !is.na(Use_intensity))
+All_sites_LUI <- subset(All_sites_LUI, Use_intensity!='Cannot decide')
+All_sites_LUI$Use_intensity <- droplevels(All_sites_LUI$Use_intensity)
+
+abundance_model_treecover_2 <- lme4::lmer(formula = sqrt_total_abundance_rescaled ~ LandUse  + LU_CCI_50 + (1|SS/SSB), data=All_sites_LUI)
+
+abundance_model_treecover_intensity <- lme4::lmer(formula = sqrt_total_abundance_rescaled ~ LandUse  + LU_CCI_50 + Use_intensity + (1|SS/SSB), data=All_sites_LUI)
+
+anova(abundance_model_treecover_2, abundance_model_treecover_intensity)
+rm(abundance_model_treecover_2)
+
+## including land-use intensity improves the model. 
+
+########################################## Models with secondary vegetation age
+## first model with total rescaled abundance
+abundance_model_SV <- lme4::lmer(formula = sqrt_total_abundance_rescaled ~ LandUse  + (1|SS/SSB), data=All_sites %>%
+      filter(LandUse_SVcat != 'Secondary vegetation (indeterminate age)') %>%
+      mutate(LandUse_SVcat=droplevels(LandUse_SVcat))%>% 
+      mutate(LandUse=LandUse_SVcat))
+
+## second model with total rescaled abundance
+# abundance_model_SV_treecover <-
+#   lme4::lmer(
+#     formula = sqrt_total_abundance_rescaled ~ LandUse_SVcat  + LU_CCI_50 + (1 |
+#                                                                               SS / SSB),
+#     data = All_sites %>%
+#       filter(LandUse_SVcat != 'Secondary vegetation (indeterminate age)') %>%
+#       mutate(LandUse_SVcat=droplevels(LandUse_SVcat))
+#   )
+
+abundance_model_SV_treecover <-
+  lme4::lmer(
+    formula = sqrt_total_abundance_rescaled ~ LandUse  + LU_CCI_50 + (1 |
+                                                                              SS / SSB),
+    data = All_sites %>%
+      filter(LandUse_SVcat != 'Secondary vegetation (indeterminate age)') %>%
+      mutate(LandUse_SVcat=droplevels(LandUse_SVcat)) %>% 
+      mutate(LandUse=LandUse_SVcat)
+  )
+
+## which model fits better? the model with tree cover fits better
+anova(abundance_model_SV, abundance_model_SV_treecover)
+
+## does adding land-use intensity make the model fit better?
+abundance_model_SV_treecover_2 <-
+  lme4::lmer(
+    formula = sqrt_total_abundance_rescaled ~ LandUse + LU_CCI_50 + (1 |
+                                                                             SS / SSB),
+    data = All_sites_LUI %>%
+       filter(LandUse_SVcat != 'Secondary vegetation (indeterminate age)') %>%
+      mutate(LandUse_SVcat=droplevels(LandUse_SVcat)) %>% 
+      mutate(LandUse=LandUse_SVcat)
+  )
+
+abundance_model_SV_treecover_intensity <-
+  lme4::lmer(
+    formula = sqrt_total_abundance_rescaled ~ LandUse  + LU_CCI_50 + Use_intensity + (1 |
+                                                                                              SS / SSB),
+    data = All_sites_LUI %>%
+      filter(LandUse_SVcat != 'Secondary vegetation (indeterminate age)') %>%
+      mutate(LandUse_SVcat=droplevels(LandUse_SVcat)) %>% 
+      mutate(LandUse=LandUse_SVcat)
+  )
+
+anova(abundance_model_SV_treecover_2, abundance_model_SV_treecover_intensity)
+rm(abundance_model_SV_treecover_2)
+## no strong evidence that including land use intensity impoves the model when considering secondary vegetation stages
 ```
 
-Drawing predictions for the best model.
+Drawing predictions for the best model and comparing effect sizes with and without considering land use intensity.
 
 ```{r}
 ## drawing predictions
 #| output: false 
 #| echo: true
-## predictions for the model on rescaled abundance
+## predictions for the model on rescaled abundance, without land use intensity
+## model that does not consider different stages for secondary vegetation
 Newdata <- expand.grid(LandUse=levels(All_sites$LandUse), 
-                       sqrt_total_abundance_rescaled=0,
                        LU_CCI_50=50)
 
-abundance_predictions <- Predict_effects(new_data = Newdata,
-                                         Model = abundance_model_treecover, 
-                                         rescale = TRUE,
-                                         LU_n = length(levels(All_sites$LandUse)),
-                                         backtransform = 'sqrt')
+abundance_predictions <- Predict_effects_impr(
+  new_data = Newdata,
+  Model = abundance_model_treecover,
+  rescale = TRUE,
+  LU_n = length(levels(All_sites$LandUse)),
+  backtransform = 'sqrt'
+)
 
 abundance_predictions$Median <- abundance_predictions$Median - 100
 abundance_predictions$Lower <- abundance_predictions$Lower - 100
 abundance_predictions$Upper <- abundance_predictions$Upper - 100
 
 rm(Newdata)
+
+## predictions for the model on rescaled abundance, with land use intensity
+## model that does not consider different stages for secondary vegetation
+Newdata <- expand.grid(LandUse=levels(All_sites_LUI$LandUse), 
+                       Use_intensity=levels(All_sites_LUI$Use_intensity),
+                       LU_CCI_50=50)
+
+abundance_predictions_LUI <- Predict_effects_impr(
+  new_data = Newdata,
+  Model = abundance_model_treecover_intensity,
+  rescale = TRUE,
+  LU_n = length(levels(All_sites_LUI$LandUse))  *
+    length(levels(All_sites_LUI$Use_intensity)),
+  backtransform = 'sqrt'
+)
+
+abundance_predictions_LUI$Median <- abundance_predictions_LUI$Median - 100
+abundance_predictions_LUI$Lower <- abundance_predictions_LUI$Lower - 100
+abundance_predictions_LUI$Upper <- abundance_predictions_LUI$Upper - 100
+
+abundance_predictions_all <- rbind(abundance_predictions %>% 
+                                     mutate(Use_intensity='No intensity'), 
+                                   abundance_predictions_LUI)
+
+abundance_predictions_all$Use_intensity <-
+  factor(
+    abundance_predictions_all$Use_intensity,
+    levels = c('No intensity',
+               'Minimal use',
+               'Light use',
+               'Intense use'),
+    labels = c('No intensity in model',
+               'Minimal use',
+               'Light use',
+               'Intense use')
+  )
+
+## predictions for the model on rescaled abundance, without land use intensity
+## model that considers different stages for secondary vegetation
+Newdata <-
+  expand.grid(
+    LandUse = levels(droplevels(All_sites$LandUse_SVcat[All_sites$LandUse_SVcat !=
+                                                          'Secondary vegetation (indeterminate age)'])),
+    LU_CCI_50 = 50
+  )
+
+abundance_predictions_SV <- Predict_effects_impr(new_data = Newdata,
+                                         Model = abundance_model_SV_treecover, 
+                                         rescale = TRUE,
+                                         LU_n = length(levels(droplevels(All_sites$LandUse_SVcat[All_sites$LandUse_SVcat!='Secondary vegetation (indeterminate age)']))),
+                                         backtransform = 'sqrt')
+
+abundance_predictions_SV$Median <- abundance_predictions_SV$Median - 100
+abundance_predictions_SV$Lower <- abundance_predictions_SV$Lower - 100
+abundance_predictions_SV$Upper <- abundance_predictions_SV$Upper - 100
+
+rm(Newdata)
+
+## predictions for the model on rescaled abundance, with land use intensity
+## model that considers different stages for secondary vegetation
+Newdata <- expand.grid(LandUse=levels(droplevels(All_sites$LandUse_SVcat[All_sites$LandUse_SVcat!='Secondary vegetation (indeterminate age)'])), 
+                       Use_intensity = levels(All_sites_LUI$Use_intensity),
+                       LU_CCI_50=50)
+
+abundance_predictions_SV_LUI <-
+  Predict_effects_impr(
+    new_data = Newdata,
+    Model = abundance_model_SV_treecover_intensity,
+    rescale = TRUE,
+    LU_n = length(levels(droplevels(
+      All_sites$LandUse_SVcat[All_sites$LandUse_SVcat != 'Secondary vegetation (indeterminate age)']
+    ))) * length(levels(All_sites_LUI$Use_intensity)),
+    backtransform = 'sqrt'
+  )
+
+abundance_predictions_SV_LUI$Median <- abundance_predictions_SV_LUI$Median - 100
+abundance_predictions_SV_LUI$Lower <- abundance_predictions_SV_LUI$Lower - 100
+abundance_predictions_SV_LUI$Upper <- abundance_predictions_SV_LUI$Upper - 100
+
+rm(Newdata)
+
+abundance_predictions_all_SV <- rbind(abundance_predictions_SV %>% 
+                                     mutate(Use_intensity='No intensity'), 
+                                   abundance_predictions_SV_LUI)
+
+abundance_predictions_all_SV$Use_intensity <- factor(abundance_predictions_all_SV$Use_intensity, 
+                                                  levels=c('No intensity', 
+                                                           'Minimal use', 
+                                                           'Light use', 
+                                                           'Intense use'), 
+                                                  labels=c('No intensity in model', 
+                                                           'Minimal use', 
+                                                           'Light use', 
+                                                           'Intense use'))
+
+## plotting effects: models that do not consider different stages of secondary vegetation
+ggplot(abundance_predictions_all,
+       aes(LandUse , Median, ymin = Lower, ymax = Upper, group=Use_intensity, col=Use_intensity)) +
+  xlab("") +
+  theme_classic()+
+  geom_hline(yintercept = 0, col="black", linetype="dashed") +
+  geom_errorbar(width=.2, size=0.5, stat="identity",position=position_dodge(width = 0.6)) +
+  geom_point(size=2, position=position_dodge(width = 0.6)) +
+  #GGPoptions +
+  ylab("Abundance (% difference from primary)") + 
+  theme(panel.spacing.y =  unit(0, "lines")) +
+  theme(axis.text.x = element_text(angle = 60, hjust=1, size = 12)) +
+  scale_discrete_manual("colour",
+                        values = c('black', 'red4', 'orange', 'darkgreen'),
+                        breaks=c('No intensity in model', 'Intense use', 'Light use', 'Minimal use')) +
+  ggtitle("Effects of models on total abundance (with and without land-use intensity)")
+
+## plotting effects: models that consider different stages of secondary vegetation
+ggplot(abundance_predictions_all_SV,
+       aes(LandUse , Median, ymin = Lower, ymax = Upper, group=Use_intensity, col=Use_intensity)) +
+  xlab("") +
+  theme_classic()+
+  geom_hline(yintercept = 0, col="black", linetype="dashed") +
+  geom_errorbar(width=.2, size=0.5, stat="identity",position=position_dodge(width = 0.6)) +
+  geom_point(size=2, position=position_dodge(width = 0.6)) +
+  #GGPoptions +
+  ylab("Abundance (% difference from primary)") + 
+  theme(panel.spacing.y =  unit(0, "lines")) +
+  theme(axis.text.x = element_text(angle = 60, hjust=1, size = 12)) +
+  scale_discrete_manual("colour",
+                        values = c('black', 'red4', 'orange', 'darkgreen'),
+                        breaks=c('No intensity in model', 'Intense use', 'Light use', 'Minimal use')) +
+  ggtitle("Effects of models on total abundance (with and without land-use intensity)")
 ```
 
+In summary:
+
+-   When secondary vegetation is grouped into a single category (not considering different ages/stages), including land-use intensity improves the model. By using the model that does not consider land-use intensity, we likely under-estimate average biodiversity declines in some of the most disturbed land uses, as shown in plot above.
+
+-   However, when considering secondary vegetation stages (mature/intermediate/young), there isn't strong evidence that including land-use intensity improves the model. We still likely under-estimate average biodiversity declines in the most disturbed (intensely-used) land uses, as shown in plot above.
+
+-   Given that, for predictions, we don't have layers providing intensity for the different land uses, we choose the model that distinguishes different secondary vegetation types, without considering land use intensity. Indeed, we will assume that we can approximate secondary vegetation stage (for predictions) from the EO-derived forest integrity layer. We however don't have data at this stage on land-use intensity that we could use for prediction.
+
+-   The abundance model we choose is therefore: 'abundance_model_SV_treecover'.
+
 ## 2.2. Similarity models
+
+Since we already established that including land-use intensity in the model will be limiting (for deriving predictions), we don't consider the effects of land-use intensity on similarity. We likely underestimate the average changes in similarity in the most disturbed, intensely-used land use types.
 
 ```{r}
 #| output: false 
@@ -699,18 +940,21 @@ rm(Newdata)
 #| cache: false
 
 Bray_Cutis_dissimilarity_vegan$contrast %>% unique()
-Bray_Cutis_dissimilarity_vegan$contrast[Bray_Cutis_dissimilarity_vegan$contrast %in% c("Primary vegetation-Mature secondary vegetation",
-                                                                                       "Primary vegetation-Intermediate secondary vegetation",
-    "Primary vegetation-Young secondary vegetation",
-    "Primary vegetation-Secondary vegetation (indeterminate age)")] <- "Primary vegetation-Secondary vegetation"
+# Bray_Cutis_dissimilarity_vegan$contrast[Bray_Cutis_dissimilarity_vegan$contrast %in% c("Primary vegetation-Mature secondary vegetation",
+#                                                                                        "Primary vegetation-Intermediate secondary vegetation",
+#     "Primary vegetation-Young secondary vegetation",
+#     "Primary vegetation-Secondary vegetation (indeterminate age)")] <- "Primary vegetation-Secondary vegetation"
+
+Bray_Cutis_dissimilarity_vegan <- subset(Bray_Cutis_dissimilarity_vegan, lu_2!='Secondary vegetation (indeterminate age)')
 
 Bray_Cutis_dissimilarity_vegan$contrast <- factor(
   Bray_Cutis_dissimilarity_vegan$contrast,
     levels = c(
     "Primary vegetation-Primary vegetation",
-    "Primary vegetation-Secondary vegetation",
-    #"Primary vegetation-Intermediate secondary vegetation",
-    #"Primary vegetation-Young secondary vegetation",
+    #"Primary vegetation-Secondary vegetation",
+    "Primary vegetation-Mature secondary vegetation",
+    "Primary vegetation-Intermediate secondary vegetation",
+    "Primary vegetation-Young secondary vegetation",
     #"Primary vegetation-Secondary vegetation (indeterminate age)",
     "Primary vegetation-Plantation forest",
     "Primary vegetation-Oil palm plantation",
@@ -747,11 +991,10 @@ Drawing predictions for the similarity model.
 #| output: false 
 #| echo: true
 Newdata <- expand.grid(contrast=levels(Bray_Cutis_dissimilarity_vegan$contrast),
-                       logit_bray_curtis_similarity_vegan=0, 
                        log10_geodist=0, 
                        LU_CCI_50=50)
 
-similarity_predictions <- Predict_effects(new_data = Newdata,
+similarity_predictions <- Predict_effects_impr(new_data = Newdata,
                                         Model = similarity_model_tree_cover,
                                         rescale = TRUE, 
                                         LU_n = length(levels(Bray_Cutis_dissimilarity_vegan$contrast)), 
@@ -775,9 +1018,9 @@ The abundance model was fitted on 1198 sites sampled within 38 studies.
 #| echo: true
 ## sample sizes
 Fitted_abundance <- All_sites %>% 
-               filter(SS %in%  abundance_model_treecover@frame$SS)
+               filter(SS %in%  abundance_model_SV_treecover@frame$SS)
 nrow(Fitted_abundance)
-nrow(abundance_model_treecover@frame)
+nrow(abundance_model_SV_treecover@frame)
 
 Fitted_abundance$SS %>% 
   unique() %>% 
@@ -817,13 +1060,29 @@ ggplot2::ggplot(data = Indonesia_Malaysia_Map) + xlab("") + ylab("") +
                filter(Predominant_land_use!='Cannot decide'),
              aes(y=Latitude, x=Longitude, col=LandUse),
              pch=19,alpha=0.6) +
-  theme_classic() +
-  theme(axis.text.x=element_text(size=20), 
-        axis.text.y=element_text(size=20),
-        text = element_text(size=20, family="serif"), 
-        legend.text=element_text(size=16)) +
+  theme_minimal() +
+  theme(axis.text.x=element_blank(), 
+        axis.text.y=element_blank(),
+        text = element_text(size=15, family="serif"), 
+        legend.text=element_text(size=16), 
+        legend.position = 'bottom') +
   ggtitle('Biodiversity sampling sites') + 
-  scale_colour_discrete(name = "Land use")
+  scale_colour_discrete(name = "Land use") +
+guides(color = guide_legend(nrow = 2)) 
+
+
+## sampling dates
+ggplot(Fitted_abundance, 
+       aes(as.Date(Sample_start_earliest))) +
+  geom_histogram(binwidth = 130, col='darkgrey', fill='lightblue') + theme_bw() +
+  xlab('Start date of biodiversity sampling') + ylab('Number of sampled sites') +
+  scale_x_date(date_breaks = "2 year", date_labels =  "%Y") +
+  theme(axis.text.x=element_text(angle=60, hjust=1, size=15, face='bold'), 
+        axis.text.y=element_text(size=15),
+        text = element_text(size=15, family="serif", face='bold'), 
+        legend.text=element_text(size=15))
+
+
 ```
 
 ## 3.2. Abundance and similarity models: effects of land use
@@ -834,9 +1093,45 @@ Oil-palm plantations exhibited average declines in total abundance of about 15% 
 #| output: true 
 #| echo: true
 
+# ## plotting effects: models that do not consider different stages of secondary vegetation
+# ggplot(abundance_predictions_all,
+#        aes(LandUse , Median, ymin = Lower, ymax = Upper, group=Use_intensity, col=Use_intensity)) +
+#   xlab("") +
+#   theme_classic()+
+#   geom_hline(yintercept = 0, col="black", linetype="dashed") +
+#   geom_errorbar(width=.2, size=0.5, stat="identity",position=position_dodge(width = 0.6)) +
+#   geom_point(size=2, position=position_dodge(width = 0.6)) +
+#   #GGPoptions +
+#   ylab("Abundance (% difference from primary)") + 
+#   theme(panel.spacing.y =  unit(0, "lines")) +
+#   theme(axis.text.x = element_text(angle = 60, hjust=1, size = 12)) +
+#   scale_discrete_manual("colour",
+#                         values = c('black', 'red4', 'orange', 'darkgreen'),
+#                         breaks=c('No intensity in model', 'Intense use', 'Light use', 'Minimal use')) +
+#   ggtitle("Effects of models on total abundance (with and without land-use intensity)")
+# 
+# ## plotting effects: models that consider different stages of secondary vegetation
+# ggplot(abundance_predictions_all_SV,
+#        aes(LandUse , Median, ymin = Lower, ymax = Upper, group=Use_intensity, col=Use_intensity)) +
+#   xlab("") +
+#   theme_classic()+
+#   geom_hline(yintercept = 0, col="black", linetype="dashed") +
+#   geom_errorbar(width=.2, size=0.5, stat="identity",position=position_dodge(width = 0.6)) +
+#   geom_point(size=2, position=position_dodge(width = 0.6)) +
+#   #GGPoptions +
+#   ylab("Abundance (% difference from primary)") + 
+#   theme(panel.spacing.y =  unit(0, "lines")) +
+#   theme(axis.text.x = element_text(angle = 60, hjust=1, size = 12)) +
+#   scale_discrete_manual("colour",
+#                         values = c('black', 'red4', 'orange', 'darkgreen'),
+#                         breaks=c('No intensity in model', 'Intense use', 'Light use', 'Minimal use')) +
+#   ggtitle("Effects of models on total abundance (with and without land-use intensity)")
+
+ggarrange(
 ## plotting the effects of all considered land uses on abundance
-ggplot(abundance_predictions,
-       aes(LandUse , Median, ymin = Lower, ymax = Upper)) +
+ggplot(abundance_predictions_all_SV %>% 
+         filter(Use_intensity=='No intensity in model'),
+       aes(LandUse , Median, ymin = Lower, ymax = Upper, group=Use_intensity, col=Use_intensity)) +
   xlab("") +
   theme_classic()+
   geom_hline(yintercept = 0, col="black", linetype="dashed") +
@@ -846,13 +1141,13 @@ ggplot(abundance_predictions,
   ylab("Abundance (% difference from primary)") + 
   theme(panel.spacing.y =  unit(0, "lines")) +
   theme(axis.text.x = element_text(angle = 60, hjust=1, size = 12)) +
-  ggtitle("(a) Model on total abundance") 
-```
+  scale_discrete_manual("colour",
+                        values = c('black', 'red4', 'orange', 'darkgreen'),
+                        breaks=c('No intensity in model', 'Intense use', 'Light use', 'Minimal use')) +
+  ggtitle("Effects of models on total abundance (with and without land-use intensity)")
 
-```{r}
-#| output: true 
-#| echo: true
-## plotting the effects of all considered land uses on similarity
+,
+
 ggplot(similarity_predictions,
        aes(contrast , Median, ymin = Lower, ymax = Upper)) +
   xlab("") +
@@ -864,338 +1159,223 @@ ggplot(similarity_predictions,
   ylab("Abundance (% difference from primary)") + 
   theme(panel.spacing.y =  unit(0, "lines")) +
   theme(axis.text.x = element_text(angle = 60, hjust=1, size = 12)) +
-  ggtitle("(b) Model on similarity") 
+  ggtitle("(b) Model on similarity") + scale_x_discrete( 
+                    labels=c("PV-PV","PV-MSV","PV-ISV","PV-YSV",
+                             "PV-PF", "PV-OP", "PV-Cr"))
+
+)
 ```
 
 # 4. MAPPING RESULTS: BII for mill areas
 
 Here, we predict BII for the World Cover maps corrected for oil palm plantations, for the years 2020 and 2021.
 
+/danone_matched_mills.csv')
+
+MillsFerrero \<- read.csv('../../data/supply_shed_data/mills_5\_companies/ferrero_matched_mills.csv')
+
+MillsNestle \<- read.csv('../../data/supply_shed_data/mills_5\_companies/nestle_matched_mills.csv')
+
+MillsPepsico \<- read.csv('../../data/supply_shed_data/mills_5\_companies/pepsico_matched_mills.csv')
+
+MillsWilmar \<- read.csv('../../data/supply_shed_data/mills_5\_companies/danone_matched_mills.csv')
+
 ```{r}
 #| output: false 
 #| echo: true 
 
-# UML <- read.csv('../data/supply_shed_data/UML_data/UML-Dec-2024.csv', sep=',', fileEncoding="latin1") %>% 
-#   filter(Country %in% c('Malaysia', 'Indonesia'))
+## ESA world cover map
+## https://protect.checkpoint.com/v2/r02/___https://developers.google.com/earth-engine/datasets/catalog/ESA_WorldCover_v200___.YzJlOmlpYXNhOmM6bzo0NzFlNmM2NWViNThhN2EyNTI1Nzk5ZGZhZjBmNzI5Zjo3OmI2NmU6ZTIyZGM3NjI1N2EzODlhMDNlMWM0YTZlYTgxYjU0ZDE4MWQxOWJlY2MwM2IxZWQyZGUzZDZjNzMzZTc4ZDhkNDp0OlQ6Tg
+
+## loading mills for each company
+MillsDanone <- read.csv('../../data/supply_shed_data/mills_5_companies/danone_matched_mills.csv')
+MillsFerrero <- read.csv('../../data/supply_shed_data/mills_5_companies/ferrero_matched_mills.csv')
+MillsNestle <- read.csv('../../data/supply_shed_data/mills_5_companies/nestle_matched_mills.csv')
+MillsPepsico <- read.csv('../../data/supply_shed_data/mills_5_companies/pepsico_matched_mills.csv')
+MillsWilmar <- read.csv('../../data/supply_shed_data/mills_5_companies/danone_matched_mills.csv')
+
+## unique mills across the 5 companies
+UniqueMills <- 
+unique(c(MillsDanone$UML.ID,
+  MillsFerrero$UML.ID, 
+  MillsNestle$UML.ID, 
+  MillsPepsico$UML.ID, 
+  MillsWilmar$UML.ID))
+length(UniqueMills)
+
+## create a dataset with the mill locations
+MillLocations <- 
+unique(rbind(MillsDanone[,c('UML.ID' ,'Latitude', 'Longitude')],
+  MillsFerrero[,c('UML.ID' ,'Latitude', 'Longitude')], 
+  MillsNestle[,c('UML.ID' ,'Latitude', 'Longitude')], 
+  MillsPepsico[,c('UML.ID' ,'Latitude', 'Longitude')], 
+  MillsWilmar[,c('UML.ID' ,'Latitude', 'Longitude')]))
+
 
 Run <- FALSE
 
 if(Run){
   
-UML_subset <- read.csv('../../data/supply_shed_data/matched_mills_mill-and-plantation-list-h2-2024.csv', sep=',', fileEncoding="latin1") 
-
-## define function for projections
-Predict_BII <- function(UML_data, 
-                        Buffer_mill,
-                        WC_layer,
-                        Year,
-                        FI_layer,
-                        Aggregate_Factor,
-                        abundance_model=abundance_model_treecover,
-                        similarity_model=similarity_model_tree_cover){
-  
-      ## abundance predictions at the grid cell level -- set the reference level
-    REF_Level_abundance <- 
-      Predict_effects(
-        new_data = expand.grid(
-          LandUse = c("Primary vegetation",
-                      "Cropland"),
-          sqrt_total_abundance_rescaled =
-            0,
-          LU_CCI_50 = 100
-        ),
-        Model = abundance_model_treecover,
-        rescale = FALSE,
-        backtransform = 'sqrt'
-      )
-    REF_Level_abundance <- REF_Level_abundance[1, 1]
-    
-    ## similarity predictions at the grid cell level -- set the reference level
-    REF_Level_similarity <-
-      Predict_effects(
-        new_data = expand.grid(
-          contrast = c(
-            "Primary vegetation-Primary vegetation",
-            "Primary vegetation-Cropland"
-          ),
-          log10_geodist = 0,
-          LU_CCI_50 = 100,
-          logit_bray_curtis_similarity_vegan =
-            0
-        ),
-        Model = similarity_model_tree_cover,
-        rescale = FALSE,
-        backtransform = 'logit',
-        A_logit = 0.001
-      )
-    REF_Level_similarity <- REF_Level_similarity[1, 1]
-  
-    ## initialise cols to store srestuls
-    UML_data$Median_BII <- NA
-    UML_data$Sum_BII <- NA
-  
-  for (i in 1:nrow(UML_data)){
-    
-    ## get mill coordinates and buffer
-    coordinates_mills <- vect(matrix(c(as.numeric(UML_data$Longitude[i]),
-            as.numeric(UML_data$Latitude[i])), ncol=2),
-          crs="+proj=longlat +datum=WGS84")
-    
-    coordinates_mills_buffer <- buffer(coordinates_mills, width=Buffer_mill)
-    
-    #browser()
-    
-    ## crop and mask the land cover layer and the forest integrity layer
-    Extent_inter <- relate(WC_layer, coordinates_mills_buffer, "intersects")
-    if(Extent_inter){
-    WC_cropped <- crop(WC_layer, coordinates_mills_buffer)
-    WC_cropped_ag <- aggregate(WC_cropped, Aggregate_Factor, fun='modal')
-    WC_cropped_masked <- mask(WC_cropped_ag, coordinates_mills_buffer)
-    } else{
-      next
-    }
-
-    FI_crop <- crop(FI_layer, WC_cropped_masked)
-    FI_crop <- project(x = FI_crop, y = WC_cropped_masked)
-    FI_mask <- mask(FI_crop, WC_cropped_masked)
-    
-    ## get the values of these layers, as dataframe for operations
-    template <- as.data.frame(values(WC_cropped_masked))
-    FI <- as.data.frame(values(FI_mask))
-    template <- cbind(template, FI)
-    colnames(template) <- c('WC_code', 'forest_integrity')
-    
-    ## encode the land uses
-    template$LandUse <- NA
-    template$LandUse[template$WC_code == 10 &
-                       template$forest_integrity > 5] <- 'Primary vegetation'
-    template$LandUse[template$WC_code == 10 &
-                       template$forest_integrity <= 5] <- 'Secondary vegetation'
-    template$LandUse[template$WC_code == 11] <- 'Oil palm plantation'
-    template$LandUse[template$WC_code == 20] <- 'Secondary vegetation'
-    template$LandUse[template$WC_code == 30] <- 'Secondary vegetation'
-    template$LandUse[template$WC_code == 40] <- 'Cropland'
-    template$LandUse[template$WC_code == 50] <- 'Urban'
-    template$LandUse[template$WC_code == 60] <- 'Secondary vegetation'
-    template$LandUse[template$WC_code == 70] <- 'Snow and ice'
-    template$LandUse[template$WC_code == 80] <- 'Permanent water bodies'
-    template$LandUse[template$WC_code == 90] <- 'Herbaceous wetland'
-    template$LandUse[template$WC_code == 95] <- 'Mangroves'
-    template$LandUse[template$WC_code == 100] <- 'Moss and lichen'
-    
-    template$contrast[!is.na(template$LandUse)] <- paste('Primary vegetation', template$LandUse[!is.na(template$LandUse)], sep='-' )
-    
-    ## add tree cover as LU_CCI_50
-    template$LU_CCI_50 <- nrow(template[template$WC_code==10,])/nrow(template)*100
-    
-    ## add response
-    template$sqrt_total_abundance_rescaled <- 0
-    template$logit_bray_curtis_similarity_vegan <- 0
-    template$log10_geodist <- 0
-    
-    ## now predict for abundance at the grid cell level
-    template$abundance_predictions <- NA
-    
-    # preds_abundance <- predict(object = abundance_model_treecover,
-    #                            newdata=template,  
-    #                            re.form = NULL)
-
-
-      preds_abundance <-
-      Predict_effects(
-        new_data = template[!is.na(template$LandUse), ],
-        Model = abundance_model_treecover,
-        rescale = FALSE,
-        backtransform = 'sqrt'
-      )
-    template$abundance_predictions[!is.na(template$LandUse)] <-
-      preds_abundance$Median
-    
-    template$abundance_predictions_rescaled <-
-      template$abundance_prediction / REF_Level_abundance
-        
-    
-    ## now predict for similarity at the grid cell level
-    template$similarity_predictions <- NA
-    preds_similarity <-
-      Predict_effects(
-        new_data = template[!is.na(template$contrast),],
-        Model = similarity_model_tree_cover,
-        rescale = FALSE,
-        backtransform = 'sqrt',
-      )
-    
-    template$similarity_predictions[!is.na(template$LandUse)] <-
-      preds_similarity$Median
-    
-    template$similarity_predictions_rescaled <- template$similarity_predictions/REF_Level_similarity
-    
-    template$BII <- template$similarity_predictions_rescaled * template$abundance_predictions_rescaled
-    
-    
-    ## copy of the raster 
-    Raster_outout <- WC_cropped_masked
-    values(Raster_outout) <- template$BII
-    
-    UML_data$Median_BII[i] <- median(template$BII, na.rm=TRUE)
-    UML_data$Sum_BII[i] <- sum(template$BII, na.rm=TRUE)
-    
-    print(paste('finished row', i, 'of', nrow(UML_data)))
-    
-    writeRaster(
-      Raster_outout,
-      paste0(
-        '../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/13_02_2026/', Year, '/',
-        UML_data$UML.ID[i],
-        '.tif'
-      ),
-      
-                overwrite=TRUE)
-
-  }
-    return(UML_data)
-}
-
-### Test runs
+# ### Test runs
 # ## for mills 1 to 10
-# print(Sys.time())
-# T1 <- Sys.time()
-# UML_1_10 <- Predict_BII(UML_data = UML[1:10,], 
-#                     Buffer_mill = 25000, 
-#                     WC_layer = World_Cover_2021_crop,
-#                     FI_layer = Forest_integrity_crop, 
-#                     Aggregate_Factor = 10,
-#                     abundance_model = abundance_model_treecover, 
-#                     similarity_model = similarity_model_tree_cover)
-# print(Sys.time())
-# T2 <- Sys.time()
-# print(T1-T2)
-# 
-# write.csv(UML_1_10, '../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_1_10.csv', row.names=FALSE)
-# 
-# ## run on the next 40 mill locations for the experimental output dataset
-# print(Sys.time())
-# T1 <- Sys.time()
-# UML_11_50 <- Predict_BII(UML_data = UML[11:50,], 
-#                     Buffer_mill = 25000, 
-#                     WC_layer = World_Cover_2021_crop,
-#                     FI_layer = Forest_integrity_crop, 
-#                     Aggregate_Factor = 10,
-#                     abundance_model = abundance_model_treecover, 
-#                     similarity_model = similarity_model_tree_cover)
-# print(Sys.time())
-# T2 <- Sys.time()
-# print(T1-T2) 
-# write.csv(UML_11_50, '../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_11_50.csv', row.names=FALSE)
+#   print(Sys.time())
+#   T1 <- Sys.time()
+#   UML_test <- Predict_BII(
+#     UML_data = MillLocations[1:2, ],
+#     Buffer_mill = 25000,
+#     WC_layer = World_Cover_2021_crop,
+#     Year = 2021,
+#     FI_layer = Forest_integrity_crop,
+#     Aggregate_Factor = 10,
+#     abundance_model = abundance_model_SV_treecover,
+#     similarity_model = similarity_model_tree_cover,
+#     Path_raster_out = '../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/02_04_2026/'
+#   )
+#   print(Sys.time())
+#   T2 <- Sys.time()
+#   print(T1 - T2)
+ 
 
-## running on 197 mills (correspond to the most recent 2024-H2 report from Danone)
+## running on all the mills for the 5 different companies
+## (e.g., correspond to the most recent 2024-H2 report from Danone)
+## for 2021
 print(Sys.time())
 T1 <- Sys.time()
-UML_2021 <- Predict_BII(UML_data = UML_subset, 
-                     Buffer_mill = 25000, 
-                     WC_layer = World_Cover_2021_crop,
-                     Year = 2021,
-                     FI_layer = Forest_integrity_crop, 
-                     Aggregate_Factor = 10,
-                     abundance_model = abundance_model_treecover, 
-                     similarity_model = similarity_model_tree_cover)
+Mills5_2021 <- Predict_BII(
+  UML_data = MillLocations,
+  Buffer_mill = 25000,
+  WC_layer = World_Cover_2021_crop,
+  Year = 2021,
+  FI_layer = Forest_integrity_crop,
+  Aggregate_Factor = 10,
+  abundance_model = abundance_model_SV_treecover,
+  similarity_model = similarity_model_tree_cover,
+  Path_raster_out = '../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/'
+)
 print(Sys.time())
 T2 <- Sys.time()
 print(T1-T2) 
-write.csv(UML_2021, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_197mills_2021.csv', row.names=FALSE)
 
+write.csv(Mills5_2021, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_mills_2021.csv', row.names=FALSE)
+
+## for 2020
 print(Sys.time())
 T1 <- Sys.time()
-UML_2020 <- Predict_BII(UML_data = UML_subset, 
-                     Buffer_mill = 25000, 
-                     WC_layer = World_Cover_2020_crop,
-                     Year = 2020,
-                     FI_layer = Forest_integrity_crop, 
-                     Aggregate_Factor = 10,
-                     abundance_model = abundance_model_treecover, 
-                     similarity_model = similarity_model_tree_cover)
+Mills5_2020 <- Predict_BII(
+  UML_data = MillLocations,
+  Buffer_mill = 25000,
+  WC_layer = World_Cover_2020_crop,
+  Year = 2020,
+  FI_layer = Forest_integrity_crop,
+  Aggregate_Factor = 10,
+  abundance_model = abundance_model_SV_treecover,
+  similarity_model = similarity_model_tree_cover,
+  Path_raster_out = '../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/'
+)
 print(Sys.time())
 T2 <- Sys.time()
 print(T1-T2) 
-write.csv(UML_2020, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_197mills_2020.csv', row.names=FALSE)
+
+write.csv(Mills5_2020, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_mills_2020.csv', row.names=FALSE)
 
 }
 
 ```
 
-Analysing the results: plotting Median and Sum BII distributions.
+Analysing the results: plotting Median and Sum BII distributions for each of the 5 compamies.
 
 ```{r}
 #| output: false 
 #| echo: true 
-Set1 <- read.csv('../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_197mills_2020.csv') %>% 
+
+## consolidating the BII data
+BII_2021 <- read.csv('../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_mills_2021.csv') %>% 
   mutate(Year=2020)
-Set2 <-  read.csv('../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_197mills_2021.csv') %>% 
+BII_2020 <-  read.csv('../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_mills_2020.csv') %>% 
   mutate(Year=2021)
 
-Set <- rbind(Set1, Set2)
-write.csv(Set, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables/UML_all.csv')
+## adding relevant BII values for each company
+LJf <- function(Mills_company, BII2020, BII2021) {
+  BII_2020 <- left_join(Mills_company, BII2020)
+  BII_2021 <- left_join(Mills_company, BII2021)
+  return(rbind(BII_2020, BII_2021))
+}
+
+BII_Danone <- LJf(MillsDanone, BII_2020, BII_2021)
+BII_Pepsico <- LJf(MillsPepsico, BII_2020, BII_2021)
+BII_Ferrero <- LJf(MillsFerrero, BII_2020, BII_2021)
+BII_Nestle <- LJf(MillsNestle, BII_2020, BII_2021)
+BII_Wilmar <- LJf(MillsWilmar, BII_2020, BII_2021)
+
+BII_all <- rbind(BII_Danone %>% 
+                   dplyr::select(UML.ID, Latitude, Longitude, Year, Median_BII, Sum_BII) %>% 
+                   mutate(Company='Danone'), 
+                 BII_Pepsico %>% 
+                   dplyr::select(UML.ID, Latitude, Longitude, Year, Median_BII, Sum_BII) %>% 
+                   mutate(Company='Pepsico'), 
+                 BII_Ferrero %>% 
+                   dplyr::select(UML.ID, Latitude, Longitude, Year, Median_BII, Sum_BII) %>% 
+                   mutate(Company='Ferrero'), 
+                 BII_Nestle %>% 
+                   dplyr::select(UML.ID, Latitude, Longitude, Year, Median_BII, Sum_BII) %>% 
+                   mutate(Company='Nestle'), 
+                 BII_Wilmar %>% 
+                   dplyr::select(UML.ID, Latitude, Longitude, Year, Median_BII, Sum_BII) %>% 
+                   mutate(Company='Wilmar')
+                 )
+
+write.csv(BII_all, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_BII.csv', row.names=FALSE)
 ```
 
 ```{r}
 #| output: true 
 #| echo: true 
 
-## plotting distributions
+## plotting distributions of BII for each company
+ggplot(BII_all, aes(Median_BII, col=Company, fill=Company)) + 
+  geom_density(alpha=0.1, size=0.6) +
+  facet_wrap(~Year) +
+  theme_bw()
 
-GlobalMedian_median <-  median(Set$Median_BII)
-GlobalMedian_sum <-  median(Set$Sum_BII)
-
-ggarrange(
-ggplot(Set, aes(Median_BII)) + geom_histogram() + 
-  theme_bw() + 
-  geom_vline(xintercept = GlobalMedian_median, col='red', lty='dashed') +
-ggtitle('Distribution of median BBI across mills') +
-  facet_wrap(~Year) + xlab('Median BII'),
-
-ggplot(Set, aes(Sum_BII)) + geom_histogram() + 
-  theme_bw() + 
-  geom_vline(xintercept = GlobalMedian_sum, col='red', lty='dashed') +
-ggtitle('Distribution of sum BBI  across mills') +
-  facet_wrap(~Year)+ xlab('Sum BII'), 
-nrow=2
-)
-
+ggplot(BII_all, aes(Sum_BII, col=Company, fill=Company)) + 
+  geom_density(alpha=0.1, size=0.6) +
+  facet_wrap(~Year) +
+  theme_bw()
 ```
 
 ```{r}
 #| output: true 
 #| echo: true 
 
-## changes from 2020 to 2021 in median BII
-Medians2020 <- Set$Median_BII[Set$Year==2020]
-Medians2021 <- Set$Median_BII[Set$Year==2021]
-MediansYears <- as.data.frame(cbind(Medians2020, Medians2021))
-MediansYears$delta <-  MediansYears$Medians2020 - MediansYears$Medians2021    
-MediansYears$UML_ID <-  Set$UML.ID[Set$Year==2020]
-
-## changes from 2020 to 2021 in sum BII
-Sum2020 <- Set$Sum_BII[Set$Year==2020]
-Sum2021 <- Set$Sum_BII[Set$Year==2021]
-SumYears <- as.data.frame(cbind(Sum2020, Sum2021))
-SumYears$delta <-  SumYears$Sum2020 - SumYears$Sum2021    
-SumYears$UML_ID <-  Set$UML.ID[Set$Year==2020]
-
-ggarrange(
-ggplot(MediansYears, aes(Medians2020*100, Medians2021*100)) + 
-  geom_point() + 
-  theme_bw() + 
-  geom_abline(slope = 1, intercept = 0, col='red', lty='dashed') +
-ggtitle('Median BBI across mills (2020 versus 2021)')  +
-  xlab('Median BII - 2020') + ylab( xlab('Median BII - 2021'))
-,
-ggplot(SumYears, aes(Sum2020*100, Sum2021*100)) + 
-  geom_point() + 
-  theme_bw() + 
-  geom_abline(slope = 1, intercept = 0, col='red', lty='dashed') +
-ggtitle('Sum BBI across mills (2020 versus 2021)')  +
-  xlab('Sum BII - 2020') + ylab( xlab('Sum BII - 2021'))
-)
+# ## changes from 2020 to 2021 in median BII
+# Medians2020 <- Set$Median_BII[Set$Year==2020]
+# Medians2021 <- Set$Median_BII[Set$Year==2021]
+# MediansYears <- as.data.frame(cbind(Medians2020, Medians2021))
+# MediansYears$delta <-  MediansYears$Medians2020 - MediansYears$Medians2021    
+# MediansYears$UML_ID <-  Set$UML.ID[Set$Year==2020]
+# 
+# ## changes from 2020 to 2021 in sum BII
+# Sum2020 <- Set$Sum_BII[Set$Year==2020]
+# Sum2021 <- Set$Sum_BII[Set$Year==2021]
+# SumYears <- as.data.frame(cbind(Sum2020, Sum2021))
+# SumYears$delta <-  SumYears$Sum2020 - SumYears$Sum2021    
+# SumYears$UML_ID <-  Set$UML.ID[Set$Year==2020]
+# 
+# ggarrange(
+# ggplot(MediansYears, aes(Medians2020*100, Medians2021*100)) + 
+#   geom_point() + 
+#   theme_bw() + 
+#   geom_abline(slope = 1, intercept = 0, col='red', lty='dashed') +
+# ggtitle('Median BBI across mills (2020 versus 2021)')  +
+#   xlab('Median BII - 2020') + ylab( xlab('Median BII - 2021'))
+# ,
+# ggplot(SumYears, aes(Sum2020*100, Sum2021*100)) + 
+#   geom_point() + 
+#   theme_bw() + 
+#   geom_abline(slope = 1, intercept = 0, col='red', lty='dashed') +
+# ggtitle('Sum BBI across mills (2020 versus 2021)')  +
+#   xlab('Sum BII - 2020') + ylab( xlab('Sum BII - 2021'))
+# )
 
 ```
 
@@ -1212,14 +1392,23 @@ ggtitle('Sum BBI across mills (2020 versus 2021)')  +
 # 
 # plot(Example2021*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052')
 
-Example2020 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/13_02_2026/2020/PO1000000052.tif")
+Example2020 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/2020/PO1000000052.tif")
+Example2020_2 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/2020/PO1000003715.tif")
 
-plot(Example2020*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052; 2020', cex.main=0.8)
+Example2021 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/2021/PO1000003951.tif")
+Example2021_2 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/2021/PO1000001252.tif")
+
+
+par(mfrow=c(1,2))
+plot(Example2020_2*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052; 2020', cex.main=0.8)
+plot(Example2021_2*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000003715; 2020', cex.main=0.8)
+# plot(Example2021*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000003951; 2021', cex.main=0.8)
+# plot(Example2021_2*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000001252; 2021', cex.main=0.8)
 ```
 
 # 4. CONCLUSIONS
 
-We found significant biodiversity declines in oil-palm plantations compared to primary vegetation. Total abundance declined by an average 15%, and similarity by an average 45%. We provide BII for 197 mills in Indonesia and Malaysia, considering a 25km buffer area around the mills.
+We found significant biodiversity declines in oil-palm plantations compared to primary vegetation. Total abundance declined by an average 15%, and similarity by an average 43%. We provide BII for mills for 5 companies in Indonesia and Malaysia, considering a 25km buffer area around the mills.
 
 Challenges to think further about: - how to better align PREDICTS categories with EO-products on land use and land use intensity, including: --\> how to get proxies for land use intensity --\> how to better represent primary and secondary vegetation in world cover maps.
 
