@@ -1,6 +1,7 @@
 # Biomass Runbook
 
 Practical commands for exporting, downloading, and mosaicking AGB data.
+Run all commands from `country_level_data/`.
 
 ## AGB export (GEE)
 
@@ -16,6 +17,12 @@ Single year test region (50x50 km):
 python3 biomass/export_agb_idn_mys.py --year 2022 --test-region --test-size-km 50 --scale 100 --nan-zeros
 ```
 
+Monitor the export tasks:
+
+```bash
+python3 ../tools/monitor_gee_tasks.py --filter agb --wait
+```
+
 ## Download AGB tiles from Google Drive (rclone)
 
 List remotes:
@@ -24,10 +31,10 @@ List remotes:
 rclone listremotes
 ```
 
-Download tiles (example remote name: `rui.song90`):
+Download tiles (example remote name: `gdrive`):
 
 ```bash
-./biomass/download_agb_tiles.sh --remote "rui.song90" --year 2022
+./biomass/download_agb_tiles.sh --remote "gdrive" --year 2022
 ```
 
 ## Mosaic AGB tiles to COG
@@ -38,12 +45,14 @@ Outputs go to `biomass/mosaics/`:
 ./biomass/mosaic_agb_tiles.sh --year 2022
 ```
 
+Supply-shed statistics for all mills: see `supply_shed_indicators/agb/`.
+
 ## Mill-level AGB multi-panel plots (2015-2022)
 
 Example for one mill (50 km radius):
 
 ```bash
-conda run -n geospatial python country_level_data/biomass/plot_mill_agb_panels.py \
+python3 biomass/plot_mill_agb_panels.py \
   --mill-id PO1000000058 \
   --company CARGILL \
   --mill-name HINDOLI \

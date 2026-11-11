@@ -10,6 +10,10 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+COMPANY_DIR = SCRIPT_DIR.parents[1]
+DEFAULT_INPUT_DIR = COMPANY_DIR / "results" / "danone" / "uml"
+DEFAULT_OUTPUT_DIR = DEFAULT_INPUT_DIR / "rspo_pies"
 FIGSIZE = (6.5, 6.5)
 
 
@@ -23,8 +27,8 @@ def classify_rspo(value: str) -> str:
 def count_rspo(csv_path: Path):
     certified = 0
     not_certified = 0
-    with csv_path.open(newline="", encoding="latin-1") as f:
-        reader = csv.DictReader(f)
+    with csv_path.open(newline="", encoding="latin-1") as handle:
+        reader = csv.DictReader(handle)
         for row in reader:
             status = classify_rspo(row.get("RSPO Status", ""))
             if status == "RSPO Certified":
@@ -48,7 +52,7 @@ def plot_pie(certified: int, not_certified: int, output_path: Path):
 
     plt.style.use("seaborn-v0_8-white")
     fig, ax = plt.subplots(figsize=FIGSIZE)
-    wedges, label_texts, pct_texts = ax.pie(
+    _, label_texts, pct_texts = ax.pie(
         sizes,
         labels=labels,
         colors=colors,
@@ -61,29 +65,19 @@ def plot_pie(certified: int, not_certified: int, output_path: Path):
         wedgeprops={"linewidth": 1.2, "edgecolor": "white"},
         normalize=True,
     )
-    for t in pct_texts:
-        t.set_fontsize(22)
-    for t in label_texts:
-        t.set_text("")
+    for text in pct_texts:
+        text.set_fontsize(22)
+    for text in label_texts:
+        text.set_text("")
     ax.axis("equal")
     fig.subplots_adjust(left=0.06, right=0.94, top=0.94, bottom=0.06)
     fig.savefig(output_path, dpi=300)
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Plot RSPO certified vs not certified pie charts for matched mills."
-    )
-    parser.add_argument(
-        "--input-dir",
-        default="UML",
-        help="Directory containing matched_mills_*.csv files",
-    )
-    parser.add_argument(
-        "--output-dir",
-        default="UML/rspo_pies",
-        help="Directory to save pie charts",
-    )
+    parser = argparse.ArgumentParser(description="Plot RSPO pie charts for Danone matched mills.")
+    parser.add_argument("--input-dir", default=str(DEFAULT_INPUT_DIR), help="Directory containing matched_mills CSVs")
+    parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR), help="Directory to save pie charts")
     args = parser.parse_args()
 
     input_dir = Path(args.input_dir)

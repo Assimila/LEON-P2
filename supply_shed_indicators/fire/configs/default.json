@@ -1,0 +1,13 @@
+{
+  "experiment_name": "supply_shed_fire",
+  "mills_csv": "company/UML/UML-Dec-2024.csv",
+  "matched_mills_csv": "company/results/danone/uml/matched_mills_mill-and-plantation-list-h2-2024.csv",
+  "mosaics_dir": "country_level_data/fire/mosaics",
+  "year_start": 2015,
+  "year_end": 2024,
+  "radii_km": [
+    25,
+    50
+  ],
+  "output_root": "supply_shed_indicators/fire/outputs"
+}

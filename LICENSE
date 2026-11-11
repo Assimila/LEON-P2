@@ -1,0 +1,27 @@
+LEON Pilot 2 - Agrifood Supply Chains (Land Conversion)
+Copyright (c) 2025-2026 Global Canopy, International Institute for Applied
+Systems Analysis (IIASA) and the LEON consortium.
+
+This work (source code, documentation and accompanying material in this
+repository) is licensed under the Creative Commons Attribution-NonCommercial
+4.0 International License (CC BY-NC 4.0).
+
+  Summary (human-readable): https://creativecommons.org/licenses/by-nc/4.0/deed.en
+  Full legal code:          https://creativecommons.org/licenses/by-nc/4.0/legalcode.en
+
+You are free to share (copy and redistribute) and adapt (remix, transform and
+build upon) this material, under the following terms:
+
+  Attribution  - You must give appropriate credit, provide a link to the
+                 license, and indicate if changes were made.
+  NonCommercial - You may not use the material for commercial purposes.
+
+No additional restrictions - you may not apply legal terms or technological
+measures that legally restrict others from doing anything the license permits.
+
+Commercial use requires a separate agreement; please contact the LEON
+consortium (https://www.leon-naturefinance.org/).
+
+Third-party data and platforms used by this code (e.g. ESA WorldCover, ESA CCI
+Biomass, MODIS MCD64A1, Global Oil Palm dataset, Universal Mill List, PREDICTS,
+Google Earth Engine) keep their own licences and terms of use; see README.md.

@@ -1,60 +1,27 @@
 #!/usr/bin/env python3
-import csv
-import math
+import argparse
 import re
+import sys
 from pathlib import Path
 
 import pdfplumber
 
 
-UML_CSV_PATH = Path("UML/UML-Dec-2024.csv")
-DANONE_REPORT_DIR = Path("report")
-OUTPUT_DIR = Path("UML")
+SCRIPT_DIR = Path(__file__).resolve().parent
+SCRIPTS_ROOT = SCRIPT_DIR.parent
+if str(SCRIPTS_ROOT) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_ROOT))
+
+from common.uml_tools import haversine_km, load_uml_rows, normalize_text, parse_decimal, write_csv
 
 
-def normalize_text(value: str) -> str:
-    value = (value or "").lower()
-    value = re.sub(r"[^a-z0-9]+", " ", value)
-    return " ".join(value.split())
-
-
-def parse_decimal(value: str):
-    if value is None:
-        return None
-    cleaned = value.strip().replace(" ", "")
-    if not cleaned:
-        return None
-    cleaned = cleaned.replace(",", ".")
-    try:
-        return float(cleaned)
-    except ValueError:
-        return None
-
-
-def haversine_km(lat1, lon1, lat2, lon2):
-    if None in (lat1, lon1, lat2, lon2):
-        return None
-    r = 6371.0
-    phi1 = math.radians(lat1)
-    phi2 = math.radians(lat2)
-    dphi = math.radians(lat2 - lat1)
-    dlambda = math.radians(lon2 - lon1)
-    a = math.sin(dphi / 2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2) ** 2
-    return 2 * r * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-
-
-def load_uml_rows():
-    rows = []
-    with UML_CSV_PATH.open(newline="", encoding="latin-1") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            row["Latitude"] = parse_decimal(row.get("Latitude", ""))
-            row["Longitude"] = parse_decimal(row.get("Longitude", ""))
-            row["_norm_parent"] = normalize_text(row.get("Parent Company", ""))
-            row["_norm_group"] = normalize_text(row.get("Group Name", ""))
-            row["_norm_mill"] = normalize_text(row.get("Mill Name", ""))
-            rows.append(row)
-    return rows, reader.fieldnames
+COMPANY_DIR = SCRIPT_DIR.parents[1]
+DEFAULT_UML_CSV_PATH = COMPANY_DIR / "UML" / "UML-Dec-2024.csv"
+DEFAULT_REPORT_PATTERNS = (
+    "danone-overall-mill-list-*.pdf",
+    "mill-and-plantation-list-*.pdf",
+)
+DEFAULT_OUTPUT_DIR = COMPANY_DIR / "results" / "danone" / "uml"
 
 
 def _clean_header(value: str) -> str:
@@ -72,7 +39,7 @@ def _canonical_header(value: str, *, for_part_b: bool) -> str:
         return "Plantation Latitude"
     if key in ("plantationlongitude", "plantationlong", "plantationlongi", "plantationlongitud"):
         return "Plantation Longitude"
-    if key in ("starlingmillid", "umlid", "umlid", "umllid", "umleid"):
+    if key in ("starlingmillid", "umlid", "umllid", "umleid"):
         return "UML ID"
     if for_part_b and key.startswith("partb"):
         return "UML ID"
@@ -80,28 +47,28 @@ def _canonical_header(value: str, *, for_part_b: bool) -> str:
 
 
 def _is_part_a_header(headers):
-    header_set = {h.lower() for h in headers if h}
+    header_set = {header.lower() for header in headers if header}
     has_latlon = "latitude" in header_set and "longitude" in header_set
-    has_mill_name = any("mill name" in h.lower() for h in headers if h)
-    has_plantation = any("plantation" in h.lower() for h in headers if h)
+    has_mill_name = any("mill name" in header.lower() for header in headers if header)
+    has_plantation = any("plantation" in header.lower() for header in headers if header)
     return has_latlon and has_mill_name and not has_plantation
 
 
 def _is_part_b_header(headers):
-    normalized = [re.sub(r"[^a-z0-9]+", "", h.lower()) for h in headers if h]
-    return any("plantation" in h for h in normalized)
+    normalized = [re.sub(r"[^a-z0-9]+", "", header.lower()) for header in headers if header]
+    return any("plantation" in header for header in normalized)
 
 
 def extract_danone_part_a(pdf_path: Path):
     rows = []
     with pdfplumber.open(pdf_path) as pdf:
         last_page = min(len(pdf.pages), 8)
-        for page_index in range(1, last_page):  # pages 2-8: Mill List
+        for page_index in range(1, last_page):
             page = pdf.pages[page_index]
             for table in page.extract_tables():
                 if not table or not table[0]:
                     continue
-                headers = [_canonical_header(h, for_part_b=False) for h in table[0]]
+                headers = [_canonical_header(header, for_part_b=False) for header in table[0]]
                 if not _is_part_a_header(headers):
                     continue
                 for row in table[1:]:
@@ -121,12 +88,12 @@ def extract_danone_part_b(pdf_path: Path):
         if len(pdf.pages) <= 8:
             return rows
         last_page = min(len(pdf.pages), 28)
-        for page_index in range(8, last_page):  # pages 9-28: Plantation List
+        for page_index in range(8, last_page):
             page = pdf.pages[page_index]
             for table in page.extract_tables():
                 if not table or not table[0]:
                     continue
-                headers = [_canonical_header(h, for_part_b=True) for h in table[0]]
+                headers = [_canonical_header(header, for_part_b=True) for header in table[0]]
                 if not _is_part_b_header(headers):
                     continue
                 for row in table[1:]:
@@ -184,11 +151,11 @@ def match_part_b_by_uml_id(danone_rows, uml_rows):
             candidates = uml_by_mill.get(mill_key, [])
             if candidates:
                 if parent_key:
-                    filtered = [c for c in candidates if c.get("_norm_parent") == parent_key or c.get("_norm_group") == parent_key]
+                    filtered = [candidate for candidate in candidates if candidate.get("_norm_parent") == parent_key or candidate.get("_norm_group") == parent_key]
                     if len(filtered) == 1:
                         urow = filtered[0]
                 if urow is None and group_key:
-                    filtered = [c for c in candidates if c.get("_norm_parent") == group_key or c.get("_norm_group") == group_key]
+                    filtered = [candidate for candidate in candidates if candidate.get("_norm_parent") == group_key or candidate.get("_norm_group") == group_key]
                     if len(filtered) == 1:
                         urow = filtered[0]
                 if urow is None and len(candidates) == 1:
@@ -202,20 +169,35 @@ def match_part_b_by_uml_id(danone_rows, uml_rows):
     return matches
 
 
-def write_output(path, matches, fieldnames):
-    with path.open("w", newline="", encoding="latin-1") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        for row in matches:
-            clean = {k: row.get(k, "") for k in fieldnames}
-            writer.writerow(clean)
+def discover_danone_reports(report_dir: Path, patterns):
+    pdf_paths = []
+    for pattern in patterns:
+        pdf_paths.extend(report_dir.glob(pattern))
+    return sorted({path.resolve(): path for path in pdf_paths}.values(), key=lambda path: path.name)
 
 
 def main():
-    uml_rows, fieldnames = load_uml_rows()
-    pdf_paths = sorted(DANONE_REPORT_DIR.glob("*.pdf"))
+    parser = argparse.ArgumentParser(description="Match Danone mill and plantation reports to UML rows.")
+    parser.add_argument("--uml-csv", default=str(DEFAULT_UML_CSV_PATH), help="Path to UML CSV")
+    parser.add_argument("--report-dir", default=str(COMPANY_DIR / "report"), help="Directory containing Danone report PDFs")
+    parser.add_argument(
+        "--pattern",
+        action="append",
+        dest="patterns",
+        help="Glob pattern for Danone reports. Can be passed multiple times.",
+    )
+    parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR), help="Directory for matched CSV outputs")
+    args = parser.parse_args()
+
+    uml_csv_path = Path(args.uml_csv)
+    report_dir = Path(args.report_dir)
+    output_dir = Path(args.output_dir)
+    patterns = tuple(args.patterns or DEFAULT_REPORT_PATTERNS)
+
+    uml_rows, fieldnames = load_uml_rows(uml_csv_path)
+    pdf_paths = discover_danone_reports(report_dir, patterns)
     if not pdf_paths:
-        raise SystemExit(f"No PDF reports found in {DANONE_REPORT_DIR}")
+        raise SystemExit(f"No Danone PDF reports found in {report_dir} for patterns: {', '.join(patterns)}")
 
     plantations_fieldnames = list(fieldnames)
     for extra in ("Plantation Latitude", "Plantation Longitude"):
@@ -223,6 +205,7 @@ def main():
             plantations_fieldnames.append(extra)
 
     print(f"Reports processed: {len(pdf_paths)}")
+    print(f"Output directory: {output_dir}")
     for pdf_path in pdf_paths:
         part_a_rows = extract_danone_part_a(pdf_path)
         part_b_rows = extract_danone_part_b(pdf_path)
@@ -230,11 +213,11 @@ def main():
         matched_plantations = match_part_b_by_uml_id(part_b_rows, uml_rows)
 
         stem = pdf_path.stem
-        mills_output_path = OUTPUT_DIR / f"matched_mills_{stem}.csv"
-        plantations_output_path = OUTPUT_DIR / f"matched_plantations_{stem}.csv"
+        mills_output_path = output_dir / f"matched_mills_{stem}.csv"
+        plantations_output_path = output_dir / f"matched_plantations_{stem}.csv"
 
-        write_output(mills_output_path, matched_mills, fieldnames)
-        write_output(plantations_output_path, matched_plantations, plantations_fieldnames)
+        write_csv(mills_output_path, matched_mills, fieldnames)
+        write_csv(plantations_output_path, matched_plantations, plantations_fieldnames)
         print(f"{pdf_path.name}: Part A rows={len(part_a_rows)}, matched mills={len(matched_mills)}")
         print(f"{pdf_path.name}: Part B rows={len(part_b_rows)}, matched plantations={len(matched_plantations)}")
         print(f"Output mills: {mills_output_path}")

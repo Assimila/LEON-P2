@@ -1,9 +1,18 @@
-earthengine-api
-numpy
-matplotlib
-rasterio
-fiona
-geopandas
-shapely
-cartopy
-pdfplumber
+# LEON Pilot 2 - pinned Python dependencies (tested with Python 3.10-3.11).
+# Wheels exist for Linux x86_64 and macOS (Intel and Apple Silicon); rasterio and
+# fiona wheels bundle GDAL 3.9.x, so no system GDAL is needed for the Python code.
+# The shell mosaicking scripts additionally need the GDAL command-line tools; see
+# environment.yml for a conda environment that pins GDAL itself.
+earthengine-api==1.4.3
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.14.1
+matplotlib==3.9.2
+rasterio==1.4.3
+fiona==1.10.1
+shapely==2.0.6
+pyproj==3.7.0
+geopandas==1.0.1
+cartopy==0.24.1
+pdfplumber==0.11.4
+pytest==8.3.4

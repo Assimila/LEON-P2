@@ -33,3 +33,17 @@ outputs/
 # OS/editor noise
 .DS_Store
 .idea/
+
+# Additional generated / third-party data
+*.geojson
+*.rds
+*.html
+*.zip
+results/
+data/
+report/
+_wc_bias_work/
+.quarto/
+*_files/
+.venv/
+.mplconfig/

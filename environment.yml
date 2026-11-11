@@ -1,0 +1,14 @@
+# Conda environment for the full Pilot 2 pipeline, including GDAL CLI tools
+# (gdalbuildvrt, gdal_translate, gdalwarp) used by the *.sh mosaicking scripts.
+# Create with:   conda env create -f environment.yml && conda activate leon-p2
+name: leon-p2
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - gdal=3.9.3
+  - libgdal=3.9.3
+  - rclone=1.68.2
+  - pip
+  - pip:
+      - -r requirements.txt

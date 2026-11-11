@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "LEON Pilot 2: Agrifood supply chains (land conversion) - EO-derived supply-shed indicators for oil palm"
+authors:
+  - family-names: Song
+    given-names: Rui
+    affiliation: Global Canopy
+  - family-names: Etard
+    given-names: Adrienne
+    affiliation: International Institute for Applied Systems Analysis (IIASA)
+  - family-names: Gray
+    given-names: Claudia
+    affiliation: Global Canopy
+  - family-names: Pedeboy
+    given-names: Fiona
+    affiliation: Global Canopy
+license: CC-BY-NC-4.0
+repository-code: "https://github.com/Assimila/LEON-P2"
+date-released: 2026-11-12
+version: "1.0.0"
+keywords:
+  - earth observation
+  - nature finance
+  - oil palm
+  - deforestation
+  - supply chains
+  - biodiversity intactness index

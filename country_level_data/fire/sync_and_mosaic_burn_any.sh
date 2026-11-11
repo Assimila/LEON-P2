@@ -13,8 +13,8 @@ Usage:
   ./fire/sync_and_mosaic_burn_any.sh --years "2020 2021 ..." [--input-root <dir>] [--out-dir <dir>] --mosaic-only
 
 Examples:
-  ./fire/sync_and_mosaic_burn_any.sh --remote "rui.song90" --years "2023 2024"
-  ./fire/sync_and_mosaic_burn_any.sh --remote "rui.song90" --drive-root "My Drive"
+  ./fire/sync_and_mosaic_burn_any.sh --remote "gdrive" --years "2023 2024"
+  ./fire/sync_and_mosaic_burn_any.sh --remote "gdrive" --drive-root "My Drive"
   ./fire/sync_and_mosaic_burn_any.sh --years "2001 2002 2003" --mosaic-only
 EOF
 }

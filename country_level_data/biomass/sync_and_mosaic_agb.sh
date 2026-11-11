@@ -12,9 +12,9 @@ Usage:
                                   [--drive-root <path>] [--input-root <dir>] [--out-dir <dir>]
 
 Examples:
-  ./biomass/sync_and_mosaic_agb.sh --remote "rui.song90"
-  ./biomass/sync_and_mosaic_agb.sh --remote "rui.song90" --years "2020 2021 2022"
-  ./biomass/sync_and_mosaic_agb.sh --remote "rui.song90" --drive-root "My Drive"
+  ./biomass/sync_and_mosaic_agb.sh --remote "gdrive"
+  ./biomass/sync_and_mosaic_agb.sh --remote "gdrive" --years "2020 2021 2022"
+  ./biomass/sync_and_mosaic_agb.sh --remote "gdrive" --drive-root "My Drive"
 EOF
 }
 

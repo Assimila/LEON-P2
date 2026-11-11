@@ -1,0 +1,19 @@
+{
+  "experiment_name": "supply_shed_deforestation",
+  "mills_csv": "company/UML/UML-Dec-2024.csv",
+  "worldcover_2020_tif": "country_level_data/land_cover/mosaics/worldcover_2020_idn_mys_bias_oilpalm_cog.tif",
+  "worldcover_2021_tif": "country_level_data/land_cover/mosaics/worldcover_2021_idn_mys_bias_oilpalm_cog.tif",
+  "radii_km": [
+    25,
+    50
+  ],
+  "forest_classes": [
+    10,
+    95
+  ],
+  "oil_palm_class": 11,
+  "nodata_value": 0,
+  "block_rows": 1024,
+  "default_workers": 4,
+  "output_root": "supply_shed_indicators/deforestation/outputs"
+}
