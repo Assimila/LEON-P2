@@ -987,8 +987,7 @@ Predict_BII <- function(UML_data,
                        template$forest_integrity < 5 &
                        template$forest_integrity >= 3] <- 'Intermediate secondary vegetation'
     template$LandUse[template$WC_code == 10 &
-                       template$forest_integrity < 3 &
-                       template$forest_integrity > 0] <- 'Young secondary vegetation'
+                       template$forest_integrity < 3] <- 'Young secondary vegetation'
     template$LandUse[template$WC_code == 20] <- 'Young secondary vegetation'
     template$LandUse[template$WC_code == 30] <- 'Young secondary vegetation'
     template$LandUse[template$WC_code == 60] <- 'Young secondary vegetation'
@@ -998,13 +997,19 @@ Predict_BII <- function(UML_data,
     template$LandUse[template$WC_code == 50] <- 'Urban'
     template$LandUse[template$WC_code == 70] <- 'Snow and ice'
     template$LandUse[template$WC_code == 80] <- 'Permanent water bodies'
-    template$LandUse[template$WC_code == 90] <- 'Herbaceous wetland'
-    template$LandUse[template$WC_code == 95] <- 'Mangroves'
+    
+    ## treating mangroves and herbaceous wetlands as primary vegetation
+    #template$LandUse[template$WC_code == 95] <- 'Mangroves'
+    #template$LandUse[template$WC_code == 90] <- 'Herbaceous wetland'
+    template$LandUse[template$WC_code == 95] <- 'Primary vegetation'
+    template$LandUse[template$WC_code == 90] <- 'Primary vegetation'
+    
     template$LandUse[template$WC_code == 100] <- 'Moss and lichen'
     
     template$contrast[!is.na(template$LandUse)] <- paste('Primary vegetation', template$LandUse[!is.na(template$LandUse)], sep='-' )
     
     ## add % tree cover as LU_CCI_50 ## WC code 10 = tree cover
+    ## here we do this at the level of the whole area: tree cover effect as a single effect across the whole mill area
     template$LU_CCI_50 <- nrow(template[which(template$WC_code==10),])/nrow(template)*100
     
     ## now predict for abundance at the grid cell level
@@ -1057,8 +1062,8 @@ Predict_BII <- function(UML_data,
     UML_data$Sum_BII[i] <- sum(BII, na.rm=TRUE)
     
     print(paste('finished row', i, 'of', nrow(UML_data)))
-    
-    writeRaster(
+
+      writeRaster(
       Raster_outout,
       paste0(Path_raster_out, Year, '/',
         UML_data$UML.ID[i],
