@@ -63,7 +63,9 @@ Packages <- c(
   'betapart',
   'vegan',
   'terra',
-  'sp'
+  'sp', 
+  'scales', 
+  'RColorBrewer'
 )
 sapply(Packages, FUN=library, character.only=TRUE)
 rm(Packages)
@@ -980,8 +982,20 @@ similarity_model_tree_cover <- lme4::lmer(
   data = Bray_Cutis_dissimilarity_vegan
   )
 
+similarity_model_tree_cover_2 <- lme4::lmer(
+  logit_bray_curtis_similarity_vegan ~ contrast + LU_CCI_50 + log10_geodist + (1|SS) + (1|SSBS_2), 
+  data = Bray_Cutis_dissimilarity_vegan
+  )
+
+similarity_model_tree_cover_3 <- lme4::lmer(
+  logit_bray_curtis_similarity_vegan ~ contrast + LU_CCI_50 + log10_geodist + (1|SS) + (1|SSBS_1)+ (1|SSBS_2), 
+  data = Bray_Cutis_dissimilarity_vegan
+  )
+
 ## which model fits better? the model with tree cover
 anova(similarity_model, similarity_model_tree_cover)
+# anova(similarity_model_tree_cover, similarity_model_tree_cover_2)
+# anova(similarity_model_tree_cover_2, similarity_model_tree_cover_3)
 
 ```
 
@@ -996,6 +1010,41 @@ Newdata <- expand.grid(contrast=levels(Bray_Cutis_dissimilarity_vegan$contrast),
 
 similarity_predictions <- Predict_effects_impr(new_data = Newdata,
                                         Model = similarity_model_tree_cover,
+                                        rescale = TRUE, 
+                                        LU_n = length(levels(Bray_Cutis_dissimilarity_vegan$contrast)), 
+                                        backtransform = 'logit',
+                                        A_logit = 0.001)
+
+similarity_predictions$Median <- similarity_predictions$Median - 100
+similarity_predictions$Lower <- similarity_predictions$Lower - 100
+similarity_predictions$Upper <- similarity_predictions$Upper - 100
+rm(Newdata)
+
+
+## with site RE
+Newdata <- expand.grid(contrast=levels(Bray_Cutis_dissimilarity_vegan$contrast),
+                       log10_geodist=0, 
+                       LU_CCI_50=50)
+
+similarity_predictions <- Predict_effects_impr(new_data = Newdata,
+                                        Model = similarity_model_tree_cover_2,
+                                        rescale = TRUE, 
+                                        LU_n = length(levels(Bray_Cutis_dissimilarity_vegan$contrast)), 
+                                        backtransform = 'logit',
+                                        A_logit = 0.001)
+
+similarity_predictions$Median <- similarity_predictions$Median - 100
+similarity_predictions$Lower <- similarity_predictions$Lower - 100
+similarity_predictions$Upper <- similarity_predictions$Upper - 100
+rm(Newdata)
+
+## with both sites as RE
+Newdata <- expand.grid(contrast=levels(Bray_Cutis_dissimilarity_vegan$contrast),
+                       log10_geodist=0, 
+                       LU_CCI_50=50)
+
+similarity_predictions <- Predict_effects_impr(new_data = Newdata,
+                                        Model = similarity_model_tree_cover_3,
                                         rescale = TRUE, 
                                         LU_n = length(levels(Bray_Cutis_dissimilarity_vegan$contrast)), 
                                         backtransform = 'logit',
@@ -1144,7 +1193,8 @@ ggplot(abundance_predictions_all_SV %>%
   scale_discrete_manual("colour",
                         values = c('black', 'red4', 'orange', 'darkgreen'),
                         breaks=c('No intensity in model', 'Intense use', 'Light use', 'Minimal use')) +
-  ggtitle("Effects of models on total abundance (with and without land-use intensity)")
+  ggtitle("(a) Model on total abundance") +
+            theme(legend.position='none')
 
 ,
 
@@ -1156,7 +1206,7 @@ ggplot(similarity_predictions,
   geom_errorbar(width=.2, size=0.5, stat="identity",position=position_dodge(width = 0.6)) +
   geom_point(size=2, position=position_dodge(width = 0.6)) +
   #GGPoptions +
-  ylab("Abundance (% difference from primary)") + 
+  ylab("Similarity (% difference from primary)") + 
   theme(panel.spacing.y =  unit(0, "lines")) +
   theme(axis.text.x = element_text(angle = 60, hjust=1, size = 12)) +
   ggtitle("(b) Model on similarity") + scale_x_discrete( 
@@ -1170,16 +1220,6 @@ ggplot(similarity_predictions,
 
 Here, we predict BII for the World Cover maps corrected for oil palm plantations, for the years 2020 and 2021.
 
-/danone_matched_mills.csv')
-
-MillsFerrero \<- read.csv('../../data/supply_shed_data/mills_5\_companies/ferrero_matched_mills.csv')
-
-MillsNestle \<- read.csv('../../data/supply_shed_data/mills_5\_companies/nestle_matched_mills.csv')
-
-MillsPepsico \<- read.csv('../../data/supply_shed_data/mills_5\_companies/pepsico_matched_mills.csv')
-
-MillsWilmar \<- read.csv('../../data/supply_shed_data/mills_5\_companies/danone_matched_mills.csv')
-
 ```{r}
 #| output: false 
 #| echo: true 
@@ -1192,7 +1232,7 @@ MillsDanone <- read.csv('../../data/supply_shed_data/mills_5_companies/danone_ma
 MillsFerrero <- read.csv('../../data/supply_shed_data/mills_5_companies/ferrero_matched_mills.csv')
 MillsNestle <- read.csv('../../data/supply_shed_data/mills_5_companies/nestle_matched_mills.csv')
 MillsPepsico <- read.csv('../../data/supply_shed_data/mills_5_companies/pepsico_matched_mills.csv')
-MillsWilmar <- read.csv('../../data/supply_shed_data/mills_5_companies/danone_matched_mills.csv')
+MillsWilmar <- read.csv('../../data/supply_shed_data/mills_5_companies/wilmar_matched_mills.csv')
 
 ## unique mills across the 5 companies
 UniqueMills <- 
@@ -1250,13 +1290,13 @@ Mills5_2021 <- Predict_BII(
   Aggregate_Factor = 10,
   abundance_model = abundance_model_SV_treecover,
   similarity_model = similarity_model_tree_cover,
-  Path_raster_out = '../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/'
+  Path_raster_out = '../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/05_11_2026/'
 )
 print(Sys.time())
 T2 <- Sys.time()
 print(T1-T2) 
 
-write.csv(Mills5_2021, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_mills_2021.csv', row.names=FALSE)
+write.csv(Mills5_2021, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables/November_2026/5_companies_mills_2021.csv', row.names=FALSE)
 
 ## for 2020
 print(Sys.time())
@@ -1270,29 +1310,29 @@ Mills5_2020 <- Predict_BII(
   Aggregate_Factor = 10,
   abundance_model = abundance_model_SV_treecover,
   similarity_model = similarity_model_tree_cover,
-  Path_raster_out = '../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/'
+  Path_raster_out = '../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/05_11_2026/'
 )
 print(Sys.time())
 T2 <- Sys.time()
 print(T1-T2) 
 
-write.csv(Mills5_2020, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_mills_2020.csv', row.names=FALSE)
+write.csv(Mills5_2020, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables/November_2026/5_companies_mills_2020.csv', row.names=FALSE)
 
 }
 
 ```
 
-Analysing the results: plotting Median and Sum BII distributions for each of the 5 compamies.
+Analysing the results: plotting Median and Sum BII distributions for each of the 5 companies.
 
 ```{r}
 #| output: false 
 #| echo: true 
 
 ## consolidating the BII data
-BII_2021 <- read.csv('../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_mills_2021.csv') %>% 
-  mutate(Year=2020)
-BII_2020 <-  read.csv('../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_mills_2020.csv') %>% 
+BII_2021 <- read.csv('../../results/2_biodiversity_metrics_site_level/BII_mills_tables/November_2026/5_companies_mills_2021.csv') %>% 
   mutate(Year=2021)
+BII_2020 <-  read.csv('../../results/2_biodiversity_metrics_site_level/BII_mills_tables/November_2026/5_companies_mills_2020.csv') %>% 
+  mutate(Year=2020)
 
 ## adding relevant BII values for each company
 LJf <- function(Mills_company, BII2020, BII2021) {
@@ -1324,7 +1364,22 @@ BII_all <- rbind(BII_Danone %>%
                    mutate(Company='Wilmar')
                  )
 
-write.csv(BII_all, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_BII.csv', row.names=FALSE)
+write.csv(BII_all, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables/November_2026/5_companies_BII.csv', row.names=FALSE)
+
+BII_all <- BII_all %>% 
+  dplyr::filter(!is.na(Median_BII))
+
+write.csv(BII_all, '../../results/2_biodiversity_metrics_site_level/BII_mills_tables/November_2026/5_companies_BII_noNAs.csv', row.names=FALSE)
+
+## checking number of mills per company
+BII_all %>% 
+  filter(Year==2020) %>% 
+  filter(!is.na(Median_BII)) %>% 
+  group_by(Company) %>% 
+  summarise(N_mills=n())
+
+BII_all <- BII_all[!is.na(BII_all$Median_BII),]
+
 ```
 
 ```{r}
@@ -1332,51 +1387,145 @@ write.csv(BII_all, '../../results/2_biodiversity_metrics_site_level/BII_mills_ta
 #| echo: true 
 
 ## plotting distributions of BII for each company
-ggplot(BII_all, aes(Median_BII, col=Company, fill=Company)) + 
+ggplot(BII_all, aes(Median_BII, col=as.factor(Year), fill=as.factor(Year))) + 
   geom_density(alpha=0.1, size=0.6) +
-  facet_wrap(~Year) +
-  theme_bw()
+  theme_bw() + 
+  scale_colour_discrete(name = "Year")+ 
+  scale_fill_discrete(name = "Year")
 
 ggplot(BII_all, aes(Sum_BII, col=Company, fill=Company)) + 
   geom_density(alpha=0.1, size=0.6) +
   facet_wrap(~Year) +
   theme_bw()
+
+ggplot(BII_all, aes(Sum_BII, col=Company, fill=Company)) + 
+  geom_boxplot(alpha=0.1, size=0.6) +
+  facet_wrap(~Year) +
+  theme_bw()
+
+ggplot(BII_all, aes(Median_BII, y=Company, col=Company, fill=Company)) + 
+  geom_boxplot(alpha=0.1, size=0.6) +
+  facet_wrap(~Year, ncol=2) +
+  theme_bw() 
+
+ggplot(BII_all, aes(Sum_BII, y=Company, col=Company, fill=Company)) + 
+  geom_boxplot(alpha=0.1, size=0.6) +
+  facet_wrap(~Year, ncol=2) +
+  theme_bw() + 
+  theme(legend.position = 'none')
+
+ggplot(BII_all, aes(Median_BII, col=Company, fill=Company)) + 
+  geom_density(alpha=0.1, size=0.6) +
+  facet_wrap(~Year, ncol=2) +
+  theme_bw() 
+
+ggplot(BII_all, aes(Median_BII, col=as.factor(Year), 
+                    fill=as.factor(Year))) + 
+  geom_density(alpha=0.1, size=0.6) +
+  facet_wrap(~Company, ncol=2) +
+  theme_bw() +
+  scale_fill_discrete(name = "Year") +
+  scale_colour_discrete(name = "Year") +
+  xlab('Median BII') + ylab('Density')
+
+Median_meds <- 
+BII_all %>%  
+  group_by(Year, Company) %>% 
+  summarise(Median=median(Median_BII, na.rm=TRUE), 
+            Lower=quantile(Median_BII, 0.25, na.rm=TRUE), 
+            Higher=quantile(Median_BII, 0.75, na.rm=TRUE)) %>% 
+  arrange(desc(Median))
+
+Median_sum <- 
+BII_all %>%  
+  group_by(Year, Company) %>% 
+  summarise(Median=median(Sum_BII, na.rm=TRUE), 
+            Lower=quantile(Sum_BII, 0.25, na.rm=TRUE), 
+            Higher=quantile(Sum_BII, 0.75, na.rm=TRUE)) %>%   arrange(desc(Median))
+
+ggarrange(  
+ggplot(Median_meds, aes(as.factor(Year), Median, ymin=Lower, ymax=Higher,
+                        col=Company, group=Company)) +
+  geom_point() + 
+  #geom_errorbar() +
+  geom_line() +
+  xlab("Year") + ylab('Median (median)'),
+ggplot(Median_sum, aes(as.factor(Year), Median, col=Company, group=Company)) +
+  geom_point() + ylab('Median (sum)') +
+  geom_line() +
+  xlab("Year"),
+common.legend = TRUE
+)
+
+ggplot(Median_meds, aes(as.factor(Year), Median, col=Company, group=Company)) +
+  geom_point() + 
+  geom_line() +
+  xlab("Year") + ylab('Median (median)')
+
 ```
 
 ```{r}
 #| output: true 
 #| echo: true 
 
-# ## changes from 2020 to 2021 in median BII
-# Medians2020 <- Set$Median_BII[Set$Year==2020]
-# Medians2021 <- Set$Median_BII[Set$Year==2021]
-# MediansYears <- as.data.frame(cbind(Medians2020, Medians2021))
-# MediansYears$delta <-  MediansYears$Medians2020 - MediansYears$Medians2021    
-# MediansYears$UML_ID <-  Set$UML.ID[Set$Year==2020]
-# 
-# ## changes from 2020 to 2021 in sum BII
-# Sum2020 <- Set$Sum_BII[Set$Year==2020]
-# Sum2021 <- Set$Sum_BII[Set$Year==2021]
-# SumYears <- as.data.frame(cbind(Sum2020, Sum2021))
-# SumYears$delta <-  SumYears$Sum2020 - SumYears$Sum2021    
-# SumYears$UML_ID <-  Set$UML.ID[Set$Year==2020]
-# 
-# ggarrange(
-# ggplot(MediansYears, aes(Medians2020*100, Medians2021*100)) + 
-#   geom_point() + 
-#   theme_bw() + 
-#   geom_abline(slope = 1, intercept = 0, col='red', lty='dashed') +
-# ggtitle('Median BBI across mills (2020 versus 2021)')  +
-#   xlab('Median BII - 2020') + ylab( xlab('Median BII - 2021'))
-# ,
-# ggplot(SumYears, aes(Sum2020*100, Sum2021*100)) + 
-#   geom_point() + 
-#   theme_bw() + 
-#   geom_abline(slope = 1, intercept = 0, col='red', lty='dashed') +
-# ggtitle('Sum BBI across mills (2020 versus 2021)')  +
-#   xlab('Sum BII - 2020') + ylab( xlab('Sum BII - 2021'))
-# )
+## plotting distribution of median and sum BII at the 197 mills (for Danone): year 2020 against 2021
 
+## changes from 2020 to 2021 in median BII
+Medians2020 <- BII_all$Median_BII[BII_all$Year==2020]
+Medians2021 <- BII_all$Median_BII[BII_all$Year==2021]
+MediansYears <- as.data.frame(cbind(Medians2020, Medians2021))
+MediansYears$delta <-  MediansYears$Medians2020 - MediansYears$Medians2021
+MediansYears$UML_ID <-  BII_all$UML.ID[BII_all$Year==2020]
+MediansYears_197_mills_Danone <- MediansYears[MediansYears$UML_ID %in% MillsDanone$UML.ID,]
+
+## changes from 2020 to 2021 in sum BII
+Sum2020 <- BII_all$Sum_BII[BII_all$Year==2020]
+Sum2021 <- BII_all$Sum_BII[BII_all$Year==2021]
+SumYears <- as.data.frame(cbind(Sum2020, Sum2021))
+SumYears$delta <-  SumYears$Sum2020 - SumYears$Sum2021
+SumYears$UML_ID <-  BII_all$UML.ID[BII_all$Year==2020]
+SumYears_197_mills_Danone <- SumYears[SumYears$UML_ID %in% MillsDanone$UML.ID,]
+
+
+## plotting 2020 versus 2021 for Danone
+ggarrange(
+ggplot(MediansYears_197_mills_Danone, aes(Medians2020*100, Medians2021*100)) +
+  geom_point() +
+  theme_bw() +
+  geom_abline(slope = 1, intercept = 0, col='red', lty='dashed') +
+ggtitle('Median BII across mills (2020 versus 2021)')  +
+  xlab('Median BII - 2020') + ylab( xlab('Median BII - 2021'))
+,
+ggplot(SumYears_197_mills_Danone, aes(Sum2020*100, Sum2021*100)) +
+  geom_point() +
+  theme_bw() +
+  geom_abline(slope = 1, intercept = 0, col='red', lty='dashed') +
+ggtitle('Sum BII across mills (2020 versus 2021)')  +
+  xlab('Sum BII - 2020') + ylab( xlab('Sum BII - 2021'))
+)
+
+## plotting distributions
+Danone_BII <- BII_all %>%  filter(Company=='Danone')
+ggarrange(
+
+  ggplot(Danone_BII, aes(Median_BII)) +
+    geom_histogram() +
+    theme_bw() +
+    facet_wrap(~Year) +
+    xlab('Median BII') +
+    ggtitle('Distribution of median BII across mills')
+
+  ,
+
+  ggplot(Danone_BII, aes(Sum_BII)) +
+    geom_histogram() +
+    theme_bw() +
+    facet_wrap(~Year)+
+    xlab('Sum BII') +
+    ggtitle('Distribution of sum BII across mills')
+  ,
+  nrow = 2
+)
 ```
 
 ```{r}
@@ -1392,23 +1541,313 @@ ggplot(BII_all, aes(Sum_BII, col=Company, fill=Company)) +
 # 
 # plot(Example2021*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052')
 
-Example2020 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/2020/PO1000000052.tif")
-Example2020_2 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/2020/PO1000003715.tif")
+Example2020 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/05_11_2026/2020/PO1000000052.tif")
+Example2020_2 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/05_11_2026/2020/PO1000003715.tif")
 
-Example2021 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/2021/PO1000003951.tif")
-Example2021_2 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/2021/PO1000001252.tif")
+Example2021 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/05_11_2026/2021/PO1000003951.tif")
+Example2021_2 <- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/05_11_2026/2021/PO1000000052.tif")
 
 
 par(mfrow=c(1,2))
-plot(Example2020_2*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052; 2020', cex.main=0.8)
-plot(Example2021_2*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000003715; 2020', cex.main=0.8)
+plot(Example2020*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052; 2020', cex.main=0.8)
+plot(Example2021_2*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052; 2021', cex.main=0.8)
 # plot(Example2021*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000003951; 2021', cex.main=0.8)
 # plot(Example2021_2*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000001252; 2021', cex.main=0.8)
 ```
 
-# 4. CONCLUSIONS
+# 5. VALIDATION
+
+We use BII layers from Gassert, Mazzarello, & Hyde (2026) (https://gee-community-catalog.org/projects/bii/; <https://source.coop/vizzuality/biodiversity-intactness-100m-v1-1>) to validate our estimations around mill areas (i.e. compare our estimates with those from Gassert et al. 2026).
+
+```{r}
+#| output: true 
+#| echo: true 
+
+## load BII data from Gassert et al. (2026)
+BII_Gassert_2021 <- rast('../../data/BII_Gassert_2026/bii_2021.tif')
+#BII_Gassert_2020 <- rast('C:/Users/etard/Downloads/bii_2020.tif')
+
+## buffered mill areas
+MillLocations_Points <- vect(MillLocations, 
+                             geom = c("Longitude", "Latitude"), 
+                             crs = "EPSG:4326")
+MillLocations_Points_buffer <- buffer(MillLocations_Points, width = 25000)
+
+## extracting BII values around mill areas for each mill, getting the corresponding WC and Fores integrity layers, and calculating median BII
+RastValues <- function(BII_data, 
+                       Forest_Integrity_data,
+                       WC_data,
+                       mill_location, 
+                       Year){
+  
+  ## croppping and masking world cover data -- if the mill falls within Indonesia/Malaysia 
+  Extent_inter <-
+      relate(WC_data, mill_location, "intersects")
+  
+    if (Extent_inter) {
+      
+      WC_mill <- crop(WC_data, mill_location)
+      WC_mill <- mask(WC_mill, mill_location)
+      writeRaster(WC_mill, 
+              paste0('../../results/3_validation/Land_cover/', Year, '/', 
+                    mill_location$UML.ID, '.tif'),
+                    overwrite=TRUE)
+  
+    ## croppping and masking BII data (global dataset from Gassert et al.)
+  BII_mill <- crop(BII_data, mill_location)
+  BII_mill <- mask(BII_mill, mill_location)
+  BII_mill[BII_mill==0] <- NA
+  writeRaster(BII_mill, 
+              paste0('../../results/3_validation/BII_Gassert/', Year, '/', 
+                    mill_location$UML.ID, '.tif'),
+                    overwrite=TRUE)
+  
+  ## croppping and masking forest intergrity data
+  FI_mill <- crop(Forest_Integrity_data, mill_location)
+  FI_mill <- mask(FI_mill, mill_location)
+  FI_mill[FI_mill<0] <- NA
+  writeRaster(FI_mill, 
+              paste0('../../results/3_validation/Forest_integrity/', Year, '/', 
+                    mill_location$UML.ID, '.tif'),
+                    overwrite=TRUE)
+  
+  ## median BII value from Gassert 2026
+  medianVal <- median(values(BII_mill), na.rm=TRUE)
+  sumVal <- sum(values(BII_mill), na.rm=TRUE)
+  Vals <- data.frame(Median_BII=medianVal, Sum_BII=sumVal, UML.ID=mill_location$UML.ID)
+  return(Vals)
+    } else{
+          print('Mill is not in Indonesia or Malaysia')
+      return(data.frame(Median_BII='Mill is not in Indonesia or Malaysia', 
+                        Sum_BII='Mill is not in Indonesia or Malaysia', 
+                        UML.ID=mill_location$UML.ID))
+      }
+}
+
+
+## running the function for 2021
+RUN <- FALSE
+
+DF_validation_2021 <- data.frame()
+
+if(RUN){
+for (i in 1: nrow(MillLocations_Points_buffer)) {
+  out <- 
+  RastValues(BII_data = BII_Gassert_2021,
+             Forest_Integrity_data = Forest_integrity_crop, 
+             WC_data = World_Cover_2021_crop,
+             mill_location = MillLocations_Points_buffer[i])
+  
+  DF_validation_2021 <- rbind(DF_validation_2021, out)
+  print(paste('done mill', i, 'over', nrow(MillLocations_Points_buffer)))
+  gc()
+}
+
+write.csv(DF_validation_2021, "../../results/3_validation/BII_mills_Gassert_2021.csv", row.names=FALSE)
+}
+
+# ## running the function for 2020
+# DF_validation_2020 <- data.frame()
+# for (i in 1: nrow(MillLocations_Points_buffer)) {
+#   out <- 
+#   RastValues(BII_data = BII_Gassert_2020,
+#              Forest_Integrity_data = Forest_integrity_crop, 
+#              WC_data = World_Cover_2020_crop,
+#              mill_location = MillLocations_Points_buffer[i])
+#   
+#   DF_validation_2020 <- rbind(DF_validation_2020, out)
+#   print(paste('done mill', i, 'over', nrow(MillLocations_Points_buffer)))
+#   gc()
+# }
+# write.csv(DF_validation_2020, "../../results/3_validation/BII_mills_Gassert_2020.csv", row.names=FALSE)
+
+```
+
+```{r}
+#| output: true 
+#| echo: true 
+
+## comparing predictions for 2021
+DF_Gassert_BII_2021 <- read.csv("../../results/3_validation/BII_mills_Gassert_2021.csv") 
+DF_Gassert_BII_2021$Median_BII[DF_Gassert_BII_2021$Median_BII=="Mill is not in Indonesia or Malaysia"] <- NA
+DF_Gassert_BII_2021$Sum_BII[DF_Gassert_BII_2021$Sum_BII=="Mill is not in Indonesia or Malaysia"] <- NA
+DF_Gassert_BII_2021$Median_BII <- as.numeric(DF_Gassert_BII_2021$Median_BII)
+DF_Gassert_BII_2021$Sum_BII <- as.numeric(DF_Gassert_BII_2021$Sum_BII)
+
+Estimated_BII_2021 <- read.csv('../../results/2_biodiversity_metrics_site_level/BII_mills_tables/November_2026/5_companies_mills_2021.csv')
+
+## long format
+BII_df_long <- rbind(DF_Gassert_BII_2021 %>%  
+                       mutate(Which='Gassert (2026)'),
+                     Estimated_BII_2021 %>%  
+                       mutate(Which='Pilot 2') %>% 
+                       dplyr::select(Median_BII, Sum_BII, UML.ID, Which))
+BII_df_long$Year <- "2021"
+
+## plotting distributions
+ggarrange(
+ggplot(BII_df_long, aes(Median_BII, fill=Which)) + 
+  geom_histogram(binwidth = 0.01) +
+  theme_bw() + theme(legend.title=element_blank()) +
+  ggtitle('Distribution of median BII across mill areas')
+,
+ggplot(BII_df_long, aes(Sum_BII, fill=Which)) + 
+  geom_histogram(binwidth = 4000) +
+  theme_bw() + theme(legend.title=element_blank()) +
+  ggtitle('Distribution of sum BII across mill areas'), 
+common.legend = TRUE, nrow=2
+  
+)
+
+
+## wide format
+colnames(DF_Gassert_BII_2021)[1] <- "Median_BII_Gassert"
+colnames(DF_Gassert_BII_2021)[2] <- "Sum_BII_Gassert"
+
+colnames(Estimated_BII_2021)[4] <- "Median_BII_estimated"
+colnames(Estimated_BII_2021)[5] <- "Sum_BII_estimated"
+
+BII_df <- left_join(DF_Gassert_BII_2021, Estimated_BII_2021)
+BII_df[!is.na(BII_df$Median_BII_estimated),] %>%  nrow()
+BII_df$DeltaMedian <- BII_df$Median_BII_Gassert-BII_df$Median_BII_estimated
+
+BII_df_out <- BII_df[, c("UML.ID", "Latitude", "Longitude", 
+                         "Median_BII_estimated", "Sum_BII_estimated", 
+                         "Median_BII_Gassert", "Sum_BII_Gassert")]
+BII_df_out$Year <- "2021"
+colnames(BII_df_out)[4:7] <- c( "Median_BII_estimated_P2", 
+                                "Sum_BII_estimated_P2",
+                                "Median_BII_Gassert_2026",
+                                "Sum_BII_Gassert_2026" )
+nrow(BII_df_out[!is.na(BII_df_out$Median_BII_estimated_P2),])
+write.csv(BII_df_out, 
+          '../../results/3_validation/BII_estimates_2021_Gassert_vs_P2.csv', 
+          row.names=FALSE)
+
+BII_df_out$DeltaMedian <- BII_df_out$Median_BII_Gassert-BII_df_out$Median_BII_estimated
+
+par(mfrow=c(1,2))
+plot(BII_df$Median_BII_Gassert,
+     BII_df$Median_BII_estimated,
+     pch=21, 
+     col='black', bg='lightblue', 
+     xlab='BII from Gassert et al. (2026)', 
+     ylab='BII estimated in this pilot', 
+     main="Median BII around 1618 mill areas")
+abline(b=1, a=0, lty='dashed')
+#abline(v = 0.9, lty='dashed', col='lightblue')
+
+
+plot(BII_df$Sum_BII_Gassert,
+     BII_df$Sum_BII_estimated,
+     pch=21, 
+     col='black', bg='lightblue', 
+     xlab='BII from Gassert et al. (2026)', 
+     ylab='BII estimated in this pilot', 
+     main="Sum BII around 1618 mill areas")
+abline(b=1, a=0, lty='dashed')
+
+ggplot(BII_df, aes(DeltaMedian)) + 
+  geom_histogram(binwidth = 0.01, col='black', fill='lightcoral') +
+  theme_bw()
+
+```
+
+Mill examples
+
+```{r}
+#| output: true 
+#| echo: true 
+
+## detailed exmaples 
+Mill_ID <- 'PO1000002320'
+
+Plot_4_rasters <- function(Mill_ID){
+  
+  BII_G <- rast(paste0('../../results/3_validation/BII_Gassert/2021/', Mill_ID, '.tif'))
+  BII_P <- rast(paste0('../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/05_11_2026/2021/', Mill_ID, '.tif'))
+  FI_G <- rast(paste0('../../results/3_validation/Forest_integrity/2021/', Mill_ID, '.tif'))
+  LC_G <- rast(paste0('../../results/3_validation/Land_cover/2021/' , Mill_ID, '.tif'))
+  
+  r_min <- min(global(BII_G, "min", na.rm=TRUE)[1,1],
+               global(BII_P, "min", na.rm=TRUE)[1,1])
+  
+  r_max <- max(global(BII_G, "max", na.rm=TRUE)[1,1],
+               global(BII_P, "max", na.rm=TRUE)[1,1])
+  
+  # Common colour palette and breaks
+  bii_cols <- hcl.colors(50, palette ="Blue-Yellow", rev=TRUE)
+  bii_breaks <- seq(r_min, r_max, length.out=101)
+  
+  par(mfrow=c(2,2))
+  
+  ## plotting BII from Gassert
+  plot(BII_G, main="(a) BII (Global estimations from Gassert et al. 2026)", 
+       col=bii_cols, breaks=bii_breaks, type='continuous')
+  text(x = par("usr")[2],
+       y = par("usr")[4],
+       adj = c(2, 1.5),
+       labels = paste0("Median = ", round(median(values(BII_G), na.rm=TRUE), 2)),
+       col = "black",
+       cex = 1)
+  
+  ## plotting BII from Pilot 2
+  plot((BII_P), main="(b) BII (Pilot 2 estimations)", type = 'continuous', 
+       col=bii_cols, breaks=bii_breaks)
+  text(x = par("usr")[2],
+       y = par("usr")[4],
+       adj = c(2, 1.5),
+       labels = paste0("Median = ", round(median(values(BII_P), na.rm=TRUE), 2)),
+       col = "black",
+       cex = 1)
+  
+  ## plotting forest integrity
+  plot(FI_G, main="(c) Forest integrity from Grantham et al. (2020)",
+       col=hcl.colors(100, palette = "viridis"))
+  
+  
+  ## plotting LC
+  lc_labels <- c(
+    "Tree cover",
+    "Oil-palm plantation",
+    "Shrubland",
+    "Grassland",
+    "Cropland",
+    "Built-up",
+    "Bare/sparse vegetation",
+    "Permanent water bodies",
+    "Herbaceous wetlands",
+    "Mangroves"
+  )
+  
+  levels(LC_G) <- data.frame(
+    ID = c(10,11,20,30,40,50,60,80,90,95),
+    Land_cover = lc_labels
+  )
+  
+  plot(LC_G, 
+       main="(d) Land-cover with oil-palm plantation corrections", 
+       col=hex_codes)
+  
+}
+
+
+cols <- pal_brewer(10, "Set3")
+hex_codes <- brewer.pal(10, "Set3")
+
+Plot_4_rasters(Mill_ID='PO1000002320')
+Plot_4_rasters(Mill_ID='PO1000004325')
+Plot_4_rasters(Mill_ID='PO1000017679')
+
+
+
+```
+
+# 6. CONCLUSIONS
 
 We found significant biodiversity declines in oil-palm plantations compared to primary vegetation. Total abundance declined by an average 15%, and similarity by an average 43%. We provide BII for mills for 5 companies in Indonesia and Malaysia, considering a 25km buffer area around the mills.
+
+Our estimations improve global BII estimations by accounting for the spatial distribution of oil palm plantations, and specifically estimating the relative declines in biodiversity (abundance and similarity) in oil palm plantations compared to primary vegetation.
 
 Challenges to think further about: - how to better align PREDICTS categories with EO-products on land use and land use intensity, including: --\> how to get proxies for land use intensity --\> how to better represent primary and secondary vegetation in world cover maps.
 
