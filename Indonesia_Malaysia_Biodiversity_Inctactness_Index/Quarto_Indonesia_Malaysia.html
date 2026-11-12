@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Adrienne Etard (International Institute for Applied Systems Analysis); &amp; Rui Song (Global Canopy); Claudia Gray (Global Canopy); Nicola Wilson (Global Canopy); Fiona Pedeboy (Global Canopy); Gerado Lopez Saldana (Assimila)">
-<meta name="dcterms.date" content="2026-04-14">
+<meta name="dcterms.date" content="2026-11-12">
 
 <title>Pilot 2: Exploring biodiversity impacts of oil-palm plantations in Indonesia and Malaysia</title>
 <style>
@@ -127,7 +127,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 14, 2026</p>
+      <p class="date">November 12, 2026</p>
     </div>
   </div>
   
@@ -174,12 +174,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">'betapart'</span>,</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">'vegan'</span>,</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">'terra'</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">'sp'</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(Packages, <span class="at">FUN=</span>library, <span class="at">character.only=</span><span class="cn">TRUE</span>)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(Packages)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'Source_Functions.R'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">'sp'</span>, </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">'scales'</span>, </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">'RColorBrewer'</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(Packages, <span class="at">FUN=</span>library, <span class="at">character.only=</span><span class="cn">TRUE</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(Packages)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'Source_Functions.R'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="load-the-land-cover-layers-for-the-pilot-region-for-projections" class="level2">
@@ -1137,8 +1139,20 @@ Ag_xct_lctn -0.318</code></pre>
 <span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Bray_Cutis_dissimilarity_vegan</span>
 <span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a><span class="do">## which model fits better? the model with tree cover</span></span>
-<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(similarity_model, similarity_model_tree_cover)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a>similarity_model_tree_cover_2 <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(</span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a>  logit_bray_curtis_similarity_vegan <span class="sc">~</span> contrast <span class="sc">+</span> LU_CCI_50 <span class="sc">+</span> log10_geodist <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>SS) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>SSBS_2), </span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Bray_Cutis_dissimilarity_vegan</span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a>similarity_model_tree_cover_3 <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(</span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a>  logit_bray_curtis_similarity_vegan <span class="sc">~</span> contrast <span class="sc">+</span> LU_CCI_50 <span class="sc">+</span> log10_geodist <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>SS) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>SSBS_1)<span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>SSBS_2), </span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> Bray_Cutis_dissimilarity_vegan</span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a><span class="do">## which model fits better? the model with tree cover</span></span>
+<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(similarity_model, similarity_model_tree_cover)</span>
+<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a><span class="co"># anova(similarity_model_tree_cover, similarity_model_tree_cover_2)</span></span>
+<span id="cb28-55"><a href="#cb28-55" aria-hidden="true" tabindex="-1"></a><span class="co"># anova(similarity_model_tree_cover_2, similarity_model_tree_cover_3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Drawing predictions for the similarity model.</p>
 <div class="cell">
@@ -1156,7 +1170,42 @@ Ag_xct_lctn -0.318</code></pre>
 <span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>similarity_predictions<span class="sc">$</span>Median <span class="ot">&lt;-</span> similarity_predictions<span class="sc">$</span>Median <span class="sc">-</span> <span class="dv">100</span></span>
 <span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>similarity_predictions<span class="sc">$</span>Lower <span class="ot">&lt;-</span> similarity_predictions<span class="sc">$</span>Lower <span class="sc">-</span> <span class="dv">100</span></span>
 <span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>similarity_predictions<span class="sc">$</span>Upper <span class="ot">&lt;-</span> similarity_predictions<span class="sc">$</span>Upper <span class="sc">-</span> <span class="dv">100</span></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(Newdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(Newdata)</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="do">## with site RE</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>Newdata <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">contrast=</span><span class="fu">levels</span>(Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>contrast),</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>                       <span class="at">log10_geodist=</span><span class="dv">0</span>, </span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>                       <span class="at">LU_CCI_50=</span><span class="dv">50</span>)</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>similarity_predictions <span class="ot">&lt;-</span> <span class="fu">Predict_effects_impr</span>(<span class="at">new_data =</span> Newdata,</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">Model =</span> similarity_model_tree_cover_2,</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">rescale =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">LU_n =</span> <span class="fu">length</span>(<span class="fu">levels</span>(Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>contrast)), </span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">backtransform =</span> <span class="st">'logit'</span>,</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">A_logit =</span> <span class="fl">0.001</span>)</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>similarity_predictions<span class="sc">$</span>Median <span class="ot">&lt;-</span> similarity_predictions<span class="sc">$</span>Median <span class="sc">-</span> <span class="dv">100</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>similarity_predictions<span class="sc">$</span>Lower <span class="ot">&lt;-</span> similarity_predictions<span class="sc">$</span>Lower <span class="sc">-</span> <span class="dv">100</span></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>similarity_predictions<span class="sc">$</span>Upper <span class="ot">&lt;-</span> similarity_predictions<span class="sc">$</span>Upper <span class="sc">-</span> <span class="dv">100</span></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(Newdata)</span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a><span class="do">## with both sites as RE</span></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>Newdata <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">contrast=</span><span class="fu">levels</span>(Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>contrast),</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>                       <span class="at">log10_geodist=</span><span class="dv">0</span>, </span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>                       <span class="at">LU_CCI_50=</span><span class="dv">50</span>)</span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a>similarity_predictions <span class="ot">&lt;-</span> <span class="fu">Predict_effects_impr</span>(<span class="at">new_data =</span> Newdata,</span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">Model =</span> similarity_model_tree_cover_3,</span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">rescale =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">LU_n =</span> <span class="fu">length</span>(<span class="fu">levels</span>(Bray_Cutis_dissimilarity_vegan<span class="sc">$</span>contrast)), </span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">backtransform =</span> <span class="st">'logit'</span>,</span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">A_logit =</span> <span class="fl">0.001</span>)</span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a>similarity_predictions<span class="sc">$</span>Median <span class="ot">&lt;-</span> similarity_predictions<span class="sc">$</span>Median <span class="sc">-</span> <span class="dv">100</span></span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a>similarity_predictions<span class="sc">$</span>Lower <span class="ot">&lt;-</span> similarity_predictions<span class="sc">$</span>Lower <span class="sc">-</span> <span class="dv">100</span></span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a>similarity_predictions<span class="sc">$</span>Upper <span class="ot">&lt;-</span> similarity_predictions<span class="sc">$</span>Upper <span class="sc">-</span> <span class="dv">100</span></span>
+<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(Newdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -1320,26 +1369,27 @@ Primary vegetation-Intermediate secondary vegetation
 <span id="cb48-49"><a href="#cb48-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_discrete_manual</span>(<span class="st">"colour"</span>,</span>
 <span id="cb48-50"><a href="#cb48-50" aria-hidden="true" tabindex="-1"></a>                        <span class="at">values =</span> <span class="fu">c</span>(<span class="st">'black'</span>, <span class="st">'red4'</span>, <span class="st">'orange'</span>, <span class="st">'darkgreen'</span>),</span>
 <span id="cb48-51"><a href="#cb48-51" aria-hidden="true" tabindex="-1"></a>                        <span class="at">breaks=</span><span class="fu">c</span>(<span class="st">'No intensity in model'</span>, <span class="st">'Intense use'</span>, <span class="st">'Light use'</span>, <span class="st">'Minimal use'</span>)) <span class="sc">+</span></span>
-<span id="cb48-52"><a href="#cb48-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Effects of models on total abundance (with and without land-use intensity)"</span>)</span>
-<span id="cb48-53"><a href="#cb48-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-54"><a href="#cb48-54" aria-hidden="true" tabindex="-1"></a>,</span>
-<span id="cb48-55"><a href="#cb48-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-56"><a href="#cb48-56" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(similarity_predictions,</span>
-<span id="cb48-57"><a href="#cb48-57" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(contrast , Median, <span class="at">ymin =</span> Lower, <span class="at">ymax =</span> Upper)) <span class="sc">+</span></span>
-<span id="cb48-58"><a href="#cb48-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb48-59"><a href="#cb48-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
-<span id="cb48-60"><a href="#cb48-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">col=</span><span class="st">"black"</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb48-61"><a href="#cb48-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">width=</span>.<span class="dv">2</span>, <span class="at">size=</span><span class="fl">0.5</span>, <span class="at">stat=</span><span class="st">"identity"</span>,<span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.6</span>)) <span class="sc">+</span></span>
-<span id="cb48-62"><a href="#cb48-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">2</span>, <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.6</span>)) <span class="sc">+</span></span>
-<span id="cb48-63"><a href="#cb48-63" aria-hidden="true" tabindex="-1"></a>  <span class="co">#GGPoptions +</span></span>
-<span id="cb48-64"><a href="#cb48-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Abundance (% difference from primary)"</span>) <span class="sc">+</span> </span>
-<span id="cb48-65"><a href="#cb48-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.spacing.y =</span>  <span class="fu">unit</span>(<span class="dv">0</span>, <span class="st">"lines"</span>)) <span class="sc">+</span></span>
-<span id="cb48-66"><a href="#cb48-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">60</span>, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
-<span id="cb48-67"><a href="#cb48-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"(b) Model on similarity"</span>) <span class="sc">+</span> <span class="fu">scale_x_discrete</span>( </span>
-<span id="cb48-68"><a href="#cb48-68" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"PV-PV"</span>,<span class="st">"PV-MSV"</span>,<span class="st">"PV-ISV"</span>,<span class="st">"PV-YSV"</span>,</span>
-<span id="cb48-69"><a href="#cb48-69" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"PV-PF"</span>, <span class="st">"PV-OP"</span>, <span class="st">"PV-Cr"</span>))</span>
-<span id="cb48-70"><a href="#cb48-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-71"><a href="#cb48-71" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb48-52"><a href="#cb48-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"(a) Model on total abundance"</span>) <span class="sc">+</span></span>
+<span id="cb48-53"><a href="#cb48-53" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">'none'</span>)</span>
+<span id="cb48-54"><a href="#cb48-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-55"><a href="#cb48-55" aria-hidden="true" tabindex="-1"></a>,</span>
+<span id="cb48-56"><a href="#cb48-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-57"><a href="#cb48-57" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(similarity_predictions,</span>
+<span id="cb48-58"><a href="#cb48-58" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(contrast , Median, <span class="at">ymin =</span> Lower, <span class="at">ymax =</span> Upper)) <span class="sc">+</span></span>
+<span id="cb48-59"><a href="#cb48-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb48-60"><a href="#cb48-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb48-61"><a href="#cb48-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">col=</span><span class="st">"black"</span>, <span class="at">linetype=</span><span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb48-62"><a href="#cb48-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">width=</span>.<span class="dv">2</span>, <span class="at">size=</span><span class="fl">0.5</span>, <span class="at">stat=</span><span class="st">"identity"</span>,<span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.6</span>)) <span class="sc">+</span></span>
+<span id="cb48-63"><a href="#cb48-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">2</span>, <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.6</span>)) <span class="sc">+</span></span>
+<span id="cb48-64"><a href="#cb48-64" aria-hidden="true" tabindex="-1"></a>  <span class="co">#GGPoptions +</span></span>
+<span id="cb48-65"><a href="#cb48-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Similarity (% difference from primary)"</span>) <span class="sc">+</span> </span>
+<span id="cb48-66"><a href="#cb48-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.spacing.y =</span>  <span class="fu">unit</span>(<span class="dv">0</span>, <span class="st">"lines"</span>)) <span class="sc">+</span></span>
+<span id="cb48-67"><a href="#cb48-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">60</span>, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb48-68"><a href="#cb48-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"(b) Model on similarity"</span>) <span class="sc">+</span> <span class="fu">scale_x_discrete</span>( </span>
+<span id="cb48-69"><a href="#cb48-69" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"PV-PV"</span>,<span class="st">"PV-MSV"</span>,<span class="st">"PV-ISV"</span>,<span class="st">"PV-YSV"</span>,</span>
+<span id="cb48-70"><a href="#cb48-70" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"PV-PF"</span>, <span class="st">"PV-OP"</span>, <span class="st">"PV-Cr"</span>))</span>
+<span id="cb48-71"><a href="#cb48-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-72"><a href="#cb48-72" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1349,11 +1399,6 @@ Primary vegetation-Intermediate secondary vegetation
 <section id="mapping-results-bii-for-mill-areas" class="level1">
 <h1>4. MAPPING RESULTS: BII for mill areas</h1>
 <p>Here, we predict BII for the World Cover maps corrected for oil palm plantations, for the years 2020 and 2021.</p>
-<p>/danone_matched_mills.csv’)</p>
-<p>MillsFerrero &lt;- read.csv(‘../../data/supply_shed_data/mills_5_companies/ferrero_matched_mills.csv’)</p>
-<p>MillsNestle &lt;- read.csv(‘../../data/supply_shed_data/mills_5_companies/nestle_matched_mills.csv’)</p>
-<p>MillsPepsico &lt;- read.csv(‘../../data/supply_shed_data/mills_5_companies/pepsico_matched_mills.csv’)</p>
-<p>MillsWilmar &lt;- read.csv(‘../../data/supply_shed_data/mills_5_companies/danone_matched_mills.csv’)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ESA world cover map</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="do">## https://protect.checkpoint.com/v2/r02/___https://developers.google.com/earth-engine/datasets/catalog/ESA_WorldCover_v200___.YzJlOmlpYXNhOmM6bzo0NzFlNmM2NWViNThhN2EyNTI1Nzk5ZGZhZjBmNzI5Zjo3OmI2NmU6ZTIyZGM3NjI1N2EzODlhMDNlMWM0YTZlYTgxYjU0ZDE4MWQxOWJlY2MwM2IxZWQyZGUzZDZjNzMzZTc4ZDhkNDp0OlQ6Tg</span></span>
@@ -1363,7 +1408,7 @@ Primary vegetation-Intermediate secondary vegetation
 <span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>MillsFerrero <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../../data/supply_shed_data/mills_5_companies/ferrero_matched_mills.csv'</span>)</span>
 <span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>MillsNestle <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../../data/supply_shed_data/mills_5_companies/nestle_matched_mills.csv'</span>)</span>
 <span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>MillsPepsico <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../../data/supply_shed_data/mills_5_companies/pepsico_matched_mills.csv'</span>)</span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>MillsWilmar <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../../data/supply_shed_data/mills_5_companies/danone_matched_mills.csv'</span>)</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>MillsWilmar <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../../data/supply_shed_data/mills_5_companies/wilmar_matched_mills.csv'</span>)</span>
 <span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a><span class="do">## unique mills across the 5 companies</span></span>
 <span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>UniqueMills <span class="ot">&lt;-</span> </span>
@@ -1421,13 +1466,13 @@ Primary vegetation-Intermediate secondary vegetation
 <span id="cb49-64"><a href="#cb49-64" aria-hidden="true" tabindex="-1"></a>  <span class="at">Aggregate_Factor =</span> <span class="dv">10</span>,</span>
 <span id="cb49-65"><a href="#cb49-65" aria-hidden="true" tabindex="-1"></a>  <span class="at">abundance_model =</span> abundance_model_SV_treecover,</span>
 <span id="cb49-66"><a href="#cb49-66" aria-hidden="true" tabindex="-1"></a>  <span class="at">similarity_model =</span> similarity_model_tree_cover,</span>
-<span id="cb49-67"><a href="#cb49-67" aria-hidden="true" tabindex="-1"></a>  <span class="at">Path_raster_out =</span> <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/'</span></span>
+<span id="cb49-67"><a href="#cb49-67" aria-hidden="true" tabindex="-1"></a>  <span class="at">Path_raster_out =</span> <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/05_11_2026/'</span></span>
 <span id="cb49-68"><a href="#cb49-68" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb49-69"><a href="#cb49-69" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">Sys.time</span>())</span>
 <span id="cb49-70"><a href="#cb49-70" aria-hidden="true" tabindex="-1"></a>T2 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
 <span id="cb49-71"><a href="#cb49-71" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(T1<span class="sc">-</span>T2) </span>
 <span id="cb49-72"><a href="#cb49-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-73"><a href="#cb49-73" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(Mills5_2021, <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_mills_2021.csv'</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb49-73"><a href="#cb49-73" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(Mills5_2021, <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/November_2026/5_companies_mills_2021.csv'</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
 <span id="cb49-74"><a href="#cb49-74" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-75"><a href="#cb49-75" aria-hidden="true" tabindex="-1"></a><span class="do">## for 2020</span></span>
 <span id="cb49-76"><a href="#cb49-76" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">Sys.time</span>())</span>
@@ -1441,23 +1486,23 @@ Primary vegetation-Intermediate secondary vegetation
 <span id="cb49-84"><a href="#cb49-84" aria-hidden="true" tabindex="-1"></a>  <span class="at">Aggregate_Factor =</span> <span class="dv">10</span>,</span>
 <span id="cb49-85"><a href="#cb49-85" aria-hidden="true" tabindex="-1"></a>  <span class="at">abundance_model =</span> abundance_model_SV_treecover,</span>
 <span id="cb49-86"><a href="#cb49-86" aria-hidden="true" tabindex="-1"></a>  <span class="at">similarity_model =</span> similarity_model_tree_cover,</span>
-<span id="cb49-87"><a href="#cb49-87" aria-hidden="true" tabindex="-1"></a>  <span class="at">Path_raster_out =</span> <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/'</span></span>
+<span id="cb49-87"><a href="#cb49-87" aria-hidden="true" tabindex="-1"></a>  <span class="at">Path_raster_out =</span> <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/05_11_2026/'</span></span>
 <span id="cb49-88"><a href="#cb49-88" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb49-89"><a href="#cb49-89" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">Sys.time</span>())</span>
 <span id="cb49-90"><a href="#cb49-90" aria-hidden="true" tabindex="-1"></a>T2 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
 <span id="cb49-91"><a href="#cb49-91" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(T1<span class="sc">-</span>T2) </span>
 <span id="cb49-92"><a href="#cb49-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-93"><a href="#cb49-93" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(Mills5_2020, <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_mills_2020.csv'</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb49-93"><a href="#cb49-93" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(Mills5_2020, <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/November_2026/5_companies_mills_2020.csv'</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
 <span id="cb49-94"><a href="#cb49-94" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-95"><a href="#cb49-95" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Analysing the results: plotting Median and Sum BII distributions for each of the 5 compamies.</p>
+<p>Analysing the results: plotting Median and Sum BII distributions for each of the 5 companies.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="do">## consolidating the BII data</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>BII_2021 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_mills_2021.csv'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year=</span><span class="dv">2020</span>)</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>BII_2020 <span class="ot">&lt;-</span>  <span class="fu">read.csv</span>(<span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_mills_2020.csv'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year=</span><span class="dv">2021</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>BII_2021 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/November_2026/5_companies_mills_2021.csv'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year=</span><span class="dv">2021</span>)</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>BII_2020 <span class="ot">&lt;-</span>  <span class="fu">read.csv</span>(<span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/November_2026/5_companies_mills_2020.csv'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year=</span><span class="dv">2020</span>)</span>
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="do">## adding relevant BII values for each company</span></span>
 <span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>LJf <span class="ot">&lt;-</span> <span class="cf">function</span>(Mills_company, BII2020, BII2021) {</span>
@@ -1489,102 +1534,543 @@ Primary vegetation-Intermediate secondary vegetation
 <span id="cb50-34"><a href="#cb50-34" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">mutate</span>(<span class="at">Company=</span><span class="st">'Wilmar'</span>)</span>
 <span id="cb50-35"><a href="#cb50-35" aria-hidden="true" tabindex="-1"></a>                 )</span>
 <span id="cb50-36"><a href="#cb50-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-37"><a href="#cb50-37" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(BII_all, <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/April_2026/5_companies_BII.csv'</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb50-37"><a href="#cb50-37" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(BII_all, <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/November_2026/5_companies_BII.csv'</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb50-38"><a href="#cb50-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-39"><a href="#cb50-39" aria-hidden="true" tabindex="-1"></a>BII_all <span class="ot">&lt;-</span> BII_all <span class="sc">%&gt;%</span> </span>
+<span id="cb50-40"><a href="#cb50-40" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Median_BII))</span>
+<span id="cb50-41"><a href="#cb50-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-42"><a href="#cb50-42" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(BII_all, <span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/November_2026/5_companies_BII_noNAs.csv'</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb50-43"><a href="#cb50-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-44"><a href="#cb50-44" aria-hidden="true" tabindex="-1"></a><span class="do">## checking number of mills per company</span></span>
+<span id="cb50-45"><a href="#cb50-45" aria-hidden="true" tabindex="-1"></a>BII_all <span class="sc">%&gt;%</span> </span>
+<span id="cb50-46"><a href="#cb50-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2020</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-47"><a href="#cb50-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Median_BII)) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-48"><a href="#cb50-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Company) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-49"><a href="#cb50-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">N_mills=</span><span class="fu">n</span>())</span>
+<span id="cb50-50"><a href="#cb50-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-51"><a href="#cb50-51" aria-hidden="true" tabindex="-1"></a>BII_all <span class="ot">&lt;-</span> BII_all[<span class="sc">!</span><span class="fu">is.na</span>(BII_all<span class="sc">$</span>Median_BII),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="do">## plotting distributions of BII for each company</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BII_all, <span class="fu">aes</span>(Median_BII, <span class="at">col=</span>Company, <span class="at">fill=</span>Company)) <span class="sc">+</span> </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BII_all, <span class="fu">aes</span>(Median_BII, <span class="at">col=</span><span class="fu">as.factor</span>(Year), <span class="at">fill=</span><span class="fu">as.factor</span>(Year))) <span class="sc">+</span> </span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha=</span><span class="fl">0.1</span>, <span class="at">size=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Year) <span class="sc">+</span></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1032 rows containing non-finite outside the scale range
-(`stat_density()`).</code></pre>
-</div>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">name =</span> <span class="st">"Year"</span>)<span class="sc">+</span> </span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">"Year"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BII_all, <span class="fu">aes</span>(Sum_BII, <span class="at">col=</span>Company, <span class="at">fill=</span>Company)) <span class="sc">+</span> </span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha=</span><span class="fl">0.1</span>, <span class="at">size=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Year) <span class="sc">+</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1032 rows containing non-finite outside the scale range
-(`stat_density()`).</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BII_all, <span class="fu">aes</span>(Sum_BII, <span class="at">col=</span>Company, <span class="at">fill=</span>Company)) <span class="sc">+</span> </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha=</span><span class="fl">0.1</span>, <span class="at">size=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Year) <span class="sc">+</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid" width="672"></p>
 </div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BII_all, <span class="fu">aes</span>(Sum_BII, <span class="at">col=</span>Company, <span class="at">fill=</span>Company)) <span class="sc">+</span> </span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha=</span><span class="fl">0.1</span>, <span class="at">size=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Year) <span class="sc">+</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-19-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BII_all, <span class="fu">aes</span>(Median_BII, <span class="at">y=</span>Company, <span class="at">col=</span>Company, <span class="at">fill=</span>Company)) <span class="sc">+</span> </span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha=</span><span class="fl">0.1</span>, <span class="at">size=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Year, <span class="at">ncol=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-19-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BII_all, <span class="fu">aes</span>(Sum_BII, <span class="at">y=</span>Company, <span class="at">col=</span>Company, <span class="at">fill=</span>Company)) <span class="sc">+</span> </span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha=</span><span class="fl">0.1</span>, <span class="at">size=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Year, <span class="at">ncol=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-19-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BII_all, <span class="fu">aes</span>(Median_BII, <span class="at">col=</span>Company, <span class="at">fill=</span>Company)) <span class="sc">+</span> </span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha=</span><span class="fl">0.1</span>, <span class="at">size=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Year, <span class="at">ncol=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-19-6.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BII_all, <span class="fu">aes</span>(Median_BII, <span class="at">col=</span><span class="fu">as.factor</span>(Year), </span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">fill=</span><span class="fu">as.factor</span>(Year))) <span class="sc">+</span> </span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha=</span><span class="fl">0.1</span>, <span class="at">size=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Company, <span class="at">ncol=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">"Year"</span>) <span class="sc">+</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_discrete</span>(<span class="at">name =</span> <span class="st">"Year"</span>) <span class="sc">+</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Median BII'</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">'Density'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-19-7.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>Median_meds <span class="ot">&lt;-</span> </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>BII_all <span class="sc">%&gt;%</span>  </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, Company) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Median=</span><span class="fu">median</span>(Median_BII, <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">Lower=</span><span class="fu">quantile</span>(Median_BII, <span class="fl">0.25</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">Higher=</span><span class="fu">quantile</span>(Median_BII, <span class="fl">0.75</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Median))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has regrouped the output.
+ℹ Summaries were computed grouped by Year and Company.
+ℹ Output is grouped by Year.
+ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+ℹ Use `summarise(.by = c(Year, Company))` for per-operation grouping
+  (`?dplyr::dplyr_by`) instead.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>Median_sum <span class="ot">&lt;-</span> </span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>BII_all <span class="sc">%&gt;%</span>  </span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, Company) <span class="sc">%&gt;%</span> </span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Median=</span><span class="fu">median</span>(Sum_BII, <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">Lower=</span><span class="fu">quantile</span>(Sum_BII, <span class="fl">0.25</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>), </span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">Higher=</span><span class="fu">quantile</span>(Sum_BII, <span class="fl">0.75</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span>   <span class="fu">arrange</span>(<span class="fu">desc</span>(Median))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has regrouped the output.
+ℹ Summaries were computed grouped by Year and Company.
+ℹ Output is grouped by Year.
+ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+ℹ Use `summarise(.by = c(Year, Company))` for per-operation grouping
+  (`?dplyr::dplyr_by`) instead.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(  </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Median_meds, <span class="fu">aes</span>(<span class="fu">as.factor</span>(Year), Median, <span class="at">ymin=</span>Lower, <span class="at">ymax=</span>Higher,</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">col=</span>Company, <span class="at">group=</span>Company)) <span class="sc">+</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#geom_errorbar() +</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Year"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">'Median (median)'</span>),</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Median_sum, <span class="fu">aes</span>(<span class="fu">as.factor</span>(Year), Median, <span class="at">col=</span>Company, <span class="at">group=</span>Company)) <span class="sc">+</span></span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">'Median (sum)'</span>) <span class="sc">+</span></span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Year"</span>),</span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a><span class="at">common.legend =</span> <span class="cn">TRUE</span></span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-19-8.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Median_meds, <span class="fu">aes</span>(<span class="fu">as.factor</span>(Year), Median, <span class="at">col=</span>Company, <span class="at">group=</span>Company)) <span class="sc">+</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Year"</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">'Median (median)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-19-9.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ## changes from 2020 to 2021 in median BII</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Medians2020 &lt;- Set$Median_BII[Set$Year==2020]</span></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Medians2021 &lt;- Set$Median_BII[Set$Year==2021]</span></span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co"># MediansYears &lt;- as.data.frame(cbind(Medians2020, Medians2021))</span></span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="co"># MediansYears$delta &lt;-  MediansYears$Medians2020 - MediansYears$Medians2021    </span></span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="co"># MediansYears$UML_ID &lt;-  Set$UML.ID[Set$Year==2020]</span></span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ## changes from 2020 to 2021 in sum BII</span></span>
-<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum2020 &lt;- Set$Sum_BII[Set$Year==2020]</span></span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum2021 &lt;- Set$Sum_BII[Set$Year==2021]</span></span>
-<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="co"># SumYears &lt;- as.data.frame(cbind(Sum2020, Sum2021))</span></span>
-<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="co"># SumYears$delta &lt;-  SumYears$Sum2020 - SumYears$Sum2021    </span></span>
-<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="co"># SumYears$UML_ID &lt;-  Set$UML.ID[Set$Year==2020]</span></span>
-<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a><span class="co"># ggarrange(</span></span>
-<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(MediansYears, aes(Medians2020*100, Medians2021*100)) + </span></span>
-<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_point() + </span></span>
-<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_bw() + </span></span>
-<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_abline(slope = 1, intercept = 0, col='red', lty='dashed') +</span></span>
-<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ggtitle('Median BBI across mills (2020 versus 2021)')  +</span></span>
-<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   xlab('Median BII - 2020') + ylab( xlab('Median BII - 2021'))</span></span>
-<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ,</span></span>
-<span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(SumYears, aes(Sum2020*100, Sum2021*100)) + </span></span>
-<span id="cb55-24"><a href="#cb55-24" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_point() + </span></span>
-<span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_bw() + </span></span>
-<span id="cb55-26"><a href="#cb55-26" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_abline(slope = 1, intercept = 0, col='red', lty='dashed') +</span></span>
-<span id="cb55-27"><a href="#cb55-27" aria-hidden="true" tabindex="-1"></a><span class="co"># ggtitle('Sum BBI across mills (2020 versus 2021)')  +</span></span>
-<span id="cb55-28"><a href="#cb55-28" aria-hidden="true" tabindex="-1"></a><span class="co">#   xlab('Sum BII - 2020') + ylab( xlab('Sum BII - 2021'))</span></span>
-<span id="cb55-29"><a href="#cb55-29" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="do">## plotting distribution of median and sum BII at the 197 mills (for Danone): year 2020 against 2021</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="do">## changes from 2020 to 2021 in median BII</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>Medians2020 <span class="ot">&lt;-</span> BII_all<span class="sc">$</span>Median_BII[BII_all<span class="sc">$</span>Year<span class="sc">==</span><span class="dv">2020</span>]</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>Medians2021 <span class="ot">&lt;-</span> BII_all<span class="sc">$</span>Median_BII[BII_all<span class="sc">$</span>Year<span class="sc">==</span><span class="dv">2021</span>]</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>MediansYears <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(Medians2020, Medians2021))</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>MediansYears<span class="sc">$</span>delta <span class="ot">&lt;-</span>  MediansYears<span class="sc">$</span>Medians2020 <span class="sc">-</span> MediansYears<span class="sc">$</span>Medians2021</span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>MediansYears<span class="sc">$</span>UML_ID <span class="ot">&lt;-</span>  BII_all<span class="sc">$</span>UML.ID[BII_all<span class="sc">$</span>Year<span class="sc">==</span><span class="dv">2020</span>]</span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>MediansYears_197_mills_Danone <span class="ot">&lt;-</span> MediansYears[MediansYears<span class="sc">$</span>UML_ID <span class="sc">%in%</span> MillsDanone<span class="sc">$</span>UML.ID,]</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="do">## changes from 2020 to 2021 in sum BII</span></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>Sum2020 <span class="ot">&lt;-</span> BII_all<span class="sc">$</span>Sum_BII[BII_all<span class="sc">$</span>Year<span class="sc">==</span><span class="dv">2020</span>]</span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>Sum2021 <span class="ot">&lt;-</span> BII_all<span class="sc">$</span>Sum_BII[BII_all<span class="sc">$</span>Year<span class="sc">==</span><span class="dv">2021</span>]</span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>SumYears <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(Sum2020, Sum2021))</span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>SumYears<span class="sc">$</span>delta <span class="ot">&lt;-</span>  SumYears<span class="sc">$</span>Sum2020 <span class="sc">-</span> SumYears<span class="sc">$</span>Sum2021</span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>SumYears<span class="sc">$</span>UML_ID <span class="ot">&lt;-</span>  BII_all<span class="sc">$</span>UML.ID[BII_all<span class="sc">$</span>Year<span class="sc">==</span><span class="dv">2020</span>]</span>
+<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a>SumYears_197_mills_Danone <span class="ot">&lt;-</span> SumYears[SumYears<span class="sc">$</span>UML_ID <span class="sc">%in%</span> MillsDanone<span class="sc">$</span>UML.ID,]</span>
+<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-20"><a href="#cb64-20" aria-hidden="true" tabindex="-1"></a><span class="do">## plotting 2020 versus 2021 for Danone</span></span>
+<span id="cb64-21"><a href="#cb64-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(</span>
+<span id="cb64-22"><a href="#cb64-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(MediansYears_197_mills_Danone, <span class="fu">aes</span>(Medians2020<span class="sc">*</span><span class="dv">100</span>, Medians2021<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb64-23"><a href="#cb64-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb64-24"><a href="#cb64-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb64-25"><a href="#cb64-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">col=</span><span class="st">'red'</span>, <span class="at">lty=</span><span class="st">'dashed'</span>) <span class="sc">+</span></span>
+<span id="cb64-26"><a href="#cb64-26" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtitle</span>(<span class="st">'Median BII across mills (2020 versus 2021)'</span>)  <span class="sc">+</span></span>
+<span id="cb64-27"><a href="#cb64-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Median BII - 2020'</span>) <span class="sc">+</span> <span class="fu">ylab</span>( <span class="fu">xlab</span>(<span class="st">'Median BII - 2021'</span>))</span>
+<span id="cb64-28"><a href="#cb64-28" aria-hidden="true" tabindex="-1"></a>,</span>
+<span id="cb64-29"><a href="#cb64-29" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(SumYears_197_mills_Danone, <span class="fu">aes</span>(Sum2020<span class="sc">*</span><span class="dv">100</span>, Sum2021<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb64-30"><a href="#cb64-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb64-31"><a href="#cb64-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb64-32"><a href="#cb64-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">col=</span><span class="st">'red'</span>, <span class="at">lty=</span><span class="st">'dashed'</span>) <span class="sc">+</span></span>
+<span id="cb64-33"><a href="#cb64-33" aria-hidden="true" tabindex="-1"></a><span class="fu">ggtitle</span>(<span class="st">'Sum BII across mills (2020 versus 2021)'</span>)  <span class="sc">+</span></span>
+<span id="cb64-34"><a href="#cb64-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">'Sum BII - 2020'</span>) <span class="sc">+</span> <span class="fu">ylab</span>( <span class="fu">xlab</span>(<span class="st">'Sum BII - 2021'</span>))</span>
+<span id="cb64-35"><a href="#cb64-35" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="do">## plotting distributions</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>Danone_BII <span class="ot">&lt;-</span> BII_all <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(Company<span class="sc">==</span><span class="st">'Danone'</span>)</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(Danone_BII, <span class="fu">aes</span>(Median_BII)) <span class="sc">+</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>Year) <span class="sc">+</span></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">'Median BII'</span>) <span class="sc">+</span></span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">'Distribution of median BII across mills'</span>)</span>
+<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a>  ,</span>
+<span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(Danone_BII, <span class="fu">aes</span>(Sum_BII)) <span class="sc">+</span></span>
+<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb65-16"><a href="#cb65-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>Year)<span class="sc">+</span></span>
+<span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">'Sum BII'</span>) <span class="sc">+</span></span>
+<span id="cb65-19"><a href="#cb65-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">'Distribution of sum BII across mills'</span>)</span>
+<span id="cb65-20"><a href="#cb65-20" aria-hidden="true" tabindex="-1"></a>  ,</span>
+<span id="cb65-21"><a href="#cb65-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb65-22"><a href="#cb65-22" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="do">## plotting example</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Example2020 &lt;- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/13_02_2026/2020/PO1000000169.tif")</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Example2021 &lt;- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/13_02_2026/2021/PO1000000169.tif")</span></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(Example2020*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052')</span></span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(Example2021*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052')</span></span>
-<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>Example2020 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/2020/PO1000000052.tif"</span>)</span>
-<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>Example2020_2 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/2020/PO1000003715.tif"</span>)</span>
-<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>Example2021 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/2021/PO1000003951.tif"</span>)</span>
-<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>Example2021_2 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/09_04_2026/2021/PO1000001252.tif"</span>)</span>
-<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Example2020_2<span class="sc">*</span><span class="dv">100</span>, <span class="at">main=</span><span class="st">'BII (% difference from primary vegetation baseline) </span><span class="sc">\n</span><span class="st">- Mill ID: PO1000000052; 2020'</span>, <span class="at">cex.main=</span><span class="fl">0.8</span>)</span>
-<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Example2021_2<span class="sc">*</span><span class="dv">100</span>, <span class="at">main=</span><span class="st">'BII (% difference from primary vegetation baseline) </span><span class="sc">\n</span><span class="st">- Mill ID: PO1000003715; 2020'</span>, <span class="at">cex.main=</span><span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="do">## plotting example</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Example2020 &lt;- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/13_02_2026/2020/PO1000000169.tif")</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Example2021 &lt;- rast("../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/13_02_2026/2021/PO1000000169.tif")</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(Example2020*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052')</span></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(Example2021*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000000052')</span></span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>Example2020 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/05_11_2026/2020/PO1000000052.tif"</span>)</span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>Example2020_2 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/05_11_2026/2020/PO1000003715.tif"</span>)</span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>Example2021 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/05_11_2026/2021/PO1000003951.tif"</span>)</span>
+<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a>Example2021_2 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/05_11_2026/2021/PO1000000052.tif"</span>)</span>
+<span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-16"><a href="#cb67-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-17"><a href="#cb67-17" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb67-18"><a href="#cb67-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Example2020<span class="sc">*</span><span class="dv">100</span>, <span class="at">main=</span><span class="st">'BII (% difference from primary vegetation baseline) </span><span class="sc">\n</span><span class="st">- Mill ID: PO1000000052; 2020'</span>, <span class="at">cex.main=</span><span class="fl">0.8</span>)</span>
+<span id="cb67-19"><a href="#cb67-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Example2021_2<span class="sc">*</span><span class="dv">100</span>, <span class="at">main=</span><span class="st">'BII (% difference from primary vegetation baseline) </span><span class="sc">\n</span><span class="st">- Mill ID: PO1000000052; 2021'</span>, <span class="at">cex.main=</span><span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(Example2021*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000003951; 2021', cex.main=0.8)</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(Example2021_2*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000001252; 2021', cex.main=0.8)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(Example2021*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000003951; 2021', cex.main=0.8)</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plot(Example2021_2*100, main='BII (% difference from primary vegetation baseline) \n- Mill ID: PO1000001252; 2021', cex.main=0.8)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="validation" class="level1">
+<h1>5. VALIDATION</h1>
+<p>We use BII layers from Gassert, Mazzarello, &amp; Hyde (2026) (https://gee-community-catalog.org/projects/bii/; <a href="https://source.coop/vizzuality/biodiversity-intactness-100m-v1-1" class="uri">https://source.coop/vizzuality/biodiversity-intactness-100m-v1-1</a>) to validate our estimations around mill areas (i.e.&nbsp;compare our estimates with those from Gassert et al.&nbsp;2026).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="do">## load BII data from Gassert et al. (2026)</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>BII_Gassert_2021 <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">'../../data/BII_Gassert_2026/bii_2021.tif'</span>)</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="co">#BII_Gassert_2020 &lt;- rast('C:/Users/etard/Downloads/bii_2020.tif')</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="do">## buffered mill areas</span></span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>MillLocations_Points <span class="ot">&lt;-</span> <span class="fu">vect</span>(MillLocations, </span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>                             <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">"Longitude"</span>, <span class="st">"Latitude"</span>), </span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>                             <span class="at">crs =</span> <span class="st">"EPSG:4326"</span>)</span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>MillLocations_Points_buffer <span class="ot">&lt;-</span> <span class="fu">buffer</span>(MillLocations_Points, <span class="at">width =</span> <span class="dv">25000</span>)</span>
+<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a><span class="do">## extracting BII values around mill areas for each mill, getting the corresponding WC and Fores integrity layers, and calculating median BII</span></span>
+<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a>RastValues <span class="ot">&lt;-</span> <span class="cf">function</span>(BII_data, </span>
+<span id="cb69-13"><a href="#cb69-13" aria-hidden="true" tabindex="-1"></a>                       Forest_Integrity_data,</span>
+<span id="cb69-14"><a href="#cb69-14" aria-hidden="true" tabindex="-1"></a>                       WC_data,</span>
+<span id="cb69-15"><a href="#cb69-15" aria-hidden="true" tabindex="-1"></a>                       mill_location, </span>
+<span id="cb69-16"><a href="#cb69-16" aria-hidden="true" tabindex="-1"></a>                       Year){</span>
+<span id="cb69-17"><a href="#cb69-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb69-18"><a href="#cb69-18" aria-hidden="true" tabindex="-1"></a>  <span class="do">## croppping and masking world cover data -- if the mill falls within Indonesia/Malaysia </span></span>
+<span id="cb69-19"><a href="#cb69-19" aria-hidden="true" tabindex="-1"></a>  Extent_inter <span class="ot">&lt;-</span></span>
+<span id="cb69-20"><a href="#cb69-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">relate</span>(WC_data, mill_location, <span class="st">"intersects"</span>)</span>
+<span id="cb69-21"><a href="#cb69-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb69-22"><a href="#cb69-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (Extent_inter) {</span>
+<span id="cb69-23"><a href="#cb69-23" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb69-24"><a href="#cb69-24" aria-hidden="true" tabindex="-1"></a>      WC_mill <span class="ot">&lt;-</span> <span class="fu">crop</span>(WC_data, mill_location)</span>
+<span id="cb69-25"><a href="#cb69-25" aria-hidden="true" tabindex="-1"></a>      WC_mill <span class="ot">&lt;-</span> <span class="fu">mask</span>(WC_mill, mill_location)</span>
+<span id="cb69-26"><a href="#cb69-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">writeRaster</span>(WC_mill, </span>
+<span id="cb69-27"><a href="#cb69-27" aria-hidden="true" tabindex="-1"></a>              <span class="fu">paste0</span>(<span class="st">'../../results/3_validation/Land_cover/'</span>, Year, <span class="st">'/'</span>, </span>
+<span id="cb69-28"><a href="#cb69-28" aria-hidden="true" tabindex="-1"></a>                    mill_location<span class="sc">$</span>UML.ID, <span class="st">'.tif'</span>),</span>
+<span id="cb69-29"><a href="#cb69-29" aria-hidden="true" tabindex="-1"></a>                    <span class="at">overwrite=</span><span class="cn">TRUE</span>)</span>
+<span id="cb69-30"><a href="#cb69-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb69-31"><a href="#cb69-31" aria-hidden="true" tabindex="-1"></a>    <span class="do">## croppping and masking BII data (global dataset from Gassert et al.)</span></span>
+<span id="cb69-32"><a href="#cb69-32" aria-hidden="true" tabindex="-1"></a>  BII_mill <span class="ot">&lt;-</span> <span class="fu">crop</span>(BII_data, mill_location)</span>
+<span id="cb69-33"><a href="#cb69-33" aria-hidden="true" tabindex="-1"></a>  BII_mill <span class="ot">&lt;-</span> <span class="fu">mask</span>(BII_mill, mill_location)</span>
+<span id="cb69-34"><a href="#cb69-34" aria-hidden="true" tabindex="-1"></a>  BII_mill[BII_mill<span class="sc">==</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb69-35"><a href="#cb69-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeRaster</span>(BII_mill, </span>
+<span id="cb69-36"><a href="#cb69-36" aria-hidden="true" tabindex="-1"></a>              <span class="fu">paste0</span>(<span class="st">'../../results/3_validation/BII_Gassert/'</span>, Year, <span class="st">'/'</span>, </span>
+<span id="cb69-37"><a href="#cb69-37" aria-hidden="true" tabindex="-1"></a>                    mill_location<span class="sc">$</span>UML.ID, <span class="st">'.tif'</span>),</span>
+<span id="cb69-38"><a href="#cb69-38" aria-hidden="true" tabindex="-1"></a>                    <span class="at">overwrite=</span><span class="cn">TRUE</span>)</span>
+<span id="cb69-39"><a href="#cb69-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb69-40"><a href="#cb69-40" aria-hidden="true" tabindex="-1"></a>  <span class="do">## croppping and masking forest intergrity data</span></span>
+<span id="cb69-41"><a href="#cb69-41" aria-hidden="true" tabindex="-1"></a>  FI_mill <span class="ot">&lt;-</span> <span class="fu">crop</span>(Forest_Integrity_data, mill_location)</span>
+<span id="cb69-42"><a href="#cb69-42" aria-hidden="true" tabindex="-1"></a>  FI_mill <span class="ot">&lt;-</span> <span class="fu">mask</span>(FI_mill, mill_location)</span>
+<span id="cb69-43"><a href="#cb69-43" aria-hidden="true" tabindex="-1"></a>  FI_mill[FI_mill<span class="sc">&lt;</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb69-44"><a href="#cb69-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeRaster</span>(FI_mill, </span>
+<span id="cb69-45"><a href="#cb69-45" aria-hidden="true" tabindex="-1"></a>              <span class="fu">paste0</span>(<span class="st">'../../results/3_validation/Forest_integrity/'</span>, Year, <span class="st">'/'</span>, </span>
+<span id="cb69-46"><a href="#cb69-46" aria-hidden="true" tabindex="-1"></a>                    mill_location<span class="sc">$</span>UML.ID, <span class="st">'.tif'</span>),</span>
+<span id="cb69-47"><a href="#cb69-47" aria-hidden="true" tabindex="-1"></a>                    <span class="at">overwrite=</span><span class="cn">TRUE</span>)</span>
+<span id="cb69-48"><a href="#cb69-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb69-49"><a href="#cb69-49" aria-hidden="true" tabindex="-1"></a>  <span class="do">## median BII value from Gassert 2026</span></span>
+<span id="cb69-50"><a href="#cb69-50" aria-hidden="true" tabindex="-1"></a>  medianVal <span class="ot">&lt;-</span> <span class="fu">median</span>(<span class="fu">values</span>(BII_mill), <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb69-51"><a href="#cb69-51" aria-hidden="true" tabindex="-1"></a>  sumVal <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">values</span>(BII_mill), <span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb69-52"><a href="#cb69-52" aria-hidden="true" tabindex="-1"></a>  Vals <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Median_BII=</span>medianVal, <span class="at">Sum_BII=</span>sumVal, <span class="at">UML.ID=</span>mill_location<span class="sc">$</span>UML.ID)</span>
+<span id="cb69-53"><a href="#cb69-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(Vals)</span>
+<span id="cb69-54"><a href="#cb69-54" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span>{</span>
+<span id="cb69-55"><a href="#cb69-55" aria-hidden="true" tabindex="-1"></a>          <span class="fu">print</span>(<span class="st">'Mill is not in Indonesia or Malaysia'</span>)</span>
+<span id="cb69-56"><a href="#cb69-56" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">data.frame</span>(<span class="at">Median_BII=</span><span class="st">'Mill is not in Indonesia or Malaysia'</span>, </span>
+<span id="cb69-57"><a href="#cb69-57" aria-hidden="true" tabindex="-1"></a>                        <span class="at">Sum_BII=</span><span class="st">'Mill is not in Indonesia or Malaysia'</span>, </span>
+<span id="cb69-58"><a href="#cb69-58" aria-hidden="true" tabindex="-1"></a>                        <span class="at">UML.ID=</span>mill_location<span class="sc">$</span>UML.ID))</span>
+<span id="cb69-59"><a href="#cb69-59" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb69-60"><a href="#cb69-60" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb69-61"><a href="#cb69-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-62"><a href="#cb69-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-63"><a href="#cb69-63" aria-hidden="true" tabindex="-1"></a><span class="do">## running the function for 2021</span></span>
+<span id="cb69-64"><a href="#cb69-64" aria-hidden="true" tabindex="-1"></a>RUN <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb69-65"><a href="#cb69-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-66"><a href="#cb69-66" aria-hidden="true" tabindex="-1"></a>DF_validation_2021 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb69-67"><a href="#cb69-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-68"><a href="#cb69-68" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(RUN){</span>
+<span id="cb69-69"><a href="#cb69-69" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span> <span class="fu">nrow</span>(MillLocations_Points_buffer)) {</span>
+<span id="cb69-70"><a href="#cb69-70" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> </span>
+<span id="cb69-71"><a href="#cb69-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RastValues</span>(<span class="at">BII_data =</span> BII_Gassert_2021,</span>
+<span id="cb69-72"><a href="#cb69-72" aria-hidden="true" tabindex="-1"></a>             <span class="at">Forest_Integrity_data =</span> Forest_integrity_crop, </span>
+<span id="cb69-73"><a href="#cb69-73" aria-hidden="true" tabindex="-1"></a>             <span class="at">WC_data =</span> World_Cover_2021_crop,</span>
+<span id="cb69-74"><a href="#cb69-74" aria-hidden="true" tabindex="-1"></a>             <span class="at">mill_location =</span> MillLocations_Points_buffer[i])</span>
+<span id="cb69-75"><a href="#cb69-75" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb69-76"><a href="#cb69-76" aria-hidden="true" tabindex="-1"></a>  DF_validation_2021 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(DF_validation_2021, out)</span>
+<span id="cb69-77"><a href="#cb69-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'done mill'</span>, i, <span class="st">'over'</span>, <span class="fu">nrow</span>(MillLocations_Points_buffer)))</span>
+<span id="cb69-78"><a href="#cb69-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gc</span>()</span>
+<span id="cb69-79"><a href="#cb69-79" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb69-80"><a href="#cb69-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-81"><a href="#cb69-81" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(DF_validation_2021, <span class="st">"../../results/3_validation/BII_mills_Gassert_2021.csv"</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb69-82"><a href="#cb69-82" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb69-83"><a href="#cb69-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-84"><a href="#cb69-84" aria-hidden="true" tabindex="-1"></a><span class="co"># ## running the function for 2020</span></span>
+<span id="cb69-85"><a href="#cb69-85" aria-hidden="true" tabindex="-1"></a><span class="co"># DF_validation_2020 &lt;- data.frame()</span></span>
+<span id="cb69-86"><a href="#cb69-86" aria-hidden="true" tabindex="-1"></a><span class="co"># for (i in 1: nrow(MillLocations_Points_buffer)) {</span></span>
+<span id="cb69-87"><a href="#cb69-87" aria-hidden="true" tabindex="-1"></a><span class="co">#   out &lt;- </span></span>
+<span id="cb69-88"><a href="#cb69-88" aria-hidden="true" tabindex="-1"></a><span class="co">#   RastValues(BII_data = BII_Gassert_2020,</span></span>
+<span id="cb69-89"><a href="#cb69-89" aria-hidden="true" tabindex="-1"></a><span class="co">#              Forest_Integrity_data = Forest_integrity_crop, </span></span>
+<span id="cb69-90"><a href="#cb69-90" aria-hidden="true" tabindex="-1"></a><span class="co">#              WC_data = World_Cover_2020_crop,</span></span>
+<span id="cb69-91"><a href="#cb69-91" aria-hidden="true" tabindex="-1"></a><span class="co">#              mill_location = MillLocations_Points_buffer[i])</span></span>
+<span id="cb69-92"><a href="#cb69-92" aria-hidden="true" tabindex="-1"></a><span class="co">#   </span></span>
+<span id="cb69-93"><a href="#cb69-93" aria-hidden="true" tabindex="-1"></a><span class="co">#   DF_validation_2020 &lt;- rbind(DF_validation_2020, out)</span></span>
+<span id="cb69-94"><a href="#cb69-94" aria-hidden="true" tabindex="-1"></a><span class="co">#   print(paste('done mill', i, 'over', nrow(MillLocations_Points_buffer)))</span></span>
+<span id="cb69-95"><a href="#cb69-95" aria-hidden="true" tabindex="-1"></a><span class="co">#   gc()</span></span>
+<span id="cb69-96"><a href="#cb69-96" aria-hidden="true" tabindex="-1"></a><span class="co"># }</span></span>
+<span id="cb69-97"><a href="#cb69-97" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(DF_validation_2020, "../../results/3_validation/BII_mills_Gassert_2020.csv", row.names=FALSE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="do">## comparing predictions for 2021</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>DF_Gassert_BII_2021 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../../results/3_validation/BII_mills_Gassert_2021.csv"</span>) </span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>DF_Gassert_BII_2021<span class="sc">$</span>Median_BII[DF_Gassert_BII_2021<span class="sc">$</span>Median_BII<span class="sc">==</span><span class="st">"Mill is not in Indonesia or Malaysia"</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>DF_Gassert_BII_2021<span class="sc">$</span>Sum_BII[DF_Gassert_BII_2021<span class="sc">$</span>Sum_BII<span class="sc">==</span><span class="st">"Mill is not in Indonesia or Malaysia"</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>DF_Gassert_BII_2021<span class="sc">$</span>Median_BII <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(DF_Gassert_BII_2021<span class="sc">$</span>Median_BII)</span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>DF_Gassert_BII_2021<span class="sc">$</span>Sum_BII <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(DF_Gassert_BII_2021<span class="sc">$</span>Sum_BII)</span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>Estimated_BII_2021 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../../results/2_biodiversity_metrics_site_level/BII_mills_tables/November_2026/5_companies_mills_2021.csv'</span>)</span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a><span class="do">## long format</span></span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>BII_df_long <span class="ot">&lt;-</span> <span class="fu">rbind</span>(DF_Gassert_BII_2021 <span class="sc">%&gt;%</span>  </span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">mutate</span>(<span class="at">Which=</span><span class="st">'Gassert (2026)'</span>),</span>
+<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>                     Estimated_BII_2021 <span class="sc">%&gt;%</span>  </span>
+<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">mutate</span>(<span class="at">Which=</span><span class="st">'Pilot 2'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb70-15"><a href="#cb70-15" aria-hidden="true" tabindex="-1"></a>                       dplyr<span class="sc">::</span><span class="fu">select</span>(Median_BII, Sum_BII, UML.ID, Which))</span>
+<span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a>BII_df_long<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="st">"2021"</span></span>
+<span id="cb70-17"><a href="#cb70-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-18"><a href="#cb70-18" aria-hidden="true" tabindex="-1"></a><span class="do">## plotting distributions</span></span>
+<span id="cb70-19"><a href="#cb70-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(</span>
+<span id="cb70-20"><a href="#cb70-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BII_df_long, <span class="fu">aes</span>(Median_BII, <span class="at">fill=</span>Which)) <span class="sc">+</span> </span>
+<span id="cb70-21"><a href="#cb70-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.01</span>) <span class="sc">+</span></span>
+<span id="cb70-22"><a href="#cb70-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.title=</span><span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb70-23"><a href="#cb70-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Distribution of median BII across mill areas'</span>)</span>
+<span id="cb70-24"><a href="#cb70-24" aria-hidden="true" tabindex="-1"></a>,</span>
+<span id="cb70-25"><a href="#cb70-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BII_df_long, <span class="fu">aes</span>(Sum_BII, <span class="at">fill=</span>Which)) <span class="sc">+</span> </span>
+<span id="cb70-26"><a href="#cb70-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">4000</span>) <span class="sc">+</span></span>
+<span id="cb70-27"><a href="#cb70-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.title=</span><span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb70-28"><a href="#cb70-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">'Distribution of sum BII across mill areas'</span>), </span>
+<span id="cb70-29"><a href="#cb70-29" aria-hidden="true" tabindex="-1"></a><span class="at">common.legend =</span> <span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">2</span></span>
+<span id="cb70-30"><a href="#cb70-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb70-31"><a href="#cb70-31" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 480 rows containing non-finite outside the scale range (`stat_bin()`).
+Removed 480 rows containing non-finite outside the scale range (`stat_bin()`).
+Removed 480 rows containing non-finite outside the scale range (`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="do">## wide format</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(DF_Gassert_BII_2021)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">"Median_BII_Gassert"</span></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(DF_Gassert_BII_2021)[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"Sum_BII_Gassert"</span></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Estimated_BII_2021)[<span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="st">"Median_BII_estimated"</span></span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Estimated_BII_2021)[<span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="st">"Sum_BII_estimated"</span></span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>BII_df <span class="ot">&lt;-</span> <span class="fu">left_join</span>(DF_Gassert_BII_2021, Estimated_BII_2021)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(UML.ID)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>BII_df[<span class="sc">!</span><span class="fu">is.na</span>(BII_df<span class="sc">$</span>Median_BII_estimated),] <span class="sc">%&gt;%</span>  <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1618</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>BII_df<span class="sc">$</span>DeltaMedian <span class="ot">&lt;-</span> BII_df<span class="sc">$</span>Median_BII_Gassert<span class="sc">-</span>BII_df<span class="sc">$</span>Median_BII_estimated</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>BII_df_out <span class="ot">&lt;-</span> BII_df[, <span class="fu">c</span>(<span class="st">"UML.ID"</span>, <span class="st">"Latitude"</span>, <span class="st">"Longitude"</span>, </span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"Median_BII_estimated"</span>, <span class="st">"Sum_BII_estimated"</span>, </span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"Median_BII_Gassert"</span>, <span class="st">"Sum_BII_Gassert"</span>)]</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>BII_df_out<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="st">"2021"</span></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(BII_df_out)[<span class="dv">4</span><span class="sc">:</span><span class="dv">7</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="st">"Median_BII_estimated_P2"</span>, </span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Sum_BII_estimated_P2"</span>,</span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Median_BII_Gassert_2026"</span>,</span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Sum_BII_Gassert_2026"</span> )</span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(BII_df_out[<span class="sc">!</span><span class="fu">is.na</span>(BII_df_out<span class="sc">$</span>Median_BII_estimated_P2),])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1618</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(BII_df_out, </span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">'../../results/3_validation/BII_estimates_2021_Gassert_vs_P2.csv'</span>, </span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names=</span><span class="cn">FALSE</span>)</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>BII_df_out<span class="sc">$</span>DeltaMedian <span class="ot">&lt;-</span> BII_df_out<span class="sc">$</span>Median_BII_Gassert<span class="sc">-</span>BII_df_out<span class="sc">$</span>Median_BII_estimated</span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BII_df<span class="sc">$</span>Median_BII_Gassert,</span>
+<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a>     BII_df<span class="sc">$</span>Median_BII_estimated,</span>
+<span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">21</span>, </span>
+<span id="cb78-11"><a href="#cb78-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="st">'black'</span>, <span class="at">bg=</span><span class="st">'lightblue'</span>, </span>
+<span id="cb78-12"><a href="#cb78-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">'BII from Gassert et al. (2026)'</span>, </span>
+<span id="cb78-13"><a href="#cb78-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">'BII estimated in this pilot'</span>, </span>
+<span id="cb78-14"><a href="#cb78-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Median BII around 1618 mill areas"</span>)</span>
+<span id="cb78-15"><a href="#cb78-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">b=</span><span class="dv">1</span>, <span class="at">a=</span><span class="dv">0</span>, <span class="at">lty=</span><span class="st">'dashed'</span>)</span>
+<span id="cb78-16"><a href="#cb78-16" aria-hidden="true" tabindex="-1"></a><span class="co">#abline(v = 0.9, lty='dashed', col='lightblue')</span></span>
+<span id="cb78-17"><a href="#cb78-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-18"><a href="#cb78-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-19"><a href="#cb78-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BII_df<span class="sc">$</span>Sum_BII_Gassert,</span>
+<span id="cb78-20"><a href="#cb78-20" aria-hidden="true" tabindex="-1"></a>     BII_df<span class="sc">$</span>Sum_BII_estimated,</span>
+<span id="cb78-21"><a href="#cb78-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">21</span>, </span>
+<span id="cb78-22"><a href="#cb78-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="st">'black'</span>, <span class="at">bg=</span><span class="st">'lightblue'</span>, </span>
+<span id="cb78-23"><a href="#cb78-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">'BII from Gassert et al. (2026)'</span>, </span>
+<span id="cb78-24"><a href="#cb78-24" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">'BII estimated in this pilot'</span>, </span>
+<span id="cb78-25"><a href="#cb78-25" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Sum BII around 1618 mill areas"</span>)</span>
+<span id="cb78-26"><a href="#cb78-26" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">b=</span><span class="dv">1</span>, <span class="at">a=</span><span class="dv">0</span>, <span class="at">lty=</span><span class="st">'dashed'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-23-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(BII_df, <span class="fu">aes</span>(DeltaMedian)) <span class="sc">+</span> </span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.01</span>, <span class="at">col=</span><span class="st">'black'</span>, <span class="at">fill=</span><span class="st">'lightcoral'</span>) <span class="sc">+</span></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 240 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-23-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Mill examples</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="do">## detailed exmaples </span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>Mill_ID <span class="ot">&lt;-</span> <span class="st">'PO1000002320'</span></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>Plot_4_rasters <span class="ot">&lt;-</span> <span class="cf">function</span>(Mill_ID){</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>  BII_G <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(<span class="st">'../../results/3_validation/BII_Gassert/2021/'</span>, Mill_ID, <span class="st">'.tif'</span>))</span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>  BII_P <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(<span class="st">'../../results/2_biodiversity_metrics_site_level/BII_rasters_UML/05_11_2026/2021/'</span>, Mill_ID, <span class="st">'.tif'</span>))</span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>  FI_G <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(<span class="st">'../../results/3_validation/Forest_integrity/2021/'</span>, Mill_ID, <span class="st">'.tif'</span>))</span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>  LC_G <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="fu">paste0</span>(<span class="st">'../../results/3_validation/Land_cover/2021/'</span> , Mill_ID, <span class="st">'.tif'</span>))</span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a>  r_min <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">global</span>(BII_G, <span class="st">"min"</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>)[<span class="dv">1</span>,<span class="dv">1</span>],</span>
+<span id="cb81-12"><a href="#cb81-12" aria-hidden="true" tabindex="-1"></a>               <span class="fu">global</span>(BII_P, <span class="st">"min"</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>)[<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb81-13"><a href="#cb81-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb81-14"><a href="#cb81-14" aria-hidden="true" tabindex="-1"></a>  r_max <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">global</span>(BII_G, <span class="st">"max"</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>)[<span class="dv">1</span>,<span class="dv">1</span>],</span>
+<span id="cb81-15"><a href="#cb81-15" aria-hidden="true" tabindex="-1"></a>               <span class="fu">global</span>(BII_P, <span class="st">"max"</span>, <span class="at">na.rm=</span><span class="cn">TRUE</span>)[<span class="dv">1</span>,<span class="dv">1</span>])</span>
+<span id="cb81-16"><a href="#cb81-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb81-17"><a href="#cb81-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Common colour palette and breaks</span></span>
+<span id="cb81-18"><a href="#cb81-18" aria-hidden="true" tabindex="-1"></a>  bii_cols <span class="ot">&lt;-</span> <span class="fu">hcl.colors</span>(<span class="dv">50</span>, <span class="at">palette =</span><span class="st">"Blue-Yellow"</span>, <span class="at">rev=</span><span class="cn">TRUE</span>)</span>
+<span id="cb81-19"><a href="#cb81-19" aria-hidden="true" tabindex="-1"></a>  bii_breaks <span class="ot">&lt;-</span> <span class="fu">seq</span>(r_min, r_max, <span class="at">length.out=</span><span class="dv">101</span>)</span>
+<span id="cb81-20"><a href="#cb81-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb81-21"><a href="#cb81-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb81-22"><a href="#cb81-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb81-23"><a href="#cb81-23" aria-hidden="true" tabindex="-1"></a>  <span class="do">## plotting BII from Gassert</span></span>
+<span id="cb81-24"><a href="#cb81-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(BII_G, <span class="at">main=</span><span class="st">"(a) BII (Global estimations from Gassert et al. 2026)"</span>, </span>
+<span id="cb81-25"><a href="#cb81-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span>bii_cols, <span class="at">breaks=</span>bii_breaks, <span class="at">type=</span><span class="st">'continuous'</span>)</span>
+<span id="cb81-26"><a href="#cb81-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fu">par</span>(<span class="st">"usr"</span>)[<span class="dv">2</span>],</span>
+<span id="cb81-27"><a href="#cb81-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">par</span>(<span class="st">"usr"</span>)[<span class="dv">4</span>],</span>
+<span id="cb81-28"><a href="#cb81-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">adj =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="fl">1.5</span>),</span>
+<span id="cb81-29"><a href="#cb81-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">labels =</span> <span class="fu">paste0</span>(<span class="st">"Median = "</span>, <span class="fu">round</span>(<span class="fu">median</span>(<span class="fu">values</span>(BII_G), <span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="dv">2</span>)),</span>
+<span id="cb81-30"><a href="#cb81-30" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"black"</span>,</span>
+<span id="cb81-31"><a href="#cb81-31" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb81-32"><a href="#cb81-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb81-33"><a href="#cb81-33" aria-hidden="true" tabindex="-1"></a>  <span class="do">## plotting BII from Pilot 2</span></span>
+<span id="cb81-34"><a href="#cb81-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>((BII_P), <span class="at">main=</span><span class="st">"(b) BII (Pilot 2 estimations)"</span>, <span class="at">type =</span> <span class="st">'continuous'</span>, </span>
+<span id="cb81-35"><a href="#cb81-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span>bii_cols, <span class="at">breaks=</span>bii_breaks)</span>
+<span id="cb81-36"><a href="#cb81-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text</span>(<span class="at">x =</span> <span class="fu">par</span>(<span class="st">"usr"</span>)[<span class="dv">2</span>],</span>
+<span id="cb81-37"><a href="#cb81-37" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">par</span>(<span class="st">"usr"</span>)[<span class="dv">4</span>],</span>
+<span id="cb81-38"><a href="#cb81-38" aria-hidden="true" tabindex="-1"></a>       <span class="at">adj =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="fl">1.5</span>),</span>
+<span id="cb81-39"><a href="#cb81-39" aria-hidden="true" tabindex="-1"></a>       <span class="at">labels =</span> <span class="fu">paste0</span>(<span class="st">"Median = "</span>, <span class="fu">round</span>(<span class="fu">median</span>(<span class="fu">values</span>(BII_P), <span class="at">na.rm=</span><span class="cn">TRUE</span>), <span class="dv">2</span>)),</span>
+<span id="cb81-40"><a href="#cb81-40" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">"black"</span>,</span>
+<span id="cb81-41"><a href="#cb81-41" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex =</span> <span class="dv">1</span>)</span>
+<span id="cb81-42"><a href="#cb81-42" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb81-43"><a href="#cb81-43" aria-hidden="true" tabindex="-1"></a>  <span class="do">## plotting forest integrity</span></span>
+<span id="cb81-44"><a href="#cb81-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(FI_G, <span class="at">main=</span><span class="st">"(c) Forest integrity from Grantham et al. (2020)"</span>,</span>
+<span id="cb81-45"><a href="#cb81-45" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">hcl.colors</span>(<span class="dv">100</span>, <span class="at">palette =</span> <span class="st">"viridis"</span>))</span>
+<span id="cb81-46"><a href="#cb81-46" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb81-47"><a href="#cb81-47" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb81-48"><a href="#cb81-48" aria-hidden="true" tabindex="-1"></a>  <span class="do">## plotting LC</span></span>
+<span id="cb81-49"><a href="#cb81-49" aria-hidden="true" tabindex="-1"></a>  lc_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb81-50"><a href="#cb81-50" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Tree cover"</span>,</span>
+<span id="cb81-51"><a href="#cb81-51" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Oil-palm plantation"</span>,</span>
+<span id="cb81-52"><a href="#cb81-52" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Shrubland"</span>,</span>
+<span id="cb81-53"><a href="#cb81-53" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Grassland"</span>,</span>
+<span id="cb81-54"><a href="#cb81-54" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Cropland"</span>,</span>
+<span id="cb81-55"><a href="#cb81-55" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Built-up"</span>,</span>
+<span id="cb81-56"><a href="#cb81-56" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bare/sparse vegetation"</span>,</span>
+<span id="cb81-57"><a href="#cb81-57" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Permanent water bodies"</span>,</span>
+<span id="cb81-58"><a href="#cb81-58" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Herbaceous wetlands"</span>,</span>
+<span id="cb81-59"><a href="#cb81-59" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mangroves"</span></span>
+<span id="cb81-60"><a href="#cb81-60" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb81-61"><a href="#cb81-61" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb81-62"><a href="#cb81-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">levels</span>(LC_G) <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb81-63"><a href="#cb81-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">ID =</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">60</span>,<span class="dv">80</span>,<span class="dv">90</span>,<span class="dv">95</span>),</span>
+<span id="cb81-64"><a href="#cb81-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">Land_cover =</span> lc_labels</span>
+<span id="cb81-65"><a href="#cb81-65" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb81-66"><a href="#cb81-66" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb81-67"><a href="#cb81-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(LC_G, </span>
+<span id="cb81-68"><a href="#cb81-68" aria-hidden="true" tabindex="-1"></a>       <span class="at">main=</span><span class="st">"(d) Land-cover with oil-palm plantation corrections"</span>, </span>
+<span id="cb81-69"><a href="#cb81-69" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span>hex_codes)</span>
+<span id="cb81-70"><a href="#cb81-70" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb81-71"><a href="#cb81-71" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb81-72"><a href="#cb81-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-73"><a href="#cb81-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-74"><a href="#cb81-74" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">pal_brewer</span>(<span class="dv">10</span>, <span class="st">"Set3"</span>)</span>
+<span id="cb81-75"><a href="#cb81-75" aria-hidden="true" tabindex="-1"></a>hex_codes <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="dv">10</span>, <span class="st">"Set3"</span>)</span>
+<span id="cb81-76"><a href="#cb81-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-77"><a href="#cb81-77" aria-hidden="true" tabindex="-1"></a><span class="fu">Plot_4_rasters</span>(<span class="at">Mill_ID=</span><span class="st">'PO1000002320'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Plot_4_rasters</span>(<span class="at">Mill_ID=</span><span class="st">'PO1000004325'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-24-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Plot_4_rasters</span>(<span class="at">Mill_ID=</span><span class="st">'PO1000017679'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Quarto_Indonesia_Malaysia_files/figure-html/unnamed-chunk-24-3.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 </section>
 <section id="conclusions" class="level1">
-<h1>4. CONCLUSIONS</h1>
+<h1>6. CONCLUSIONS</h1>
 <p>We found significant biodiversity declines in oil-palm plantations compared to primary vegetation. Total abundance declined by an average 15%, and similarity by an average 43%. We provide BII for mills for 5 companies in Indonesia and Malaysia, considering a 25km buffer area around the mills.</p>
+<p>Our estimations improve global BII estimations by accounting for the spatial distribution of oil palm plantations, and specifically estimating the relative declines in biodiversity (abundance and similarity) in oil palm plantations compared to primary vegetation.</p>
 <p>Challenges to think further about: - how to better align PREDICTS categories with EO-products on land use and land use intensity, including: –&gt; how to get proxies for land use intensity –&gt; how to better represent primary and secondary vegetation in world cover maps.</p>
 <hr>
 <p>Time required to compile the document:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>TimeEnd <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(TimeEnd<span class="sc">-</span>TimeStart)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>TimeEnd <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(TimeEnd<span class="sc">-</span>TimeStart)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Time difference of 1.734638 mins</code></pre>
+<pre><code>Time difference of 1.57814 mins</code></pre>
 </div>
 </div>
 </section>
